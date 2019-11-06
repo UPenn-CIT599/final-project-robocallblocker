@@ -53,6 +53,10 @@ public class ContactInfo {
 		return address;
 	}
 
+	public String getPhoneNumbers() {
+		return phoneNumbers;
+	}
+	
 	public void setPhoneNumbers(String phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
 	}
