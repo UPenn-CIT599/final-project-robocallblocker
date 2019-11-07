@@ -11,12 +11,12 @@ public class Phone {
 	 * @return boolean to be used in a while loop
 	 */
 	public boolean incorrectUserInputs(String input) {
-		boolean wrongInput = false;
+		boolean isWrongInput = false;
 		if (!(input.equalsIgnoreCase("yes")) && !(input.equalsIgnoreCase("no"))) {
-			wrongInput = true;
+			isWrongInput = true;
 			System.out.println("You entered an invalid choice. Please provide type yes or no.");
 		}
-		return wrongInput;
+		return isWrongInput;
 	}
 	
 
