@@ -18,4 +18,19 @@ public class IncomingCall {
 	public ContactInfo getIncoming() {
 		return incoming;
 	}
+	
+	public boolean checkIfSpamCall(boolean spamAlgoOutput) {
+		boolean isSpam = false; 
+		if (spamAlgoOutput) {
+			System.out.println("Call is likely spam");
+			System.out.println("Next call? yes or no?");
+			isSpam = true;
+		}
+		else {
+			System.out.println("Call is not likely spam");
+			System.out.print("\n");
+			System.out.println("Next call? yes or no?");
+		}
+		return isSpam;
+	}
 }
