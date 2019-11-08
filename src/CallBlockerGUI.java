@@ -1,6 +1,6 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.Icon;
 
 /**
  * This class will be used to create the GUI for the Call Blocker program.
@@ -10,57 +10,67 @@ import javax.swing.*;
  */
 public class CallBlockerGUI implements Runnable {
 
+	Icon accept = new ImageIcon("accept_button.PNG");
+	Icon decline = new ImageIcon("decline_button.PNG");
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new CallBlockerGUI());
-
 	}
-
+	
+	
 	@Override
 	public void run() {
+		
 		JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
 		JPanel outerPanel = new JPanel(new GridLayout(2,1)); // overall outer panel of program 
 		JPanel upperTopPanel = new JPanel(new FlowLayout());
-		JLabel myLabel = new JLabel("Please input your phone number using the keypad below:");
+		upperTopPanel.setBackground(Color.BLACK); // set background to black
+		JLabel myLabel = new JLabel("You are receiving a call from");
+		myLabel.setForeground(Color.WHITE); // set color of label 
 		
-		JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
+//		JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
 		
-		JPanel innerBottomPannel = new JPanel(new GridLayout(4,3));
+		JPanel innerBottomPannel = new JPanel(new GridLayout(1,2));
+		
 		// buttons 
-		JButton dial1 = new JButton("1");
-		JButton dial2 = new JButton("2");
-		JButton dial3 = new JButton("3");
-		JButton dial4 = new JButton("4");
-		JButton dial5 = new JButton("5");
-		JButton dial6 = new JButton("6");
-		JButton dial7 = new JButton("7");
-		JButton dial8 = new JButton("8");
-		JButton dial9 = new JButton("9");
-		JButton dialStar = new JButton("*");
-		JButton dial0 = new JButton("0");
-		JButton dialPound = new JButton("#");
-		
+		JButton acceptButton = new JButton(accept);
+		acceptButton.setBounds(20, 30, 50, 30);
+		JButton declineButton = new JButton(decline);
+//		JButton dial3 = new JButton("3");
+//		JButton dial4 = new JButton("4");
+//		JButton dial5 = new JButton("5");
+//		JButton dial6 = new JButton("6");
+//		JButton dial7 = new JButton("7");
+//		JButton dial8 = new JButton("8");
+//		JButton dial9 = new JButton("9");
+//		JButton dialStar = new JButton("*");
+//		JButton dial0 = new JButton("0");
+//		JButton dialPound = new JButton("#");
+//		
 
 		// Add the components together in this order:
 		/*
 		 * Frame > OuterPanel > [InnerTopPanel, > Label InnerBottomPanel] > Buttons
 		 */
 		frame.add(outerPanel);
+		outerPanel.setBackground(Color.BLACK);
 		outerPanel.add(upperTopPanel);
 		upperTopPanel.add(myLabel);
-		outerPanel.add(middlePanel);
+		
+//		outerPanel.add(middlePanel);
 		outerPanel.add(innerBottomPannel);
-		innerBottomPannel.add(dial1);
-		innerBottomPannel.add(dial2);
-		innerBottomPannel.add(dial3);
-		innerBottomPannel.add(dial4);
-		innerBottomPannel.add(dial5);
-		innerBottomPannel.add(dial6);
-		innerBottomPannel.add(dial7);
-		innerBottomPannel.add(dial8);
-		innerBottomPannel.add(dial9);
-		innerBottomPannel.add(dialStar);
-		innerBottomPannel.add(dial0);
-		innerBottomPannel.add(dialPound);
+		innerBottomPannel.add(acceptButton);
+		innerBottomPannel.add(declineButton);
+//		innerBottomPannel.add(dial3);
+//		innerBottomPannel.add(dial4);
+//		innerBottomPannel.add(dial5);
+//		innerBottomPannel.add(dial6);
+//		innerBottomPannel.add(dial7);
+//		innerBottomPannel.add(dial8);
+//		innerBottomPannel.add(dial9);
+//		innerBottomPannel.add(dialStar);
+//		innerBottomPannel.add(dial0);
+//		innerBottomPannel.add(dialPound);
 		
 		
 
