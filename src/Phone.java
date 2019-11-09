@@ -1,6 +1,15 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/***
+ * This class is where we combine all other classes to create a phone object
+ * that the user makes use of and receives incoming calls, decides to continue
+ * to receive calls, or turns off phone. 
+ * 
+ * @author Shawn Choudhury
+ * @author Joshua Chopra
+ * @author Thomas Tee
+ */
 public class Phone {
 
 	/*
@@ -25,6 +34,7 @@ public class Phone {
 		}
 		if (answer.equalsIgnoreCase("no")) {
 			takeAnotherPhoneCall = false;
+			System.out.println("Okay. Your phone has been turned off.");
 		}
 		return takeAnotherPhoneCall;
 	}
@@ -32,13 +42,14 @@ public class Phone {
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
 	 * total contacts list) and the contact list will be used for checking against
-	 * an incoming call that comes in
+	 * an incoming call that comes in. Is not private now for testing purposes.
+	 * TODO - set private. 
 	 * 
 	 * @param fileNameWithAllContacts - pass in name of CSV with data
 	 * @param numberOfContacts        - desired number of contacts for user
 	 * @return HashMap of user's contacts (contact for key, contactInfo for values)
 	 */
-	private HashMap<String, ContactInfo> createPhoneUserWithContacts(ContactInfoReader contactsData,
+	HashMap<String, ContactInfo> createPhoneUserWithContacts(ContactInfoReader contactsData,
 			int numberOfContacts) {
 		HashMap<String, ContactInfo> allContactsToHashMap = contactsData.getContactInfoMap();
 		UsersContactList phoneUsersContactsList = new UsersContactList(allContactsToHashMap, numberOfContacts);
