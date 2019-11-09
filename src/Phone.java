@@ -56,7 +56,7 @@ public class Phone {
 	 * @param contactsDataMap - pass in hashmap from ContactInfoReader
 	 * @return - ContactInfo associated with caller
 	 */
-	private ContactInfo createIncomingCall(HashMap<String, ContactInfo> contactsDataMap) {
+	private ContactInfo createIncomingCallGetContactInfoForCaller (HashMap<String, ContactInfo> contactsDataMap) {
 		IncomingCall call = new IncomingCall(contactsDataMap);
 		return call.getIncoming(); // return info of incoming caller
 	}
@@ -78,7 +78,7 @@ public class Phone {
 				numberOfContactsForUser);
 		boolean runPhoneProgram = true;
 		while (runPhoneProgram) {
-			ContactInfo forIncomingCaller = createIncomingCall(contactsData.getContactInfoMap());
+			ContactInfo forIncomingCaller = createIncomingCallGetContactInfoForCaller(contactsData.getContactInfoMap());
 			boolean isSpam = spamAlgo.compareAgainst(forIncomingCaller, usersContactList);
 			if (isSpam) {
 				System.out.println("Phone call is likely spam" + '\n' + "Take next incoming call?");
@@ -88,6 +88,14 @@ public class Phone {
 				runPhoneProgram = handleUserInputsAndPromptForNextCall(); // if yes will be true, else false & end program
 			}
 		}
+	}
+	
+	/***
+	 * Get scanner object used in class
+	 * @return scanner
+	 */
+	public Scanner getInput() {
+		return input;
 	}
 
 	public static void main(String[] args) {
