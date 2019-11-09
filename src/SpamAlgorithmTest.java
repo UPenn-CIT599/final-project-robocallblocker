@@ -1,7 +1,5 @@
-package src;
-
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 class SpamAlgorithmTest {
@@ -23,10 +21,12 @@ class SpamAlgorithmTest {
 		
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
 		
-		boolean match = spamAlgo.compareAgainst(caller, users);
+		boolean match = spamAlgo.compareAgainst(caller, userMap);
 		
-		assertEquals(true, match);		
+		assertEquals(true, match);
+			
 		
 	}
 
 }
+
