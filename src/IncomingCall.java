@@ -6,31 +6,25 @@ public class IncomingCall {
 
 	ContactInfo incoming;
 
-	// Shuffle Contact Info and create incoming call 
-	public IncomingCall(HashMap<String, ContactInfo> map) {
-		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+	/***
+	 * Shuffle Contact Info to create a random incoming call from CSV of contacts
+	 * 
+	 * @param allContactsFromFile - takes in hashmap created when we read in CSV
+	 */
+	public IncomingCall(HashMap<String, ContactInfo> allContactsFromFile) {
+		ArrayList<String> keys = new ArrayList<String>(allContactsFromFile.keySet());
 		Collections.shuffle(keys);
 
-		incoming = map.get(keys.get(0));
+		incoming = allContactsFromFile.get(keys.get(0));
 	}
 
-	// Getter
+	/***
+	 * Get contact information for the incoming caller
+	 * 
+	 * @return ContactInfo object that has all attributes of a caller
+	 */
 	public ContactInfo getIncoming() {
 		return incoming;
 	}
-	
-	public boolean checkIfSpamCall(boolean spamAlgoOutput) {
-		boolean isSpam = false; 
-		if (spamAlgoOutput) {
-			System.out.println("Call is likely spam");
-			System.out.println("Next call? yes or no?");
-			isSpam = true;
-		}
-		else {
-			System.out.println("Call is not likely spam");
-			System.out.print("\n");
-			System.out.println("Next call? yes or no?");
-		}
-		return isSpam;
-	}
+
 }
