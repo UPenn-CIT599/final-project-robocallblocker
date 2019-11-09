@@ -30,11 +30,10 @@ public class CallBlockerGUI implements Runnable {
 		
 //		JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
 		
-		JPanel innerBottomPannel = new JPanel(new GridLayout(1,2));
+		JPanel innerBottomPanel = new JPanel(new GridLayout(1,2));
 		
 		// buttons 
 		JButton acceptButton = new JButton(accept);
-		acceptButton.setBounds(20, 30, 50, 30);
 		JButton declineButton = new JButton(decline);
 //		JButton dial3 = new JButton("3");
 //		JButton dial4 = new JButton("4");
@@ -58,9 +57,9 @@ public class CallBlockerGUI implements Runnable {
 		upperTopPanel.add(myLabel);
 		
 //		outerPanel.add(middlePanel);
-		outerPanel.add(innerBottomPannel);
-		innerBottomPannel.add(acceptButton);
-		innerBottomPannel.add(declineButton);
+		outerPanel.add(innerBottomPanel);
+		innerBottomPanel.add(acceptButton);
+		innerBottomPanel.add(declineButton);
 //		innerBottomPannel.add(dial3);
 //		innerBottomPannel.add(dial4);
 //		innerBottomPannel.add(dial5);
