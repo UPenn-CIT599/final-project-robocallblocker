@@ -1,5 +1,8 @@
+/CallBlockerGUI.class
 /ContactInfo.class
 /ContactInfoReader.class
 /IncomingCall.class
+/Phone.class
+/SpamAlgorithm.class
 /SpamAlgorithmTest.class
 /UsersContactList.class
