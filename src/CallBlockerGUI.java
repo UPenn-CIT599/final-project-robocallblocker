@@ -91,7 +91,7 @@ public class CallBlockerGUI implements Runnable {
 		ContactInfoReader list = new ContactInfoReader("contacts10.csv");
 		HashMap<String, ContactInfo> map = list.getContactInfoMap();
 		IncomingCall incomingCall = new IncomingCall(map);
-		ContactInfo incomingInfo = incomingCall.getIncoming();
+		ContactInfo incomingInfo = incomingCall.getIncomingCallerInfo();
 		incomingCalls = incomingInfo.getPhoneNumbers();
 		
 	}
