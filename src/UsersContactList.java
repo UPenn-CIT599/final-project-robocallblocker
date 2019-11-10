@@ -5,9 +5,9 @@ import java.util.HashMap;
 /**
  * This class populates a HashMap to serve as the user's contact list
  * 
- * @author ShawnChoudhury
- * @author JoshuaChopra
- * @author ThomasTee
+ * @author Shawn Choudhury
+ * @author Joshua Chopra
+ * @author Thomas Tee
  *
  */
 

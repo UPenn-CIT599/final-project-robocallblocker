@@ -24,10 +24,8 @@ public class ContactInfoReader {
 		// try with resources to automatically close out scanner object 
 		try (Scanner contactsDataReader = new Scanner(new File(filename));) {
 
-			// skip the column headers
-			if (contactsDataReader.hasNextLine()) {
-				contactsDataReader.hasNextLine();
-			}
+			// skip the column headers in first line 
+			contactsDataReader.nextLine(); 
 			while (contactsDataReader.hasNextLine()) {
 				String line = contactsDataReader.nextLine();
 				String[] columnData = line.split(",");

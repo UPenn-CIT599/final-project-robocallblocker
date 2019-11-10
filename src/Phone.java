@@ -69,7 +69,7 @@ public class Phone {
 	 */
 	private ContactInfo createIncomingCallGetContactInfoForCaller (HashMap<String, ContactInfo> contactsDataMap) {
 		IncomingCall call = new IncomingCall(contactsDataMap);
-		return call.getIncoming(); // return info of incoming caller
+		return call.getIncomingCallerInfo(); // return info of incoming caller
 	}
 
 	/***
@@ -87,16 +87,16 @@ public class Phone {
 	public void usePhone(ContactInfoReader contactsData, int numberOfContactsForUser, SpamAlgorithm spamAlgo) {
 		HashMap<String, ContactInfo> usersContactList = createPhoneUserWithContacts(contactsData,
 				numberOfContactsForUser);
-		boolean runPhoneProgram = true;
-		while (runPhoneProgram) {
+		boolean getNextCall = true;
+		while (getNextCall) {
 			ContactInfo forIncomingCaller = createIncomingCallGetContactInfoForCaller(contactsData.getContactInfoMap());
 			boolean isSpam = spamAlgo.compareAgainst(forIncomingCaller, usersContactList);
 			if (isSpam) {
 				System.out.println("Phone call is likely spam" + '\n' + "Take next incoming call?");
-				runPhoneProgram = handleUserInputsAndPromptForNextCall(); // if yes will be true, else false & end program
+				getNextCall = handleUserInputsAndPromptForNextCall(); // if yes will be true, else false & end program
 			} else {
 				System.out.println("Phone call is most likely not spam" + '\n' + "Take next incoming call?");
-				runPhoneProgram = handleUserInputsAndPromptForNextCall(); // if yes will be true, else false & end program
+				getNextCall = handleUserInputsAndPromptForNextCall(); // if yes will be true, else false & end program
 			}
 		}
 	}

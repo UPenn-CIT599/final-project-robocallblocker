@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class IncomingCall {
 
-	ContactInfo incoming;
+	ContactInfo incomingCallerInfo;
 
 	/***
 	 * Shuffle Contact Info to create a random incoming call from CSV of contacts
@@ -15,7 +15,7 @@ public class IncomingCall {
 		ArrayList<String> keys = new ArrayList<String>(allContactsFromFile.keySet());
 		Collections.shuffle(keys);
 
-		incoming = allContactsFromFile.get(keys.get(0));
+		incomingCallerInfo = allContactsFromFile.get(keys.get(0));
 	}
 
 	/***
@@ -23,8 +23,8 @@ public class IncomingCall {
 	 * 
 	 * @return ContactInfo object that has all attributes of a caller
 	 */
-	public ContactInfo getIncoming() {
-		return incoming;
+	public ContactInfo getIncomingCallerInfo() {
+		return incomingCallerInfo;
 	}
 
 }
