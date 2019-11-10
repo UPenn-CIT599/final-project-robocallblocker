@@ -59,9 +59,9 @@ class SpamAlgorithmTest {
 		}
 		int numOfIterations = 0;
 		boolean isSpam = false;
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
 		while (numOfIterations < allContacts.size()) {
 			IncomingCall caller = new IncomingCall(allContacts);
-			SpamAlgorithm spamAlgo = new SpamAlgorithm();
 			isSpam = spamAlgo.compareAgainst(caller.getIncomingCallerInfo(), usersContacts.getContactList());
 			assertEquals(true, isSpam); // check on each iteration, always should be spam (true)
 			numOfIterations++;
