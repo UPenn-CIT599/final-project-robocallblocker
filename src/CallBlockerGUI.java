@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 import javax.swing.Icon;
 
@@ -12,6 +15,7 @@ public class CallBlockerGUI implements Runnable {
 
 	Icon accept = new ImageIcon("accept_button.PNG");
 	Icon decline = new ImageIcon("decline_button.PNG");
+	String incomingCalls = "";
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new CallBlockerGUI());
@@ -25,7 +29,8 @@ public class CallBlockerGUI implements Runnable {
 		JPanel outerPanel = new JPanel(new GridLayout(2,1)); // overall outer panel of program 
 		JPanel upperTopPanel = new JPanel(new FlowLayout());
 		upperTopPanel.setBackground(Color.BLACK); // set background to black
-		JLabel myLabel = new JLabel("You are receiving a call from");
+		mysteriousIncomingCall();
+		JLabel myLabel = new JLabel("You are receiving a call from" + "\n" + incomingCalls);
 		myLabel.setForeground(Color.WHITE); // set color of label 
 		
 //		JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
@@ -46,7 +51,7 @@ public class CallBlockerGUI implements Runnable {
 //		JButton dial0 = new JButton("0");
 //		JButton dialPound = new JButton("#");
 //		
-
+		
 		// Add the components together in this order:
 		/*
 		 * Frame > OuterPanel > [InnerTopPanel, > Label InnerBottomPanel] > Buttons
@@ -70,14 +75,25 @@ public class CallBlockerGUI implements Runnable {
 //		innerBottomPannel.add(dialStar);
 //		innerBottomPannel.add(dial0);
 //		innerBottomPannel.add(dialPound);
-		
-		
 
+		
+		
 		// required pieces of code
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
 
+	}
+	
+	/** dynamically update myLabel with incoming calls */
+	public void mysteriousIncomingCall() {
+		
+		ContactInfoReader list = new ContactInfoReader("contacts10.csv");
+		HashMap<String, ContactInfo> map = list.getContactInfoMap();
+		IncomingCall incomingCall = new IncomingCall(map);
+		ContactInfo incomingInfo = incomingCall.getIncoming();
+		incomingCalls = incomingInfo.getPhoneNumbers();
+		
 	}
 
 }
