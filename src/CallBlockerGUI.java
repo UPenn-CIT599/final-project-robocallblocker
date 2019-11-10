@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 import javax.swing.Icon;
 
@@ -12,6 +14,7 @@ public class CallBlockerGUI implements Runnable {
 
 	Icon accept = new ImageIcon("accept_button.PNG");
 	Icon decline = new ImageIcon("decline_button.PNG");
+	String incomingCalls = "";
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new CallBlockerGUI());
@@ -25,7 +28,7 @@ public class CallBlockerGUI implements Runnable {
 		JPanel outerPanel = new JPanel(new GridLayout(2,1)); // overall outer panel of program 
 		JPanel upperTopPanel = new JPanel(new FlowLayout());
 		upperTopPanel.setBackground(Color.BLACK); // set background to black
-		JLabel myLabel = new JLabel("You are receiving a call from");
+		JLabel myLabel = new JLabel("You are receiving a call from" + "\n" + incomingCalls);
 		myLabel.setForeground(Color.WHITE); // set color of label 
 		
 //		JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
@@ -78,6 +81,17 @@ public class CallBlockerGUI implements Runnable {
 		frame.pack();
 		frame.setVisible(true);
 
+	}
+	
+	/** dynamically update myLabel with incoming calls */
+	public void mysteriousIncomingCall() {
+		
+		ContactInfoReader list = new ContactInfoReader("contacts10.csv");
+		HashMap<String, ContactInfo> map = list.getContactInfoMap();
+		IncomingCall incomingCall = new IncomingCall(map);
+		ContactInfo incomingInfo = incomingCall.getIncoming();
+		incomingCalls = incomingInfo.getPhoneNumbers();
+		
 	}
 
 }
