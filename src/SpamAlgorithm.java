@@ -15,7 +15,7 @@ public class SpamAlgorithm {
 
 			if (incoming.getName().equals(User.get(key).getName())) {
 				score++;
-				System.out.println("Caller is " + incoming.getName());
+//				System.out.println("Caller is " + incoming.getName());
 			}
 			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())) {
 				score++;
