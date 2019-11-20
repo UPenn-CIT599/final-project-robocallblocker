@@ -57,7 +57,7 @@ public class CallBlockerGUI implements Runnable {
 	@Override
 	public void run() {
 
-		//	JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
+		JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
 		JPanel outerPanel = new JPanel(new GridLayout(2,1)); // overall outer panel of program 
 
 		//	JPanel middlePanel = new JPanel(new GridLayout(1,0)); // will display number being dialed 
