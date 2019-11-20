@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class Phone {
 
 	private ContactInfoReader allContacts = new ContactInfoReader("contacts10.csv");
+	// store contents from CSV file in phone class to maintain all potential contacts. 
 	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
@@ -19,22 +20,18 @@ public class Phone {
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list 
 
 	
-
-	
-
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
 	 * total contacts list) and the contact list will be used for checking against
 	 * an incoming call that comes in. Is not private now for testing purposes. TODO
 	 * - set private.
 	 * 
-	 * @param fileNameWithAllContacts - pass in name of CSV with data
+	 * @param allContactsInHashMap - pass in HashMap of contacts from CSV
 	 * @param numberOfContacts        - desired number of contacts for user
 	 * @return HashMap of user's contacts (contact for key, contactInfo for values)
 	 */
-	HashMap<String, ContactInfo> createPhoneUserWithContacts(ContactInfoReader contactsData, int numberOfContacts) {
-		HashMap<String, ContactInfo> allContactsToHashMap = contactsData.getContactInfoMap();
-		UsersContactList phoneUsersContactsList = new UsersContactList(allContactsToHashMap, numberOfContacts);
+	HashMap<String, ContactInfo> createPhoneUserWithContacts(HashMap<String, ContactInfo> allContactsInHashMap, int numberOfContacts) {
+		UsersContactList phoneUsersContactsList = new UsersContactList(allContactsInHashMap, numberOfContacts);
 		/*
 		 * returns a HashMap with the phone user's contacts names as key, and all info
 		 * as ContactInfo object
