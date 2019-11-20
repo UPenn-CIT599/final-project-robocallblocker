@@ -21,7 +21,6 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	// hard-coded we should make a combo-box to let user decide number of contacts.
 	static final int numberOfContactsForUser = 5;
 	static Phone phone = new Phone();
-	static boolean getNextCall = true;
 
 	public static void main(String[] args) {
 		activatePhone();
@@ -92,14 +91,12 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	class AddAcceptListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			activatePhone();
-			getNextCall = true;
 			run();
 		}
 	}
 
 	class AddDeclineListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			getNextCall = false;
 			System.exit(0);
 		}
 	}
