@@ -45,6 +45,8 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 				.createIncomingCallGetContactInfoForCaller(phone.getAllContactsInHashMap());
 		// set the phone number displayed on the GUI to the incoming caller phone number
 		phone.setDisplayIncomingCallerPhoneNumber(forIncomingCaller.getPhoneNumbers());
+		// set the name displayed on the GUI to the incoming caller name, if it's not spam
+		phone.setDisplayIncomingCallerName(forIncomingCaller.getName());
 		// set whether or not we display a spam message on the GUI 
 		phone.setIncomingCallSpamOrNotSpam(
 				phone.getSpamAlgoForPhone().compareAgainst(forIncomingCaller, usersContactList));
@@ -62,7 +64,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 					+ phone.getDisplayIncomingCallerPhoneNumber() + " is likely spam."
 					+ "<br>Accept or Decline? </html>");
 		} else {
-			myLabel.setText("<html>" + phone.getDisplayIncomingCallerPhoneNumber() + " is calling." + "<br>"
+			myLabel.setText("<html>" + phone.getDisplayIncomingCallerName() + " is calling." + "<br>"
 					+ phone.getDisplayIncomingCallerPhoneNumber() + " is likely not spam."
 					+ "<br>Accept or Decline? </html>");
 		}
