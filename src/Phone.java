@@ -16,7 +16,7 @@ public class Phone {
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
 	private boolean incomingCallSpam; // true if is spam, false if not
-	private HashMap<String, ContactInfo> usersContacts;
+	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list 
 
 	
 
