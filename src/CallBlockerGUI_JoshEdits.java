@@ -35,12 +35,17 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * or not, making use of the other classes involved. 
 	 */
 	private static void activatePhone() {
-		HashMap<String, ContactInfo> usersContactList = phone.createPhoneUserWithContacts(phone.getAllContacts(),
+		// first create HashMap of phone user's contacts 
+		HashMap<String, ContactInfo> usersContactList = phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(),
 				numberOfContactsForUser);
+		// set current phone state contact list to the users
 		phone.setUsersContacts(usersContactList);
+		// create an incoming call and simultaneously get the contact info for the caller
 		ContactInfo forIncomingCaller = phone
-				.createIncomingCallGetContactInfoForCaller(phone.getAllContacts().getContactInfoMap());
+				.createIncomingCallGetContactInfoForCaller(phone.getAllContactsInHashMap());
+		// set the phone number displayed on the GUI to the incoming caller phone number
 		phone.setDisplayIncomingCallerPhoneNumber(forIncomingCaller.getPhoneNumbers());
+		// set whether or not we display a spam message on the GUI 
 		phone.setIncomingCallSpamOrNotSpam(
 				phone.getSpamAlgoForPhone().compareAgainst(forIncomingCaller, usersContactList));
 	}
