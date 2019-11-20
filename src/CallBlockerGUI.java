@@ -28,7 +28,7 @@ public class CallBlockerGUI implements Runnable {
 	// Create User and User Contacts one time only
 	static Phone user = new Phone();
 	static int numberOfContactsForUser = 5;
-	static HashMap<String, ContactInfo> usersContactList = user.createPhoneUserWithContacts(contactsFromFile, numberOfContactsForUser);
+	static HashMap<String, ContactInfo> usersContactList = user.createPhoneUserWithContacts(contactsFromFile.getContactInfoMap(), numberOfContactsForUser);
 
 
 	public static void main(String[] args) {
