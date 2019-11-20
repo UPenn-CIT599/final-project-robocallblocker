@@ -16,6 +16,7 @@ public class Phone {
 	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
+	private String displayIncomingCallerName;
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list 
 
@@ -65,6 +66,14 @@ public class Phone {
 
 	public void setDisplayIncomingCallerPhoneNumber(String displayIncomingCallerPhoneNumber) {
 		this.displayIncomingCallerPhoneNumber = displayIncomingCallerPhoneNumber;
+	}
+	
+	public String getDisplayIncomingCallerName() {
+		return displayIncomingCallerName;
+	}
+	
+	public void setDisplayIncomingCallerName(String displayIncomingCallerName) {
+		this.displayIncomingCallerName = displayIncomingCallerName;
 	}
 
 	public boolean isIncomingCallSpam() {

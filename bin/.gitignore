@@ -1,16 +1,6 @@
 /CallBlockerGUI$AddAcceptListener.class
 /CallBlockerGUI$AddDeclineListener.class
-/CallBlockerGUI.class
-/ContactInfo.class
-/ContactInfoReader.class
-/IncomingCall.class
-/Phone.class
-/PhoneTest.class
-/SpamAlgorithm.class
-/SpamAlgorithmTest.class
-/UsersContactList.class
-/Phone_Old.class
-/PhoneOldClass.class
 /CallBlockerGUI_JoshEdits$AddAcceptListener.class
 /CallBlockerGUI_JoshEdits$AddDeclineListener.class
 /CallBlockerGUI_JoshEdits.class
+/PhoneOldClass.class
