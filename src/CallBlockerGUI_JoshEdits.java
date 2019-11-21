@@ -21,8 +21,12 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	// hard-coded we should make a combo-box to let user decide number of contacts.
 	static final int numberOfContactsForUser = 5;
 	static Phone phone = new Phone();
+	static HashMap<String, ContactInfo> usersContactList;
 
 	public static void main(String[] args) {
+		usersContactList = phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(),
+				numberOfContactsForUser);
+		phone.setUsersContacts(usersContactList);
 		activatePhone();
 		SwingUtilities.invokeLater(new CallBlockerGUI_JoshEdits());
 	}
@@ -35,11 +39,11 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * or not, making use of the other classes involved. 
 	 */
 	private static void activatePhone() {
-		// first create HashMap of phone user's contacts 
-		HashMap<String, ContactInfo> usersContactList = phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(),
-				numberOfContactsForUser);
-		// set current phone state contact list to the users
-		phone.setUsersContacts(usersContactList);
+//		// first create HashMap of phone user's contacts 
+//		HashMap<String, ContactInfo> usersContactList = phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(),
+//				numberOfContactsForUser);
+//		// set current phone state contact list to the users
+//		phone.setUsersContacts(usersContactList);
 		// create an incoming call and simultaneously get the contact info for the caller
 		ContactInfo forIncomingCaller = phone
 				.createIncomingCallGetContactInfoForCaller(phone.getAllContactsInHashMap());
