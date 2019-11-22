@@ -13,10 +13,19 @@ import java.util.HashMap;
 public class BlockList {
 
 	// instance variable
-	HashMap<String, ContactInfo> blockedList;
+	HashMap<String, ContactInfo> blockList;
 	
 	// constructor
-	public BlockList() {
-		// TODO fill up a hashmap of blocked contacts when spam
+	public BlockList(String name, ContactInfo contactInfo) {
+		
+		blockList = new HashMap<>(); 
+		
+		blockList.put(name, contactInfo);
 	}
+	
+	// Getter for blockList instance variable
+	public HashMap<String, ContactInfo> getBlockList() {
+		return blockList;
+	}
+	
 }
