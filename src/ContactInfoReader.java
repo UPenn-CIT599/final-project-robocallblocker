@@ -33,7 +33,7 @@ public class ContactInfoReader {
 				String name = columnData[0] + " " + columnData[1];
 				String number = columnData[8];
 				String email = columnData[9];
-				String socialMediaHandle = columnData[10];
+				String socialMediaHandle = columnData[11];
 				String address = columnData[3];
 				// fill up the constructor
 				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address);
