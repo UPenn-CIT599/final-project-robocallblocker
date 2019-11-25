@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -36,7 +35,7 @@ public class ContactInfoReader {
 				 * string and do not want to split it.
 				 */
 				String[] columnData = line.split(",(?! )", -1);
-				// was using this to ensure all string [] were length 12 
+				// was using this to ensure all string [] were length 12
 //				if (columnData.length != 12) {
 //					System.out.println(columnData);
 //				}
@@ -83,10 +82,6 @@ public class ContactInfoReader {
 			return "0";
 		} else
 			return columnData[column];
-	}
-	
-	public static void main(String[] args) {
-		ContactInfoReader cdr = new ContactInfoReader("contacts100.csv");
 	}
 
 }
