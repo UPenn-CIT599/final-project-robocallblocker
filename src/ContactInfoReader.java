@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class ContactInfoReader {
 
-	// Instance Variables
+	// HashMap of contacts with name as key and ContactInfo as value.
 	private HashMap<String, ContactInfo> contactInfoMap = new HashMap<>();
 
 	// Constructor
@@ -35,12 +35,13 @@ public class ContactInfoReader {
 				 * string and do not want to split it.
 				 */
 				String[] columnData = line.split(",(?! )", -1);
-				// was using this to ensure all string [] were length 12
-//				if (columnData.length != 12) {
-//					System.out.println(columnData);
-//				}
 				// Concatenate first and last name
 				String name = checkIfBlankThenFill(columnData, 0) + " " + checkIfBlankThenFill(columnData, 1);
+				// we don't want a last name displayed on GUI with a "0", so check if last char
+				// is 0.
+				if (name.charAt(name.length() - 1) == '0') {
+					name = name.substring(0, name.length() - 1);
+				}
 				String number = checkIfBlankThenFill(columnData, 8);
 				String email = checkIfBlankThenFill(columnData, 9);
 				String socialMediaHandle = checkIfBlankThenFill(columnData, 11);
