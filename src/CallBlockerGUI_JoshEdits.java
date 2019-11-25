@@ -66,7 +66,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		 */
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				phone.createIncomingCallGetContactInfoForCaller(phone.getUsersContacts());
+				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				if (phone.isIncomingCallSpam()) {
 					incomingCallDetails.setText("<html>" + phone.getDisplayIncomingCallerPhoneNumber() + " is calling."
 							+ "<br>" + phone.getDisplayIncomingCallerPhoneNumber() + " is likely spam."
