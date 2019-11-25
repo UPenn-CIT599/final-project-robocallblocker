@@ -45,7 +45,7 @@ public class CallBlockerGUI implements Runnable {
 
 		IncomingCall incomingCall = new IncomingCall(map);
 		ContactInfo incomingInfo = incomingCall.getIncomingCallerInfo();
-		phonenumber = incomingInfo.getPhoneNumbers();
+		phonenumber = incomingInfo.getPhoneNumber();
 
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
 		spam = spamAlgo.compareAgainst(incomingInfo, usersContactList);
