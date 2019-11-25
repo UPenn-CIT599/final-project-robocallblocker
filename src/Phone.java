@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Phone {
 
 	// store contents from CSV file in phone class to maintain all contacts
-	private ContactInfoReader allContacts = new ContactInfoReader("contacts100.csv");
+	private ContactInfoReader allContacts = new ContactInfoReader("contacts10.csv");
 	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
@@ -58,11 +58,11 @@ public class Phone {
 	 *                         used to check if incoming call is spam
 	 * @return - ContactInfo associated with caller
 	 */
-	public void createIncomingCallGetContactInfoForCaller(HashMap<String, ContactInfo> usersContactList) {
+	public void createIncomingCallDisplayOnPhoneScreenGUI (HashMap<String, ContactInfo> usersContactList) {
 		IncomingCall call = new IncomingCall(allContactsInHashMap);
 		ContactInfo forCaller = call.getIncomingCallerInfo();
 		setDisplayIncomingCallerName(forCaller.getName());
-		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumbers());
+		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumber());
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
 	}
 
