@@ -12,10 +12,20 @@ public class IncomingCall {
 	 * @param allContactsFromFile - takes in hashmap created when we read in CSV
 	 */
 	public IncomingCall(HashMap<String, ContactInfo> allContactsFromFile) {
-		ArrayList<String> keys = new ArrayList<String>(allContactsFromFile.keySet());
-		Collections.shuffle(keys);
-
-		incomingCallerInfo = allContactsFromFile.get(keys.get(0));
+		ArrayList<String> phoneNumbers = new ArrayList<String>(allContactsFromFile.keySet());
+		/*
+		 * Given that data in CSV contains blanks for some phone numbers 
+		 * in the file which are filled with 0s, we don't want to ever 
+		 * create an incoming call from our keySet with the phone number
+		 * "0". 
+		 */
+		for (String phoneNumber : phoneNumbers) {
+			if(phoneNumber.equals("0")) {
+				phoneNumbers.remove(phoneNumber);
+			}
+		}
+		Collections.shuffle(phoneNumbers);
+		incomingCallerInfo = allContactsFromFile.get(phoneNumbers.get(0));
 	}
 
 	/***
