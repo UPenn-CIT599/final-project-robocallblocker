@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Phone {
 
 	// store contents from CSV file in phone class to maintain all contacts
-	private ContactInfoReader allContacts = new ContactInfoReader("contacts10.csv");
+	private ContactInfoReader allContacts = new ContactInfoReader("contacts100.csv");
 	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
