@@ -36,9 +36,10 @@ public class ContactInfoReader {
 				 * string and do not want to split it.
 				 */
 				String[] columnData = line.split(",(?! )", -1);
-				if (columnData.length != 12) {
-					System.out.println(columnData);
-				}
+				// was using this to ensure all string [] were length 12 
+//				if (columnData.length != 12) {
+//					System.out.println(columnData);
+//				}
 				// Concatenate first and last name
 				String name = checkIfBlankThenFill(columnData, 0) + " " + checkIfBlankThenFill(columnData, 1);
 				String number = checkIfBlankThenFill(columnData, 8);
