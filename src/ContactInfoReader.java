@@ -44,6 +44,7 @@ public class ContactInfoReader {
 				}
 				String number = checkIfBlankThenFill(columnData, 8);
 				String email = checkIfBlankThenFill(columnData, 9);
+				// REMEMBER that contacts100.csv has 11 columns, and contacts10.csv has 12 (0 indexing)
 				String socialMediaHandle = checkIfBlankThenFill(columnData, 11);
 				String address = checkIfBlankThenFill(columnData, 3);
 				// fill up the constructor
