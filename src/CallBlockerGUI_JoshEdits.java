@@ -86,15 +86,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-				
-				
-				// phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
-				
-				
-=======
 //				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
->>>>>>> 2642435af4961c11e3c1eb6c36562cb492dd7dc4
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
