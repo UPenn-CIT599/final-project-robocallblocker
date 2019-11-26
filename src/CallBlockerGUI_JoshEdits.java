@@ -44,7 +44,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 
 	private double numberOfCalls;
 	private double numberOfSpamCalls;
-	private double percentageSpamCalls = 100 * (numberOfSpamCalls / numberOfCalls);
+	private double percentageSpamCalls;
 
 	private JPanel backgroundPanel = new JPanel(); // overall outer panel of program
 	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
@@ -54,9 +54,10 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + "<br>"
 			+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
 
-	
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
+	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
+	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
 	/*
 	 * Need a phone object to run in the GUI, kept static as it does not modify the
@@ -81,10 +82,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 
 		acceptButton.setVisible(false);
 		declineButton.setVisible(false);
-		
-		
-		
-		
+
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
@@ -92,11 +90,15 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				
 				
 				// phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				
 				
+=======
+//				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
+>>>>>>> 2642435af4961c11e3c1eb6c36562cb492dd7dc4
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
@@ -104,94 +106,66 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 					e1.printStackTrace();
 				}
 				// details of incoming call are based on if the call is spam or not
-				
-				boolean isSpam = phone.isIncomingCallSpam();
-				if (isSpam) {
-					numberOfSpamCalls++;
-				}
-				
-				
-				if (isSpam) {
-					
-					welcomeThenDisplayCallInfo.setText("<html>" + "You are now speaking with " + phone.getDisplayIncomingCallerPhoneNumber()
-							+ "<br>" + "<br>" + "Please click the start button to receive your next call." + "<br>" + "<br>" + "<br>"
-							+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
-					
-					// displayNumberOrName = phone.getDisplayIncomingCallerPhoneNumber();
-					// isSpamOrNot = " is likely spam.";
-				} else {
-					
-					welcomeThenDisplayCallInfo.setText("<html>" + "You are now speaking with " + phone.getDisplayIncomingCallerName()
-					+ "<br>" + "<br>" + "Please click the start button to receive your next call." + "<br>" + "<br>" + "<br>"
-					+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
-					
-					// displayNumberOrName = phone.getDisplayIncomingCallerName();
-					// isSpamOrNot = " is likely not spam.";
-				}
-				
-			
-				
-				
-				// welcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
-				
+				isIncomingCall = false; // not a new call, just picking up the phone
+				// re-use isSpam instance variable that startButton listener set to true or
+				// false.
+				welcomeThenDisplayCallInfo
+						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(isSpam, isIncomingCall));
+
 				userInstructions.setVisible(false); // show user instructions for accept/decline call
 				startButton.setVisible(true);
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
-				
 				numberOfCalls++;
-			
+
 			}
 		});
 
-		// exit program if user presses decline
 		declineButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
+
 				percentageSpamCalls = 100 * (numberOfSpamCalls / numberOfCalls);
-				DecimalFormat df = new DecimalFormat("##.##"); // format to 2 decimal places
+				DecimalFormat df = new DecimalFormat("###.##"); // format to 2 decimal places
 				// re-use user instructions label and set it to these statistics from the
 				// session
 				welcomeThenDisplayCallInfo.setVisible(false);
 				userInstructions.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
 						+ "<br>" + "Total spam calls received were: " + numberOfSpamCalls + "<br>"
 						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
-				
+
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
-				
+
 			}
 		});
 
-		
-		
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				phone.ringtone();
-				
+				isIncomingCall = true; // start button creates an incoming call
 				try {
 					phone.startRingtone();
 				} catch (LineUnavailableException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
-				boolean isSpam = phone.isIncomingCallSpam();
+				isSpam = phone.isIncomingCallSpam();
 				if (isSpam) {
 					numberOfSpamCalls++;
 				}
-				welcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
+				welcomeThenDisplayCallInfo
+						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(isSpam, isIncomingCall));
 				userInstructions.setVisible(true); // show user instructions for accept/decline call
 				startButton.setVisible(false);
 				acceptButton.setVisible(true);
@@ -206,9 +180,8 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		backgroundPanel.add(userInstructions);
 		backgroundPanel.add(startButton);
 
-		
 		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
-		
+
 		frame.add(panelForIncomingCall, BorderLayout.NORTH);
 
 		acceptAndDeclineBottomPanel.add(acceptButton);
@@ -272,10 +245,12 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * not, and uses output to pass to the label used in the GUI, informing user if
 	 * a call is spam or not.
 	 * 
-	 * @param isSpam pass in if incoming call is spam or not, from SpamAlgo output
-	 * @return string to display on label notifying user if call is spam
+	 * @param isSpam          pass in boolean from spamAlgo compareAgainst output
+	 * @param newIncomingCall if startbutton is pressed this is true, else false
+	 *                        since just an accepted call
+	 * @return
 	 */
-	private String displaySpamOrNotSpamToUser(boolean isSpam) {
+	private String displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(boolean isSpam, boolean newIncomingCall) {
 		String displayNumberOrName;
 		String isSpamOrNot;
 		if (isSpam) {
@@ -285,8 +260,15 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			displayNumberOrName = phone.getDisplayIncomingCallerName();
 			isSpamOrNot = " is likely not spam.";
 		}
-		return "<html>" + displayNumberOrName + " is calling." + "<br>" + phone.getDisplayIncomingCallerPhoneNumber()
-				+ isSpamOrNot + "<br>" + "<br>Accept or Decline?" + "</html>";
+		if (newIncomingCall) {
+			return "<html>" + displayNumberOrName + " is calling." + "<br>"
+					+ phone.getDisplayIncomingCallerPhoneNumber() + isSpamOrNot + "<br>" + "<br>Accept or Decline?"
+					+ "</html>";
+		} else {
+			return "<html>" + "You are now speaking with " + displayNumberOrName + "<br>" + "<br>"
+					+ "Please click the start button to receive your next call." + "<br>" + "<br>" + "<br>" + "<br>"
+					+ "<br>" + "<br>" + "<br>" + "</html>";
+		}
 	}
 
 }
