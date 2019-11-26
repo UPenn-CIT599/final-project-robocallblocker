@@ -30,6 +30,11 @@ public class Phone {
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
 	private int numberOfCallsRecieved;	
 
+	
+	Clip clip;
+	String soundName = "ringtoneFile.wav";
+	AudioInputStream audioInputStream;
+	
 	/***
 	 * Default number of contacts a phone user has. 
 	 * Could instead incorporate this into the GUI and 
@@ -84,13 +89,14 @@ public class Phone {
 	 */
 	public void ringtone() {
 		try {
-			String soundName = "ringtoneFile.wav";
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+	
+			audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+			
 			try {
-				Clip clip;
+		
 				clip = AudioSystem.getClip();
-				clip.open(audioInputStream);
-				clip.start();
+//				clip.open(audioInputStream);
+//				clip.start();
 				// clip.close();
 				// clip.loop(3); // TODO terminate
 			} catch (LineUnavailableException e1) {
@@ -103,6 +109,23 @@ public class Phone {
 		}
 	}
 
+	
+	public void startRingtone() throws LineUnavailableException, IOException {
+		clip = AudioSystem.getClip();
+		clip.open(audioInputStream);
+		clip.start();
+	}
+	
+	public void closeRingtone() throws LineUnavailableException, IOException {
+		
+//		clip = AudioSystem.getClip();
+//		clip.open(audioInputStream);
+		clip.close();
+	
+		
+	}
+	
+	
 	public ContactInfoReader getAllContacts() {
 		return allContacts;
 	}

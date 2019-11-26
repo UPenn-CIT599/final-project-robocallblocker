@@ -1,9 +1,12 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
 /**
@@ -47,10 +50,11 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
 	private JPanel panelForIncomingCall = new JPanel(); // details for calls
 
-	private JLabel firstWelcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
+	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + "<br>"
 			+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
 
+	
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
 
@@ -67,7 +71,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	@Override
 	public void run() {
 		phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(), phone.getNumberOfContactsForUser());
-		formatLabel(firstWelcomeThenDisplayCallInfo, true);
+		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
 
 		// format buttons
@@ -75,6 +79,12 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		formatButton(acceptButton, true);
 		formatButton(startButton, true);
 
+		acceptButton.setVisible(false);
+		declineButton.setVisible(false);
+		
+		
+		
+		
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
@@ -83,15 +93,52 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
-				phone.ringtone();
+				
+				
+				try {
+					phone.closeRingtone();
+				} catch (LineUnavailableException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				// details of incoming call are based on if the call is spam or not
+				
 				boolean isSpam = phone.isIncomingCallSpam();
 				if (isSpam) {
 					numberOfSpamCalls++;
 				}
-				firstWelcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
-				userInstructions.setVisible(true); // show user instructions for accept/decline call
+				
+				
+				if (isSpam) {
+					
+					welcomeThenDisplayCallInfo.setText("<html>" + "You are now speaking with " + phone.getDisplayIncomingCallerPhoneNumber()
+							+ "<br>" + "<br>" + "Please click the start button to receive your next call." + "<br>" + "<br>" + "<br>"
+							+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
+					
+					// displayNumberOrName = phone.getDisplayIncomingCallerPhoneNumber();
+					// isSpamOrNot = " is likely spam.";
+				} else {
+					
+					welcomeThenDisplayCallInfo.setText("<html>" + "You are now speaking with " + phone.getDisplayIncomingCallerName()
+					+ "<br>" + "<br>" + "Please click the start button to receive your next call." + "<br>" + "<br>" + "<br>"
+					+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
+					
+					// displayNumberOrName = phone.getDisplayIncomingCallerName();
+					// isSpamOrNot = " is likely not spam.";
+				}
+				
+			
+				
+				
+				// welcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
+				
+				userInstructions.setVisible(false); // show user instructions for accept/decline call
+				startButton.setVisible(true);
+				acceptButton.setVisible(false);
+				declineButton.setVisible(false);
+				
 				numberOfCalls++;
+			
 			}
 		});
 
@@ -99,29 +146,54 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		declineButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					phone.closeRingtone();
+				} catch (LineUnavailableException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 				percentageSpamCalls = 100 * (numberOfSpamCalls / numberOfCalls);
 				DecimalFormat df = new DecimalFormat("##.##"); // format to 2 decimal places
 				// re-use user instructions label and set it to these statistics from the
 				// session
-				firstWelcomeThenDisplayCallInfo.setVisible(false);
+				welcomeThenDisplayCallInfo.setVisible(false);
 				userInstructions.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
 						+ "<br>" + "Total spam calls received were: " + numberOfSpamCalls + "<br>"
 						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
+				
+				acceptButton.setVisible(false);
+				declineButton.setVisible(false);
+				
 			}
 		});
 
+		
+		
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				phone.ringtone();
+				
+				try {
+					phone.startRingtone();
+				} catch (LineUnavailableException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				boolean isSpam = phone.isIncomingCallSpam();
 				if (isSpam) {
 					numberOfSpamCalls++;
 				}
-				firstWelcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
+				welcomeThenDisplayCallInfo.setText(displaySpamOrNotSpamToUser(isSpam));
 				userInstructions.setVisible(true); // show user instructions for accept/decline call
 				startButton.setVisible(false);
+				acceptButton.setVisible(true);
+				declineButton.setVisible(true);
 				numberOfCalls++;
 			}
 		});
@@ -132,7 +204,9 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		backgroundPanel.add(userInstructions);
 		backgroundPanel.add(startButton);
 
-		panelForIncomingCall.add(firstWelcomeThenDisplayCallInfo);
+		
+		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
+		
 		frame.add(panelForIncomingCall, BorderLayout.NORTH);
 
 		acceptAndDeclineBottomPanel.add(acceptButton);
