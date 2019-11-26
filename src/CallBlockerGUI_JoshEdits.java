@@ -34,28 +34,27 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			new ImageIcon((decline.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton startButton = new JButton("Start",
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
-
-//	JButton startButton = new JButton(new ImageIcon( // TODO incorporate start button
-//			((new ImageIcon("startButton.jpg")).getImage()).getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH))); 
-
-//	private JButton startButton = new JButton(start);
-
-	// create panels to hold labels and buttons
+	
 
 	private double numberOfCalls;
 	private double numberOfSpamCalls;
 	private double percentageSpamCalls;
-
+	
+	// create panels to hold labels and buttons
 	private JPanel backgroundPanel = new JPanel(); // overall outer panel of program
 	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
 	private JPanel panelForIncomingCall = new JPanel(); // details for calls
-
+	
+	
+	// labels displayed in GUI 
 	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + "<br>"
 			+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
 
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
+	
+	// used for displaying dynamic info on labels, conditionally if call is spam or not 
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
@@ -76,12 +75,9 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
 
 		// format buttons
-		formatButton(declineButton, true);
-		formatButton(acceptButton, true);
-		formatButton(startButton, true);
-
-		acceptButton.setVisible(false);
-		declineButton.setVisible(false);
+		formatButton(declineButton, false); //initially don't set visible
+		formatButton(acceptButton, false); // initially don't set visible
+		formatButton(startButton, true); // set visible from the start 
 
 		acceptButton.addActionListener(new ActionListener() {
 			/***
@@ -194,6 +190,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * 
 	 * 
 	 * @param button used with accept and decline buttons
+	 * @param initial visibility setting for button 
 	 */
 	private void formatButton(JButton button, boolean setVisibility) {
 		button.setBackground(Color.BLACK);
@@ -201,6 +198,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		button.setBorderPainted(false);
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
+		button.setVisible(setVisibility);
 	}
 
 	/***
@@ -208,6 +206,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * and alignment of a label that is added to a component of the overall frame.
 	 * 
 	 * @param label pass in label to be formatted
+	 * @param initial visibility setting for label
 	 */
 	private void formatLabel(JLabel label, boolean setVisible) {
 		label.setForeground(Color.WHITE); // set color of label
