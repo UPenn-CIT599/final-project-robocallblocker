@@ -19,6 +19,7 @@ import java.util.Set;
 public class SpamAlgorithm {
 
 	boolean spam;
+
 	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> User) {
 
 		int score = 0;
@@ -33,29 +34,31 @@ public class SpamAlgorithm {
 				score++;
 //				System.out.println("Caller is " + incoming.getName());
 			}
-			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress()) && !incoming.getEmailAddress().isEmpty()) {
+			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())
+					&& !incoming.getEmailAddress().isEmpty()) {
 				score++;
 			}
 			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().isEmpty()) {
 				score++;
 			}
-			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle()) && !incoming.getSocialMediaHandle().isEmpty()) {
+			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())
+					&& !incoming.getSocialMediaHandle().isEmpty()) {
 				score++;
 			}
-			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber()) && !incoming.getPhoneNumber().isEmpty()) {
+			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())
+					&& !incoming.getPhoneNumber().isEmpty()) {
 				score++;
+			}
+
+			
 		}
-
-		System.out.println("The number of contact info matches is " + score);
-
 		// If there are only 2 or less matches, then set as Spam
+		System.out.println("The number of contact info matches is " + score);
 		if (score <= 2) {
 			spam = true;
-		}
-		else {
+		} else {
 			spam = false;
 		}
 		return spam;
-		
 	}
 }
