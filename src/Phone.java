@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -27,6 +28,8 @@ public class Phone {
 	private String displayIncomingCallerName;
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
+	private int numberOfCallsRecieved;	
+
 	/***
 	 * Default number of contacts a phone user has. 
 	 * Could instead incorporate this into the GUI and 
@@ -75,22 +78,21 @@ public class Phone {
 	}
 	
 	/**
-	 * ringtone method for phone
-	 * to play sound in the GUI when a phone call comes in
-	 * Currently on a loop of 3
-	 * TODO terminate the sound and reinitialize with each call
+	 * ringtone method for phone to play sound in the GUI when a phone call comes in
+	 * Currently on a loop of 3 TODO terminate the sound and reinitialize with each
+	 * call
 	 */
 	public void ringtone() {
-		String soundName = "ringtoneFile.wav";
 		try {
+			String soundName = "ringtoneFile.wav";
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-			Clip clip;
 			try {
+				Clip clip;
 				clip = AudioSystem.getClip();
 				clip.open(audioInputStream);
 				clip.start();
-				//clip.close();
-				//clip.loop(3); // TODO terminate
+				// clip.close();
+				// clip.loop(3); // TODO terminate
 			} catch (LineUnavailableException e1) {
 				System.out.println("Didn't get clip!");
 			}
@@ -151,6 +153,29 @@ public class Phone {
 
 	public int getNumberOfContactsForUser() {
 		return numberOfContactsForUser;
+	}
+	
+	public int getNumberOfCallsRecieved() {
+		return numberOfCallsRecieved;
+	}
+
+	public void setNumberOfCallsReceived(int numberOfCallsRecieved) {
+		this.numberOfCallsRecieved = numberOfCallsRecieved;
+	}
+	
+	public static void main(String[] args) {
+		Phone ph = new Phone();
+//		Scanner in = new Scanner(System.in);
+		HashMap<String, ContactInfo> usersContacts1 = ph.createPhoneUserWithContacts(ph.allContactsInHashMap, ph.numberOfContactsForUser);
+		System.out.println(usersContacts1);
+//		String continueGoing = in.next();
+		int counter = 0;
+		while(counter < 20) {
+			ph.createIncomingCallDisplayOnPhoneScreenGUI(usersContacts1);
+			counter++;
+//			continueGoing = in.next();
+		}
+		
 	}
 
 }
