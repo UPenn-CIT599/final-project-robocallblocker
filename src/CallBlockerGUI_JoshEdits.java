@@ -92,7 +92,9 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
+				
+				
+				// phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				
 				
 				try {
