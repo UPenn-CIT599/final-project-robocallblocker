@@ -89,6 +89,7 @@ public class Phone {
 				clip = AudioSystem.getClip();
 				clip.open(audioInputStream);
 				clip.start();
+				//clip.close();
 				//clip.loop(3); // TODO terminate
 			} catch (LineUnavailableException e1) {
 				System.out.println("Didn't get clip!");
