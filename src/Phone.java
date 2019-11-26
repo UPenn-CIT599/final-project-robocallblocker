@@ -1,4 +1,12 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /***
  * This class is where we combine all other classes to create a phone object
@@ -64,6 +72,26 @@ public class Phone {
 		setDisplayIncomingCallerName(forCaller.getName());
 		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumber());
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
+	}
+	
+	public void ringtone() {
+		String soundName = "ringtoneFile.wav";
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+			Clip clip;
+			try {
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start();
+				clip.loop(3); // TODO
+			} catch (LineUnavailableException e1) {
+				System.out.println("Didn't get clip!");
+			}
+		} catch (UnsupportedAudioFileException e1) {
+			System.out.println("Doesn't support 'wav' files");
+		} catch (IOException e1) {
+			System.out.println("Check which folder the file is in");
+		}
 	}
 
 	public ContactInfoReader getAllContacts() {
