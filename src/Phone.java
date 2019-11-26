@@ -74,6 +74,12 @@ public class Phone {
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
 	}
 	
+	/**
+	 * ringtone method for phone
+	 * to play sound in the GUI when a phone call comes in
+	 * Currently on a loop of 3
+	 * TODO terminate the sound and reinitialize with each call
+	 */
 	public void ringtone() {
 		String soundName = "ringtoneFile.wav";
 		try {
@@ -83,7 +89,7 @@ public class Phone {
 				clip = AudioSystem.getClip();
 				clip.open(audioInputStream);
 				clip.start();
-				clip.loop(3); // TODO
+				//clip.loop(3); // TODO terminate
 			} catch (LineUnavailableException e1) {
 				System.out.println("Didn't get clip!");
 			}
