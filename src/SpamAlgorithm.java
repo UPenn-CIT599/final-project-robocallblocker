@@ -29,22 +29,21 @@ public class SpamAlgorithm {
 		// and phone number
 		for (String key : Namekeys) {
 
-			if (incoming.getName().equals(User.get(key).getName())) {
+			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().isEmpty()) {
 				score++;
 //				System.out.println("Caller is " + incoming.getName());
 			}
-			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())) {
+			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress()) && !incoming.getEmailAddress().isEmpty()) {
 				score++;
 			}
-			if (incoming.getAddress().equals(User.get(key).getAddress())) {
+			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().isEmpty()) {
 				score++;
 			}
-			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())) {
+			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle()) && !incoming.getSocialMediaHandle().isEmpty()) {
 				score++;
 			}
-			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())) {
+			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber()) && !incoming.getPhoneNumber().isEmpty()) {
 				score++;
-			}
 		}
 
 		System.out.println("The number of contact info matches is " + score);
