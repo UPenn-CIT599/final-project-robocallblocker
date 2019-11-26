@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /***
  * This class is the algorithm used to determine if an incoming call is likely
@@ -16,37 +18,32 @@ import java.util.HashMap;
  */
 public class SpamAlgorithm {
 
-	// tells us if a call is spam or not
-	boolean isSpam;
-
+	boolean spam;
 	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> User) {
 
 		int score = 0;
 
-		ArrayList<String> namesOfContacts = new ArrayList<String>(User.keySet());
+		ArrayList<String> Namekeys = new ArrayList<String>(User.keySet());
 
 		// Go through User Contact List and Compare name, email, address, social media,
 		// and phone number
-		for (String name : namesOfContacts) {
+		for (String key : Namekeys) {
 
-			if (incoming.getName().equals(User.get(name).getName())) {
+			if (incoming.getName().equals(User.get(key).getName())) {
+				score++;
+//				System.out.println("Caller is " + incoming.getName());
+			}
+			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())) {
 				score++;
 			}
-			if (incoming.getEmailAddress().equals(User.get(name).getEmailAddress())) {
+			if (incoming.getAddress().equals(User.get(key).getAddress())) {
 				score++;
 			}
-			if (incoming.getAddress().equals(User.get(name).getAddress())) {
+			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())) {
 				score++;
 			}
-			if (incoming.getSocialMediaHandle().equals(User.get(name).getSocialMediaHandle())) {
+			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())) {
 				score++;
-			}
-			/*
-			 * if phone number is in contact book of user, automatically not spam, set above
-			 * threshold of 2
-			 */
-			if (incoming.getPhoneNumber().equals(User.get(name).getPhoneNumber())) {
-				score += 3;
 			}
 		}
 
@@ -54,11 +51,12 @@ public class SpamAlgorithm {
 
 		// If there are only 2 or less matches, then set as Spam
 		if (score <= 2) {
-			isSpam = true;
+			spam = true;
 		}
 		else {
-			isSpam = false;
+			spam = false;
 		}
-		return isSpam;
+		return spam;
+		
 	}
 }
