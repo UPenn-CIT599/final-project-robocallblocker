@@ -90,5 +90,13 @@ public class ContactInfo {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	/**
+	 * Overriden toString() method to print the ContactInfo object contents
+	 * Otherwise, it would print the memory location
+	 */
+	public String toString() {
+		return name + " " + phoneNumber + " " + emailAddress + " " + socialMediaHandle + " " +  address;
+	}
 
 }
