@@ -104,8 +104,6 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 				startButton.setVisible(true);
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
-				numberOfCalls++;
-
 			}
 		});
 
