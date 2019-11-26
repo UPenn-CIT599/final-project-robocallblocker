@@ -30,23 +30,23 @@ public class SpamAlgorithm {
 		// and phone number
 		for (String key : Namekeys) {
 
-			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().isEmpty()) {
+			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().equals("0")) {
 				score++;
 //				System.out.println("Caller is " + incoming.getName());
 			}
 			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())
-					&& !incoming.getEmailAddress().isEmpty()) {
+					&& !incoming.getEmailAddress().equals("0")) {
 				score++;
 			}
-			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().isEmpty()) {
+			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().equals("0")) {
 				score++;
 			}
 			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())
-					&& !incoming.getSocialMediaHandle().isEmpty()) {
+					&& !incoming.getSocialMediaHandle().equals("0")) {
 				score++;
 			}
 			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())
-					&& !incoming.getPhoneNumber().isEmpty()) {
+					&& !incoming.getPhoneNumber().equals("0")) {
 				score++;
 			}
 
