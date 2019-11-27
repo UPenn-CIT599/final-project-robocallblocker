@@ -17,6 +17,8 @@ public class ContactInfoReader {
 	// HashMap of contacts with name as key and ContactInfo as value.
 	private HashMap<String, ContactInfo> contactInfoMap = new HashMap<>();
 
+	int index = 0; 
+	
 	// Constructor
 	public ContactInfoReader(String filename) {
 
@@ -43,14 +45,19 @@ public class ContactInfoReader {
 					name = name.substring(0, name.length() - 1);
 				}
 				String number = checkIfBlankThenFill(columnData, 8);
-				String email = checkIfBlankThenFill(columnData, 9);
+				String email = checkIfBlankThenFill(columnData, 10);
 				// REMEMBER that contacts100.csv has 11 columns, and contacts10.csv has 12 (0 indexing)
 				String socialMediaHandle = checkIfBlankThenFill(columnData, 11);
 				String address = checkIfBlankThenFill(columnData, 3);
 				// fill up the constructor
 				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address);
 				// put the contact info in to the HashMap
-				contactInfoMap.put(contact.getName(), contact);
+				
+				
+				contactInfoMap.put(Integer.toString(index), contact);
+				index += 1;
+				
+				
 			}
 
 		} catch (FileNotFoundException e) {

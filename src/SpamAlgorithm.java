@@ -28,26 +28,34 @@ public class SpamAlgorithm {
 
 		// Go through User Contact List and Compare name, email, address, social media,
 		// and phone number
+		
+		System.out.println(incoming);
+		
+		
 		for (String key : Namekeys) {
 
 			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().equals("0")) {
 				score++;
-//				System.out.println("Caller is " + incoming.getName());
+				System.out.println("Caller is " + incoming.getName());
 			}
 			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())
 					&& !incoming.getEmailAddress().equals("0")) {
 				score++;
+				System.out.println("Email is " + incoming.getEmailAddress());
 			}
 			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().equals("0")) {
 				score++;
+				System.out.println("Address is " + incoming.getAddress());
 			}
 			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())
 					&& !incoming.getSocialMediaHandle().equals("0")) {
 				score++;
+				System.out.println("Social Media is " + incoming.getSocialMediaHandle());
 			}
 			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())
 					&& !incoming.getPhoneNumber().equals("0")) {
 				score++;
+				System.out.println("Phone number is " + incoming.getPhoneNumber());
 			}
 
 			
