@@ -29,11 +29,13 @@ public class SpamAlgorithm {
 		// Go through User Contact List and Compare name, email, address, social media,
 		// and phone number
 		
-		System.out.println(incoming);
+		System.out.println("\n" + incoming);
 		
 		
 		for (String key : Namekeys) {
 
+			score = 0;
+			
 			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().equals("0")) {
 				score++;
 				System.out.println("Caller is " + incoming.getName());
@@ -59,14 +61,17 @@ public class SpamAlgorithm {
 			}
 
 			
+			if (score < 5) {
+				spam = true;
+			} else {
+				spam = false;
+				System.out.println("The number of contact info matches is " + score + "\n");
+			}
+			
+			
 		}
-		// If there are only 2 or less matches, then set as Spam
-		System.out.println("The number of contact info matches is " + score);
-		if (score <= 2) {
-			spam = true;
-		} else {
-			spam = false;
-		}
+			
+		
 		return spam;
 	}
 }
