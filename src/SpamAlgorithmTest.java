@@ -67,5 +67,34 @@ class SpamAlgorithmTest {
 			numOfIterations++;
 		}
 	}
+	
+	/**
+	 * Test SpamAlgorithm's conditional statement handle for zeros
+	 * && !incoming.getName().equals("0")
+	 * should return true
+	 * TODO Maybe we can return the actual score which should be zero
+	 */
+	@Test
+	void testCompareAgainstContactInfoFilledWithZeros() {
+		
+		ContactInfo zeroInfo = new ContactInfo("0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+		
+		ContactInfoReader reader = new ContactInfoReader("contacts10.csv");
+		
+		// get the HashMap
+		HashMap<String, ContactInfo> map = reader.getContactInfoMap();
+		
+		UsersContactList userContactsMap = new UsersContactList(map, 10);
+		
+		// create user's phoneBook
+		HashMap<String, ContactInfo> phoneBook = userContactsMap.getContactList();
+		
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		
+		boolean isSpam = spamAlgo.compareAgainst(zeroInfo, phoneBook);
+		
+		assertEquals(true, isSpam);
+		
+	}
 
 }
