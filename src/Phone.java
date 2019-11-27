@@ -21,7 +21,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Phone {
 
 	// store contents from CSV file in phone class to maintain all contacts
-	private ContactInfoReader allContacts = new ContactInfoReader("contacts10.csv");
+	private ContactInfoReader allContacts = new ContactInfoReader("contacts100.csv");
 	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
@@ -186,19 +186,19 @@ public class Phone {
 		this.numberOfCallsRecieved = numberOfCallsRecieved;
 	}
 	
-	public static void main(String[] args) {
-		Phone ph = new Phone();
-//		Scanner in = new Scanner(System.in);
-		HashMap<String, ContactInfo> usersContacts1 = ph.createPhoneUserWithContacts(ph.allContactsInHashMap, ph.numberOfContactsForUser);
-		System.out.println(usersContacts1);
-//		String continueGoing = in.next();
-		int counter = 0;
-		while(counter < 20) {
-			ph.createIncomingCallDisplayOnPhoneScreenGUI(usersContacts1);
-			counter++;
-//			continueGoing = in.next();
-		}
-		
-	}
+//	public static void main(String[] args) {
+//		Phone ph = new Phone();
+////		Scanner in = new Scanner(System.in);
+//		HashMap<String, ContactInfo> usersContacts1 = ph.createPhoneUserWithContacts(ph.allContactsInHashMap, ph.numberOfContactsForUser);
+//		System.out.println(usersContacts1);
+////		String continueGoing = in.next();
+//		int counter = 0;
+//		while(counter < 20) {
+//			ph.createIncomingCallDisplayOnPhoneScreenGUI(usersContacts1);
+//			counter++;
+////			continueGoing = in.next();
+//		}
+//		
+//	}
 
 }
