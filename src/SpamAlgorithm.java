@@ -18,19 +18,22 @@ import java.util.Set;
  */
 public class SpamAlgorithm {
 
-	boolean spam;
+	
 
 	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> User) {
 
 		int score = 0;
+		
+		boolean spam = true;
 
 		ArrayList<String> Namekeys = new ArrayList<String>(User.keySet());
 
 		// Go through User Contact List and Compare name, email, address, social media,
 		// and phone number
 		
-		System.out.println("\n" + incoming);
+		// System.out.println("\n" + incoming);
 		
+	
 		
 		for (String key : Namekeys) {
 
@@ -38,36 +41,33 @@ public class SpamAlgorithm {
 			
 			if (incoming.getName().equals(User.get(key).getName()) && !incoming.getName().equals("0")) {
 				score++;
-				System.out.println("Caller is " + incoming.getName());
+			//	System.out.println("Caller is " + incoming.getName());
 			}
 			if (incoming.getEmailAddress().equals(User.get(key).getEmailAddress())
 					&& !incoming.getEmailAddress().equals("0")) {
 				score++;
-				System.out.println("Email is " + incoming.getEmailAddress());
+			//	System.out.println("Email is " + incoming.getEmailAddress());
 			}
 			if (incoming.getAddress().equals(User.get(key).getAddress()) && !incoming.getAddress().equals("0")) {
 				score++;
-				System.out.println("Address is " + incoming.getAddress());
+			//	System.out.println("Address is " + incoming.getAddress());
 			}
 			if (incoming.getSocialMediaHandle().equals(User.get(key).getSocialMediaHandle())
 					&& !incoming.getSocialMediaHandle().equals("0")) {
 				score++;
-				System.out.println("Social Media is " + incoming.getSocialMediaHandle());
+			//	System.out.println("Social Media is " + incoming.getSocialMediaHandle());
 			}
 			if (incoming.getPhoneNumber().equals(User.get(key).getPhoneNumber())
 					&& !incoming.getPhoneNumber().equals("0")) {
 				score++;
-				System.out.println("Phone number is " + incoming.getPhoneNumber());
+			//	System.out.println("Phone number is " + incoming.getPhoneNumber());
 			}
 
 			
-			if (score < 5) {
-				spam = true;
-			} else {
+			if (score == 5) {
 				spam = false;
 				System.out.println("The number of contact info matches is " + score + "\n");
-			}
-			
+			} 		
 			
 		}
 			
