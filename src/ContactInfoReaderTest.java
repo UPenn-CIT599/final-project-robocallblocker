@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,4 +61,17 @@ class ContactInfoReaderTest {
 		}
 		assertEquals(false, isEmpty);
 	}
+	
+	/**
+	 * Check to see if last row of contacts100.csv
+	 * is available in our hashmap produced from the ContactInfoReader class
+	 * Francine,Abdallah,"Healy, George W Iv",,Kulpsville,Montgomery,PA,19443,,FrancineAbdallah345@aol.com,,
+	 */
+	@Test
+	void testContactInfoReaderForLastRecord() {
+		ContactInfoReader reader = new ContactInfoReader("contacts100.csv");
+		HashMap<String, ContactInfo> contacts = reader.getContactInfoMap();
+		assertTrue(contacts.containsKey("197") && contacts.get("197") != null);
+	}
+	
 }
