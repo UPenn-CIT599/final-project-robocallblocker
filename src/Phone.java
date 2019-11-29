@@ -21,27 +21,43 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Phone {
 
 	// store contents from CSV file in phone class to maintain all contacts
-	private ContactInfoReader allContacts = new ContactInfoReader("contacts100.csv");
-	private HashMap<String, ContactInfo> allContactsInHashMap = allContacts.getContactInfoMap();
+	private ContactInfoReader allContactsInCSV = new ContactInfoReader("contacts100.csv");
+	/*
+	 * This is all the contacts from the CSV in the HashMap, which isn't cleaned.
+	 * When we create a phone user, we have no need to first clean the contact data.
+	 * By design, there can be bits of pieces of contactInfo scattered in the users
+	 * phone, so if there is a blank phone number for a contactInfo object in the
+	 * user's phone, this is fine, since in theory the user could have contact
+	 * information for a person without having their phone number. This is NOT the
+	 * map used to create incoming calls.
+	 */
+	private HashMap<String, ContactInfo> allContactsMap = allContactsInCSV.getAllContactsInCSV();
+	/*
+	 * We use this HashMap to create incoming calls to the phone which is passed to
+	 * the GUI so we want a clean contact list with no blank phone numbers,
+	 * otherwise on GUI it will show that "blank" or 0 is calling, which is clearly
+	 * nonsense.
+	 */
+	private HashMap<String, ContactInfo> allContactsInHashMapCleaned = allContactsInCSV
+			.removeBlankPhoneNumbersFromMapUsedToCreateCalls(allContactsMap);
+	
+	// the phone has a built in algorithm that checks for spam calls 
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
 	private String displayIncomingCallerName;
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
-	private int numberOfCallsRecieved;	
+	private int numberOfCallsRecieved;
 
-	
 	Clip clip;
 	String soundName = "ringtoneFile.wav";
 	AudioInputStream audioInputStream;
-	
+
 	/***
-	 * Default number of contacts a phone user has. 
-	 * Could instead incorporate this into the GUI and 
-	 * let the person using the GUI pick from a number 
-	 * in a combo-box. Removed from GUI class to avoid 
-	 * creating another instance variable that should 
-	 * belong in the phone class. 
+	 * Default number of contacts a phone user has. Could instead incorporate this
+	 * into the GUI and let the person using the GUI pick from a number in a
+	 * combo-box. Removed from GUI class to avoid creating another instance variable
+	 * that should belong in the phone class.
 	 */
 	private final int numberOfContactsForUser = 5;
 
@@ -74,14 +90,14 @@ public class Phone {
 	 *                         used to check if incoming call is spam
 	 * @return - ContactInfo associated with caller
 	 */
-	public void createIncomingCallDisplayOnPhoneScreenGUI (HashMap<String, ContactInfo> usersContactList) {
-		IncomingCall call = new IncomingCall(allContactsInHashMap);
+	public void createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
+		IncomingCall call = new IncomingCall(allContactsInHashMapCleaned);
 		ContactInfo forCaller = call.getIncomingCallerInfo();
 		setDisplayIncomingCallerName(forCaller.getName());
 		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumber());
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
 	}
-	
+
 	/**
 	 * ringtone method for phone to play sound in the GUI when a phone call comes in
 	 * Currently on a loop of 3 TODO terminate the sound and reinitialize with each
@@ -89,11 +105,11 @@ public class Phone {
 	 */
 	public void ringtone() {
 		try {
-	
+
 			audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-			
+
 			try {
-		
+
 				clip = AudioSystem.getClip();
 //				clip.open(audioInputStream);
 //				clip.start();
@@ -109,25 +125,26 @@ public class Phone {
 		}
 	}
 
-	
 	public void startRingtone() throws LineUnavailableException, IOException {
 		clip = AudioSystem.getClip();
 		clip.open(audioInputStream);
 		clip.start();
 	}
-	
+
 	public void closeRingtone() throws LineUnavailableException, IOException {
-		
+
 //		clip = AudioSystem.getClip();
 //		clip.open(audioInputStream);
 		clip.close();
-	
-		
+
 	}
-	
-	
+
 	public ContactInfoReader getAllContacts() {
-		return allContacts;
+		return allContactsInCSV;
+	}
+
+	public HashMap<String, ContactInfo> getAllContactsMap() {
+		return allContactsMap;
 	}
 
 	public SpamAlgorithm getSpamAlgoForPhone() {
@@ -158,12 +175,12 @@ public class Phone {
 		this.incomingCallSpam = incomingCallSpam;
 	}
 
-	public HashMap<String, ContactInfo> getAllContactsInHashMap() {
-		return allContactsInHashMap;
+	public HashMap<String, ContactInfo> getAllContactsInHashMapCleaned() {
+		return allContactsInHashMapCleaned;
 	}
 
-	public void setAllContactsInHashMap(HashMap<String, ContactInfo> allContactsInHashMap) {
-		this.allContactsInHashMap = allContactsInHashMap;
+	public void setAllContactsInHashMapCleaned(HashMap<String, ContactInfo> allContactsInHashMap) {
+		this.allContactsInHashMapCleaned = allContactsInHashMap;
 	}
 
 	public HashMap<String, ContactInfo> getUsersContacts() {
@@ -177,7 +194,7 @@ public class Phone {
 	public int getNumberOfContactsForUser() {
 		return numberOfContactsForUser;
 	}
-	
+
 	public int getNumberOfCallsRecieved() {
 		return numberOfCallsRecieved;
 	}
@@ -185,7 +202,7 @@ public class Phone {
 	public void setNumberOfCallsReceived(int numberOfCallsRecieved) {
 		this.numberOfCallsRecieved = numberOfCallsRecieved;
 	}
-	
+
 //	public static void main(String[] args) {
 //		Phone ph = new Phone();
 ////		Scanner in = new Scanner(System.in);
