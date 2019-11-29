@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,8 +17,7 @@ import java.util.Scanner;
 public class ContactInfoReader {
 
 	// HashMap of contacts with name as key and ContactInfo as value.
-	private HashMap<String, ContactInfo> contactInfoMap = new HashMap<>();
-
+	private HashMap<String, ContactInfo> allContactsInCSV = new HashMap<>();
 	int uniqueID = 0;
 
 	// Constructor
@@ -67,7 +68,7 @@ public class ContactInfoReader {
 				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address, company, city, county, state, zipCode);
 				// put the contact info in to the HashMap
 
-				contactInfoMap.put(Integer.toString(uniqueID), contact);
+				allContactsInCSV.put(Integer.toString(uniqueID), contact);
 				uniqueID += 1; // create new uniqueID for each contact read in
 			}
 
@@ -82,8 +83,8 @@ public class ContactInfoReader {
 	 * 
 	 * @return HashMap of all contacts from file
 	 */
-	public HashMap<String, ContactInfo> getContactInfoMap() {
-		return contactInfoMap;
+	public HashMap<String, ContactInfo> getAllContactsInCSV() {
+		return allContactsInCSV;
 	}
 
 	/***
@@ -101,5 +102,53 @@ public class ContactInfoReader {
 		} else
 			return columnData[column];
 	}
+	
+	/***
+	 * Helper method used to ensure we never use a key-value pair that has a
+	 * ContactInfo object where the phone number of that ContactInfo object is
+	 * blank, AKA "0", since we set blanks to 0 when reading in the data.
+	 * Intuitively, wouldn't make any sense to receive a call from a phone number of
+	 * "0" or blank.
+	 * 
+	 * @param allContacts hashMap we create upon reading in contacts from CSV
+	 * @return cleaned map of contacts used to generate calls (no blank phone #s)
+	 * 
+	 */
+	public HashMap<String, ContactInfo> removeBlankPhoneNumbersFromMapUsedToCreateCalls(
+			HashMap<String, ContactInfo> allContacts) {
+		/*
+		 * use iterator since we can't iterate over a keySet and remove key-value pair
+		 * simultaneously or java throws ConcurrentModificationException
+		 */
+
+		Iterator<Map.Entry<String, ContactInfo>> iterator = allContacts.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<String, ContactInfo> nameWithContactInfo = iterator.next();
+			/*
+			 * if value (ContactInfo object) associated with key (name of contact) has
+			 * variable value for phone number as "0" then remove it from our map. Else keep
+			 * it.
+			 */
+			if (nameWithContactInfo.getValue().getPhoneNumber().equals("0")) {
+				iterator.remove();
+			}
+		}
+		return allContacts;
+	}
+
+
+	public void setAllContactsInCSV(HashMap<String, ContactInfo> allContactsInCSV) {
+		this.allContactsInCSV = allContactsInCSV;
+	}
+
+	public void setUniqueID(int uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+
+	public int getUniqueID() {
+		return uniqueID;
+	}
+	
+	
 
 }
