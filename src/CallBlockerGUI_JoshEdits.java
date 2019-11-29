@@ -34,27 +34,26 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			new ImageIcon((decline.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton startButton = new JButton("Start",
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
-	
 
 	private double numberOfCalls;
 	private double numberOfSpamCalls;
 	private double percentageSpamCalls;
-	
+
 	// create panels to hold labels and buttons
 	private JPanel backgroundPanel = new JPanel(); // overall outer panel of program
 	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
 	private JPanel panelForIncomingCall = new JPanel(); // details for calls
-	
-	
-	// labels displayed in GUI 
+
+	// labels displayed in GUI
 	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + "<br>"
 			+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
 
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
-	
-	// used for displaying dynamic info on labels, conditionally if call is spam or not 
+
+	// used for displaying dynamic info on labels, conditionally if call is spam or
+	// not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
@@ -71,14 +70,13 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	@Override
 	public void run() {
 		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
-		System.out.println(phone.getUsersContacts());
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
 
 		// format buttons
-		formatButton(declineButton, false); //initially don't set visible
+		formatButton(declineButton, false); // initially don't set visible
 		formatButton(acceptButton, false); // initially don't set visible
-		formatButton(startButton, true); // set visible from the start 
+		formatButton(startButton, true); // set visible from the start
 
 		acceptButton.addActionListener(new ActionListener() {
 			/***
@@ -161,7 +159,10 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			}
 		});
 
-		setAllPanelsBackgroundColorToBlack(panelForIncomingCall, backgroundPanel, acceptAndDeclineBottomPanel);
+		// create ArrayList of panels to pass into method that sets panel backgrounds to black 
+		ArrayList<JPanel> allPanels = new ArrayList<>(
+				Arrays.asList(panelForIncomingCall, backgroundPanel, acceptAndDeclineBottomPanel));
+		setAllPanelsBackgroundColorToBlack(allPanels);
 
 		frame.add(backgroundPanel, BorderLayout.CENTER);
 		backgroundPanel.add(userInstructions);
@@ -188,8 +189,8 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * border, and places text below image, and ensures that the text is centered.
 	 * 
 	 * 
-	 * @param button used with accept and decline buttons
-	 * @param initial visibility setting for button 
+	 * @param button  used with accept and decline buttons
+	 * @param initial visibility setting for button
 	 */
 	private void formatButton(JButton button, boolean setVisibility) {
 		button.setBackground(Color.BLACK);
@@ -204,7 +205,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	 * This method formats a label by setting the foreground (color of text), font,
 	 * and alignment of a label that is added to a component of the overall frame.
 	 * 
-	 * @param label pass in label to be formatted
+	 * @param label   pass in label to be formatted
 	 * @param initial visibility setting for label
 	 */
 	private void formatLabel(JLabel label, boolean setVisible) {
@@ -217,15 +218,10 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	/***
 	 * Programmatically sets all colors of our panels to desired color; we want all
 	 * of them to be black.
-	 * 
-	 * @param panel1 background panel
-	 * @param panel2 bottom panel with buttons
-	 * @param panel3 top panel with call details/welcome message
+	 * @param allPanels an arrayList containing all JPanels
 	 */
-	private void setAllPanelsBackgroundColorToBlack(JPanel panel1, JPanel panel2, JPanel panel3) {
-		ArrayList<JPanel> panels = new ArrayList<>();
-		panels.addAll(Arrays.asList(panel1, panel2, panel3));
-		for (JPanel panel : panels) {
+	private void setAllPanelsBackgroundColorToBlack(ArrayList<JPanel> allPanels) {
+		for (JPanel panel : allPanels) {
 			panel.setBackground(Color.BLACK);
 		}
 	}
