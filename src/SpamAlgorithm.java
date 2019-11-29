@@ -86,8 +86,19 @@ public class SpamAlgorithm {
 		} else {
 			isSpam = true;
 		}
+	
 		// print this out regardless of the conditional, for testing purposes.
 		System.out.println("The number of contact info matches is " + score + "\n");
+		return isSpam;
+	}
+	
+	/***
+	 * Returns result from compareAgainst method, which is the the method 
+	 * that runs our entire spamAlgorithm. Lets us know if a call was spam 
+	 * or not. 
+	 * @return false if not spam, true if spam. 
+	 */
+	public boolean isSpam() {
 		return isSpam;
 	}
 }

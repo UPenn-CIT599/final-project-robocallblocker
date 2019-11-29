@@ -18,7 +18,7 @@ class PhoneTest {
 		Phone ph = new Phone();
 		ContactInfoReader cdr = new ContactInfoReader("contacts10.csv");
 		int numberOfContacts = 5;
-		HashMap<String, ContactInfo> usersContactList = ph.createPhoneUserWithContacts(cdr.getContactInfoMap(), numberOfContacts);
+		HashMap<String, ContactInfo> usersContactList = ph.createPhoneUserWithContacts(cdr.getAllContactsInCSV(), numberOfContacts);
 		// number of key-value pairs should b equal to numberofContacts variable
 		assertEquals(numberOfContacts, usersContactList.size()); 
 	}

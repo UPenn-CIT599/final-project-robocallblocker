@@ -51,7 +51,7 @@ public class PhoneOldClass {
 	 */
 	HashMap<String, ContactInfo> createPhoneUserWithContacts(ContactInfoReader contactsData,
 			int numberOfContacts) {
-		HashMap<String, ContactInfo> allContactsToHashMap = contactsData.getContactInfoMap();
+		HashMap<String, ContactInfo> allContactsToHashMap = contactsData.getAllContactsInCSV();
 		UsersContactList phoneUsersContactsList = new UsersContactList(allContactsToHashMap, numberOfContacts);
 		/*
 		 * returns a HashMap with the phone user's contacts names as key, and all info
@@ -89,7 +89,7 @@ public class PhoneOldClass {
 				numberOfContactsForUser);
 		boolean getNextCall = true;
 		while (getNextCall) {
-			ContactInfo forIncomingCaller = createIncomingCallGetContactInfoForCaller(contactsData.getContactInfoMap());
+			ContactInfo forIncomingCaller = createIncomingCallGetContactInfoForCaller(contactsData.getAllContactsInCSV());
 			boolean isSpam = spamAlgo.compareAgainst(forIncomingCaller, usersContactList);
 			if (isSpam) {
 				System.out.println("Phone call is likely spam" + '\n' + "Take next incoming call?");
