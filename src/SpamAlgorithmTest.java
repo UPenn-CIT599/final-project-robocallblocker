@@ -1,8 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 class SpamAlgorithmTest {
@@ -17,10 +14,10 @@ class SpamAlgorithmTest {
 
 		ContactInfoReader list = new ContactInfoReader("contacts10.csv");
 
-		HashMap<String, ContactInfo> map = list.getContactInfoMap();
+		HashMap<String, ContactInfo> map = list.getAllContactsInCSV();
 
 		// 3rd contact in list
-		ContactInfo caller = map.get("Art Venere");
+		ContactInfo caller = map.get("2");
 
 		// just put full list in user's contact list
 		UsersContactList users = new UsersContactList(map, 10);
@@ -35,66 +32,121 @@ class SpamAlgorithmTest {
 	}
 
 	/***
-	 * Creates user's contact list using larger contacts.csv file and creates an
-	 * incoming call from that larger list EXCLUDING any of the users contacts, so
-	 * we expect to return a "true" indicating a spam call is coming in when the
-	 * user is called. We use the while loop to test against all inputs in the
-	 * allContacts hashmap
+	 * Creates user's contact list with contacts NOT in the CSV and check that the
+	 * spamAlgo marks all these contacts as spam, i.e., the isSpam evaluates to
+	 * true.
 	 */
 	@Test
-	void testCompareAgainstUsingLargerFile() {
-		ContactInfoReader contactsFromCSV = new ContactInfoReader("contacts100.csv");
-		HashMap<String, ContactInfo> allContacts = contactsFromCSV.getContactInfoMap();
-		int numberOfContacts = 10;
-		UsersContactList usersContacts = new UsersContactList(allContacts, numberOfContacts);
-		Set<String> contactNameKeysForUsersContacts = new HashSet<String>();
-		for (String usersContact : usersContacts.getContactList().keySet()) {
-			contactNameKeysForUsersContacts.add(usersContact);
-		}
-		// remove user's contacts from list we use to generate a random call
-		for (String name : contactNameKeysForUsersContacts) {
-			if (allContacts.keySet().contains(name)) {
-				allContacts.remove(name);
-			}
-		}
-		int numOfIterations = 0;
-		boolean isSpam = false;
+	void testCompareAgainstWithPhoneUserThatHasNoContactsFromCSV() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> userContactsList = new HashMap<String, ContactInfo>();
+		ContactInfo contactNotInCSV = new ContactInfo("a", "b", "c", "d", "e", "f", "g", "h", "i", "j");
+		ContactInfo contact2NotInCSV = new ContactInfo("Joshua Chopra", "513-900-9000", "jchopra@seas.upenn.edu",
+				"josh.chopra", "400 Walnut Street", "UPenn", "City", "County", "PA", "40013");
+		ContactInfo contact3NotInCSV = new ContactInfo("Shawn Choudhury", "513-900-9000", "chshawn@seas.upenn.edu",
+				"shawn.choudhury", "700 Nonexistent Street", "Google", "City", "Westchester", "NY", "12209");
+		ContactInfo contact4NotInCSV = new ContactInfo("Thomas Tee", "777-870-8700", "tee@seas.upenn.edu", "thomas.tee",
+				"900 Walnut Street", "Amazon", "Alabama", "County", "AL", "40013");
+		// add contacts to HashMap, hard code a unique ID as key
+		userContactsList.put("0", contactNotInCSV);
+		userContactsList.put("1", contact2NotInCSV);
+		userContactsList.put("2", contact3NotInCSV);
+		userContactsList.put("3", contact4NotInCSV);
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
-		while (numOfIterations < allContacts.size()) {
-			IncomingCall caller = new IncomingCall(allContacts);
-			isSpam = spamAlgo.compareAgainst(caller.getIncomingCallerInfo(), usersContacts.getContactList());
-			assertEquals(true, isSpam); // check on each iteration, always should be spam (true)
-			numOfIterations++;
+		// only used the cleaned contacts with no blank phone numbers to create calls
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			boolean isSpam = spamAlgo.compareAgainst(incomingCall, userContactsList);
+			assertEquals(true, isSpam);
 		}
 	}
-	
+
 	/**
-	 * Test SpamAlgorithm's conditional statement handle for zeros
-	 * && !incoming.getName().equals("0")
-	 * should return true
-	 * TODO Maybe we can return the actual score which should be zero
+	 * Test SpamAlgorithm's conditional statement handle for zeros &&
+	 * !incoming.getName().equals("0") should return true TODO Maybe we can return
+	 * the actual score which should be zero
 	 */
 	@Test
 	void testCompareAgainstContactInfoFilledWithZeros() {
-		
+
 		ContactInfo zeroInfo = new ContactInfo("0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
-		
+
 		ContactInfoReader reader = new ContactInfoReader("contacts10.csv");
-		
+
 		// get the HashMap
-		HashMap<String, ContactInfo> map = reader.getContactInfoMap();
-		
+		HashMap<String, ContactInfo> map = reader.getAllContactsInCSV();
+
 		UsersContactList userContactsMap = new UsersContactList(map, 10);
-		
+
 		// create user's phoneBook
 		HashMap<String, ContactInfo> phoneBook = userContactsMap.getContactList();
-		
+
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
-		
+
 		boolean isSpam = spamAlgo.compareAgainst(zeroInfo, phoneBook);
-		
+
 		assertEquals(true, isSpam);
-		
+
+	}
+
+	/***
+	 * This test creates a phone user that has every single contact from the CSV in
+	 * their contacts HashMap, so we expect that every single incoming call would
+	 * evaluate to not spam (isSpam = false), to ensure the algorithm works properly
+	 * for this corner case.
+	 */
+	@Test
+	void testCompareAgainstWithUserThatHasAllContactsFromCSV() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> usersContacts = ph.createPhoneUserWithContacts(ph.getAllContactsMap(),
+				ph.getAllContactsMap().size());
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			boolean isSpam = spamAlgo.compareAgainst(incomingCall, usersContacts);
+			assertEquals(false, isSpam);
+		}
+	}
+
+	/***
+	 * We add 1 specific contact from the CSV manually into a user's contact list
+	 * that has a phone number in the CSV that isn't 0, and we expect that there is
+	 * only 1 match from the incoming calls created, which would be the when that
+	 * contact calls the user.
+	 */
+	@Test
+	void testCompareAgainstWithUserThatHasOneContactFromCSV() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> usersContacts = new HashMap<String, ContactInfo>();
+		// create contact that is in CSV
+		ContactInfo solangeKolmetz = new ContactInfo("Solange Kolmetz", "303-874-5160", "0", "0", "0", "0", "0", "0",
+				"0", "0");
+		usersContacts.put("1", solangeKolmetz);
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		int counter = 0;
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			boolean isSpam = spamAlgo.compareAgainst(incomingCall, usersContacts);
+			if (!isSpam) {
+				counter++;
+			}
+		}
+		assertEquals(1, counter);
 	}
 
 }
