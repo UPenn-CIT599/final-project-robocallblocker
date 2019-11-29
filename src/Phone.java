@@ -40,8 +40,8 @@ public class Phone {
 	 */
 	private HashMap<String, ContactInfo> allContactsInHashMapCleaned = allContactsInCSV
 			.removeBlankPhoneNumbersFromMapUsedToCreateCalls(allContactsMap);
-	
-	// the phone has a built in algorithm that checks for spam calls 
+
+	// the phone has a built in algorithm that checks for spam calls
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
 	private String displayIncomingCallerName;
@@ -88,14 +88,16 @@ public class Phone {
 	 * 
 	 * @param usersContactList - pass in hashmap containing user's contact list,
 	 *                         used to check if incoming call is spam
-	 * @return - ContactInfo associated with caller
+	 * @return - ContactInfo associated with caller (use for testing that GUI
+	 *         displays proper info)
 	 */
-	public void createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
+	public ContactInfo createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
 		IncomingCall call = new IncomingCall(allContactsInHashMapCleaned);
 		ContactInfo forCaller = call.getIncomingCallerInfo();
 		setDisplayIncomingCallerName(forCaller.getName());
 		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumber());
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
+		return forCaller;
 	}
 
 	/**
@@ -195,13 +197,6 @@ public class Phone {
 		return numberOfContactsForUser;
 	}
 
-	public int getNumberOfCallsRecieved() {
-		return numberOfCallsRecieved;
-	}
-
-	public void setNumberOfCallsReceived(int numberOfCallsRecieved) {
-		this.numberOfCallsRecieved = numberOfCallsRecieved;
-	}
 
 //	public static void main(String[] args) {
 //		Phone ph = new Phone();
