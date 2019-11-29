@@ -23,12 +23,12 @@ public class CallBlockerGUI implements Runnable {
 
 	// Read CVS one time only 
 	static ContactInfoReader contactsFromFile = new ContactInfoReader("contacts10.csv");
-	static HashMap<String, ContactInfo> map = contactsFromFile.getContactInfoMap();
+	static HashMap<String, ContactInfo> map = contactsFromFile.getAllContactsInCSV();
 
 	// Create User and User Contacts one time only
 	static Phone user = new Phone();
 	static int numberOfContactsForUser = 5;
-	static HashMap<String, ContactInfo> usersContactList = user.createPhoneUserWithContacts(contactsFromFile.getContactInfoMap(), numberOfContactsForUser);
+	static HashMap<String, ContactInfo> usersContactList = user.createPhoneUserWithContacts(contactsFromFile.getAllContactsInCSV(), numberOfContactsForUser);
 
 
 	public static void main(String[] args) {
