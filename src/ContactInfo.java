@@ -36,11 +36,11 @@ public class ContactInfo {
 	 * Create an object to hold the contact info of a person, read in from our
 	 * contacts CSV file.
 	 * 
-	 * @param name (this will be both first and last)
-	 * @param number - phone number 
-	 * @param email address
-	 * @param socialMediaHandle name on social media 
-	 * @param address 
+	 * @param name              (this will be both first and last)
+	 * @param number            - phone number
+	 * @param email             address
+	 * @param socialMediaHandle name on social media
+	 * @param address
 	 * @param company
 	 * @param city
 	 * @param county
@@ -120,7 +120,8 @@ public class ContactInfo {
 	 * Otherwise, it would print the memory location
 	 */
 	public String toString() {
-		return name + " " + phoneNumber + " " + emailAddress + " " + socialMediaHandle + " " + address;
+		return name + " " + phoneNumber + " " + emailAddress + " " + socialMediaHandle + " " + address + company + " "
+				+ city + " " + county + " " + state + " " + zipCode;
 	}
 
 	/***
