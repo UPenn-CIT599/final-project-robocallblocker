@@ -70,7 +70,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 
 	@Override
 	public void run() {
-		phone.createPhoneUserWithContacts(phone.getAllContactsInHashMap(), phone.getNumberOfContactsForUser());
+		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
 		System.out.println(phone.getUsersContacts());
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
