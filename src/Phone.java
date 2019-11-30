@@ -63,8 +63,8 @@ public class Phone {
 	 * that should belong in the phone class.
 	 */
 	private static Random generator = new Random();
-	// generate numbers between 0 and 49
-	private int numberOfContactsForUser = generator.nextInt(50);
+	// generate numbers between 0 and 50
+	private int numberOfContactsForUser = generator.nextInt(51);
 
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
