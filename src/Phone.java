@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
@@ -54,12 +55,16 @@ public class Phone {
 	AudioInputStream audioInputStream;
 
 	/***
+	 * *Updated Nov 30*
+	 * Use random.nextInt to generate a phonebook of a random number of contacts for the user
 	 * Default number of contacts a phone user has. Could instead incorporate this
 	 * into the GUI and let the person using the GUI pick from a number in a
 	 * combo-box. Removed from GUI class to avoid creating another instance variable
 	 * that should belong in the phone class.
 	 */
-	private final int numberOfContactsForUser = 5;
+	private static Random generator = new Random();
+	// generate numbers between 0 and 49
+	private int numberOfContactsForUser = generator.nextInt(50);
 
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
