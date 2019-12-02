@@ -257,4 +257,8 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 		}
 	}
 
+	public Phone getPhone() {
+		return phone;
+	}
+
 }
