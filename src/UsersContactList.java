@@ -41,7 +41,7 @@ public class UsersContactList {
 	 * @param mapKeys
 	 * @return ArrayList of shuffled keys
 	 */
-	private ArrayList<String> shuffleMapKeys(HashMap<String, ContactInfo> mapKeys) {
+	public ArrayList<String> shuffleMapKeys(HashMap<String, ContactInfo> mapKeys) {
 		ArrayList<String> keys = new ArrayList<String>(mapKeys.keySet());
 		Collections.shuffle(keys);
 		return keys;
