@@ -140,8 +140,6 @@ public class Phone {
 
 	public void closeRingtone() throws LineUnavailableException, IOException {
 
-//		clip = AudioSystem.getClip();
-//		clip.open(audioInputStream);
 		clip.close();
 
 	}

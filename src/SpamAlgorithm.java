@@ -53,7 +53,7 @@ public class SpamAlgorithm {
 	 * We don't want to match blanks that were filled with 0s either, so we include
 	 * this check in our spam algorithm.
 	 * 
-	 * @param incoming             caller information
+	 * @param incoming caller information
 	 * @param phoneUsersContactMap all contact information in users phone
 	 * @return if call is spam or not
 	 */
