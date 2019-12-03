@@ -121,9 +121,10 @@ class SpamAlgorithmTest {
 
 	/***
 	 * We add 1 specific contact from the CSV manually into a user's contact list
-	 * that has a phone number in the CSV that isn't 0, and we expect that there is
-	 * only 1 match from the incoming calls created, which would be the when that
-	 * contact calls the user.
+	 * that has a phone number in the CSV that isn't 0, and we expect that the
+	 * number of spam calls received is equal to the entire cleaned contacts maps
+	 * (no blank phone numbers) minus 1 contact. So every call except 1 should be
+	 * spam.
 	 */
 	@Test
 	void testCompareAgainstWithUserThatHasOneContactFromCSV() {
@@ -173,11 +174,11 @@ class SpamAlgorithmTest {
 		}
 		assertEquals(0, spamAlgo.getNumberOfSpamCallsReceived());
 	}
-	
+
 	/***
-	 * Tests that the algorithm correctly score and counts all calls received are spam 
-	 * when a user has no contact information related to any users from the HashMap 
-	 * of all potential contacts that could be calling. 
+	 * Tests that the algorithm correctly score and counts all calls received are
+	 * spam when a user has no contact information related to any users from the
+	 * HashMap of all potential contacts that could be calling.
 	 */
 	@Test
 	void testAllCallsReceivedAreSpam() {
@@ -199,8 +200,8 @@ class SpamAlgorithmTest {
 			spamAlgo.compareAgainst(incomingCall, userContactsList);
 		}
 		/***
-		 * Number of spam calls should be equal to number of contacts in cleaned HashMap, since every potential
-		 * caller should be considered a spam call
+		 * Number of spam calls should be equal to number of contacts in cleaned
+		 * HashMap, since every potential caller should be considered a spam call
 		 */
 		assertEquals(ph.getAllContactsInHashMapCleaned().size(), spamAlgo.getNumberOfSpamCallsReceived());
 	}
