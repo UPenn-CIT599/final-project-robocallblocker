@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
@@ -103,6 +104,27 @@ public class Phone {
 		setDisplayIncomingCallerPhoneNumber(forCaller.getPhoneNumber());
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
 		return forCaller;
+	}
+	
+	/**
+	 * Filewriter to output a textfile
+	 * of all the spam callers
+	 * which will be added to a HashMap called blockList
+	 * the blocklist is populated from the results of the SpamAlgorithm
+	 */
+	public void blockListTextFile() {
+		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
+		
+		try {
+			FileWriter fw = new FileWriter("FriendZoned.txt", true);
+			for (String name : blockList.keySet()) {
+				fw.write(name + ": " + blockList.get(name) + "\n");
+				fw.flush();
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
