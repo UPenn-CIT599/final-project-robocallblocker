@@ -130,11 +130,10 @@ class SpamAlgorithmTest {
 		Phone ph = new Phone();
 		HashMap<String, ContactInfo> usersContacts = new HashMap<String, ContactInfo>();
 		// create contact that is in CSV
-		ContactInfo solangeKolmetz = new ContactInfo("Solange Kolmetz", "303-874-5160", "0", "0", "0", "0", "0", "0",
+		ContactInfo solangeKolmetz = new ContactInfo("Solange Kolmetz", "303-874-5160", "a", "b", "c", "d", "e", "f",
 				"0", "0");
 		usersContacts.put("1", solangeKolmetz);
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
-		int counter = 0;
 		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
 			/*
 			 * simulate creating an incoming call, without explicitly calling an
@@ -142,12 +141,68 @@ class SpamAlgorithmTest {
 			 * compare anyway
 			 */
 			ContactInfo incomingCall = contact;
-			boolean isSpam = spamAlgo.compareAgainst(incomingCall, usersContacts);
-			if (!isSpam) {
-				counter++;
-			}
+			spamAlgo.compareAgainst(incomingCall, usersContacts);
 		}
-		assertEquals(1, counter);
+		/*
+		 * number of spam calls should be equivalent to 1 less than the number of
+		 * contacts in HashMap used to generate incoming calls
+		 */
+		assertEquals(ph.getAllContactsInHashMapCleaned().size() - 1, spamAlgo.getNumberOfSpamCallsReceived());
+
+	}
+
+	/***
+	 * For a user that has every single contact, the number of spam calls received
+	 * should be 0 since he has the contact info for every single user in his/her
+	 * phone, and none of the calls should get scored as "spam" by the algorithm.
+	 */
+	@Test
+	void testNumberOfSpamCallsReceivedIsZero() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> usersContacts = ph.createPhoneUserWithContacts(ph.getAllContactsMap(),
+				ph.getAllContactsMap().size());
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			spamAlgo.compareAgainst(incomingCall, usersContacts);
+			assertEquals(0, spamAlgo.getNumberOfSpamCallsReceived());
+		}
+	}
+	
+	/***
+	 * Tests that the algorithm correctly score and counts all calls received are spam 
+	 * when a user has no contact information related to any users from the HashMap 
+	 * of all potential contacts that could be calling. 
+	 */
+	@Test
+	void testAllCallsReceivedAreSpam() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> userContactsList = new HashMap<String, ContactInfo>();
+		ContactInfo contactNotInCSV = new ContactInfo("Joshua Chopra", "513-900-9000", "jchopra@seas.upenn.edu",
+				"josh.chopra", "400 Walnut Street", "UPenn", "City", "County", "PA", "40013");
+		// add contacts to HashMap, hard code a unique ID as key
+		userContactsList.put("0", contactNotInCSV);
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		// only used the cleaned contacts with no blank phone numbers to create calls
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			spamAlgo.compareAgainst(incomingCall, userContactsList);
+		}
+		/***
+		 * Number of spam calls should be equal to number of contacts in cleaned HashMap, since every potential
+		 * caller should be considered a spam call
+		 */
+		assertEquals(ph.getAllContactsInHashMapCleaned().size(), spamAlgo.getNumberOfSpamCallsReceived());
 	}
 
 }
