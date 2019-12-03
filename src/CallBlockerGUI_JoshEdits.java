@@ -117,6 +117,8 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 
 				percentageSpamCalls = 100 * (phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() / numberOfCalls);
 				DecimalFormat df = new DecimalFormat("###.##"); // format to 2 decimal places
+				// Output a textfile of all the users blocked at the end at the project level folder
+				phone.blockListTextFile();
 				// re-use user instructions label and set it to these statistics from the
 				// session
 				welcomeThenDisplayCallInfo.setVisible(false);
