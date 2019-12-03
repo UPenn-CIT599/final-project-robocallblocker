@@ -170,8 +170,8 @@ class SpamAlgorithmTest {
 			 */
 			ContactInfo incomingCall = contact;
 			spamAlgo.compareAgainst(incomingCall, usersContacts);
-			assertEquals(0, spamAlgo.getNumberOfSpamCallsReceived());
 		}
+		assertEquals(0, spamAlgo.getNumberOfSpamCallsReceived());
 	}
 	
 	/***
