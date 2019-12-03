@@ -36,7 +36,6 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 
 	private double numberOfCalls;
-	private double numberOfSpamCalls;
 	private double percentageSpamCalls;
 
 	// create panels to hold labels and buttons
@@ -117,13 +116,13 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 					e1.printStackTrace();
 				}
 
-				percentageSpamCalls = 100 * (numberOfSpamCalls / numberOfCalls);
+				percentageSpamCalls = 100 * (phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() / numberOfCalls);
 				DecimalFormat df = new DecimalFormat("###.##"); // format to 2 decimal places
 				// re-use user instructions label and set it to these statistics from the
 				// session
 				welcomeThenDisplayCallInfo.setVisible(false);
 				userInstructions.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
-						+ "<br>" + "Total spam calls received were: " + numberOfSpamCalls + "<br>"
+						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() + "<br>"
 						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
 
 				acceptButton.setVisible(false);
@@ -146,9 +145,6 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				isSpam = phone.isIncomingCallSpam();
-				if (isSpam) {
-					numberOfSpamCalls++;
-				}
 				welcomeThenDisplayCallInfo
 						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(isSpam, isIncomingCall));
 				userInstructions.setVisible(true); // show user instructions for accept/decline call
