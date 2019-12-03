@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /***
@@ -25,7 +24,7 @@ public class SpamAlgorithm {
 	 * contact
 	 * 
 	 * @param incoming
-	 * @return
+	 * @return HashMap used for scoring in compareAgainst method.
 	 */
 	private HashMap<String, Integer> mapForScoring(ContactInfo incoming) {
 		HashMap<String, Integer> scoreByAttribute = new HashMap<String, Integer>();
