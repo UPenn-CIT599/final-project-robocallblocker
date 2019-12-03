@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -62,9 +62,9 @@ public class Phone {
 	 * combo-box. Removed from GUI class to avoid creating another instance variable
 	 * that should belong in the phone class.
 	 */
-	private static Random generator = new Random();
-	// generate numbers between 0 and 50
-	private int numberOfContactsForUser = generator.nextInt(51);
+	
+	// generate numbers between 40 and 60
+	private int numberOfContactsForUser = ThreadLocalRandom.current().nextInt(40,61);
 
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
