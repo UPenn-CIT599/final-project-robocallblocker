@@ -50,6 +50,9 @@ public class SpamAlgorithm {
 	 * a score variable, since we don't want to double count things like states,
 	 * counties, cities, zip codes, etc.
 	 * 
+	 * We don't want to match blanks that were filled with 0s either, so we include
+	 * this check in our spam algorithm.
+	 * 
 	 * @param incoming             caller information
 	 * @param phoneUsersContactMap all contact information in users phone
 	 * @return if call is spam or not
@@ -57,53 +60,41 @@ public class SpamAlgorithm {
 	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> phoneUsersContactMap) {
 		HashMap<String, Integer> scoreByAttribute = mapForScoring(incoming);
 		int totalScore = 0;
-		for (String uniqueID : phoneUsersContactMap.keySet()) {
-			if (incoming.getName().equals(phoneUsersContactMap.get(uniqueID).getName())
-					&& !incoming.getName().equals("0")) {
+		for (ContactInfo contact : phoneUsersContactMap.values()) {
+			if (incoming.getName().equals(contact.getName()) && !incoming.getName().equals("0")) {
 				scoreByAttribute.replace(incoming.getName(), 1);
-
 			}
-			if (incoming.getEmailAddress().equals(phoneUsersContactMap.get(uniqueID).getEmailAddress())
+			if (incoming.getEmailAddress().equals(contact.getEmailAddress())
 					&& !incoming.getEmailAddress().equals("0")) {
 				scoreByAttribute.replace(incoming.getEmailAddress(), 1);
 			}
-			if (incoming.getAddress().equals(phoneUsersContactMap.get(uniqueID).getAddress())
-					&& !incoming.getAddress().equals("0")) {
+			if (incoming.getAddress().equals(contact.getAddress()) && !incoming.getAddress().equals("0")) {
 				scoreByAttribute.replace(incoming.getAddress(), 1);
-
 			}
-			if (incoming.getSocialMediaHandle().equals(phoneUsersContactMap.get(uniqueID).getSocialMediaHandle())
+			if (incoming.getSocialMediaHandle().equals(contact.getSocialMediaHandle())
 					&& !incoming.getSocialMediaHandle().equals("0")) {
 				scoreByAttribute.replace(incoming.getSocialMediaHandle(), 1);
-
 			}
-			if (incoming.getPhoneNumber().equals(phoneUsersContactMap.get(uniqueID).getPhoneNumber())
-					&& !incoming.getPhoneNumber().equals("0")) {
+			if (incoming.getPhoneNumber().equals(contact.getPhoneNumber()) && !incoming.getPhoneNumber().equals("0")) {
 				// 2 points if phone number is in user's phone
 				scoreByAttribute.replace(incoming.getPhoneNumber(), 2);
 			}
-			if (incoming.getCompany().equals(phoneUsersContactMap.get(uniqueID).getCompany())
-					&& !incoming.getCompany().equals("0")) {
+			if (incoming.getCompany().equals(contact.getCompany()) && !incoming.getCompany().equals("0")) {
 				scoreByAttribute.replace(incoming.getCompany(), 1);
 			}
-			if (incoming.getCity().equals(phoneUsersContactMap.get(uniqueID).getCity())
-					&& !incoming.getCity().equals("0")) {
+			if (incoming.getCity().equals(contact.getCity()) && !incoming.getCity().equals("0")) {
 				scoreByAttribute.replace(incoming.getCity(), 1);
 			}
-			if (incoming.getCounty().equals(phoneUsersContactMap.get(uniqueID).getCounty())
-					&& !incoming.getCounty().equals("0")) {
+			if (incoming.getCounty().equals(contact.getCounty()) && !incoming.getCounty().equals("0")) {
 				scoreByAttribute.replace(incoming.getCounty(), 1);
 			}
-			if (incoming.getState().equals(phoneUsersContactMap.get(uniqueID).getState())
-					&& !incoming.getState().equals("0")) {
+			if (incoming.getState().equals(contact.getState()) && !incoming.getState().equals("0")) {
 				scoreByAttribute.replace(incoming.getState(), 1);
 			}
-			if (incoming.getZipCode().equals(phoneUsersContactMap.get(uniqueID).getZipCode())
-					&& !incoming.getZipCode().equals("0")) {
+			if (incoming.getZipCode().equals(contact.getZipCode()) && !incoming.getZipCode().equals("0")) {
 				scoreByAttribute.replace(incoming.getZipCode(), 1);
 			}
 		}
-
 		// add up individual attribute scores to get total score for caller
 		for (Integer attributeScore : scoreByAttribute.values()) {
 			totalScore += attributeScore;
@@ -114,7 +105,6 @@ public class SpamAlgorithm {
 			isSpam = true;
 			numberOfSpamCallsReceived++;
 		}
-
 		// print this out regardless of the conditional, for testing purposes.
 		System.out.println("The number of contact info matches is " + totalScore + "\n");
 		return isSpam;
