@@ -14,6 +14,7 @@ class UsersContactListTest {
 	 * they should be shuffled; this way the initial sequence of keys are not repeated
 	 * This helps us create a random HashMap for the UsersContactList class
 	 * Initial key set should not match shuffled keyset
+	 * arraylist equals compares each corresponding element between 2 arraylists
 	 */
 	@Test
 	void testShuffleMapKeys() {
@@ -22,6 +23,8 @@ class UsersContactListTest {
 		HashMap<String, ContactInfo> map = reader.getAllContactsInCSV();
 		// keys from above map
 		ArrayList<String> keys1 = new ArrayList<>(map.keySet());
+		ArrayList<String> keys2 = keys1;
+		
 		
 		UsersContactList list = new UsersContactList(map, 10);
 		// shuffled keys; these should not be in same sequence as initial keys1 arraylist
