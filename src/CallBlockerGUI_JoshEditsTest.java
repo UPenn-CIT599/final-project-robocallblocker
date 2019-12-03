@@ -46,7 +46,8 @@ class CallBlockerGUI_JoshEditsTest {
 		HashMap<String, ContactInfo> usersContacts2 = null;
 		assertNull(usersContacts1);
 		assertNull(usersContacts2);
-
+		assertEquals(usersContacts1, usersContacts2); 
+		
 		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
 		Phone phone = test.getPhone();
 		usersContacts1 = phone.getUsersContacts();
@@ -70,6 +71,7 @@ class CallBlockerGUI_JoshEditsTest {
 		ContactInfo testContactInfo2 = null;
 		assertNull(testContactInfo1);
 		assertNull(testContactInfo2);
+		assertEquals(testContactInfo1, testContactInfo2); 
 		
 		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
 		Phone phone = test.getPhone();

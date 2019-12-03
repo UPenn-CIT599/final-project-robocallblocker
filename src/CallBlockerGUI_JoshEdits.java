@@ -38,12 +38,12 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	private double numberOfCalls;
 	private double percentageSpamCalls;
 
-	// create panels to hold labels and buttons
+	// Create panels to hold labels and buttons
 	private JPanel backgroundPanel = new JPanel(); // overall outer panel of program
 	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
 	private JPanel panelForIncomingCall = new JPanel(); // details for calls
 
-	// labels displayed in GUI
+	// Labels displayed in GUI
 	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + "<br>"
 			+ "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
@@ -51,8 +51,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
 
-	// used for displaying dynamic info on labels, conditionally if call is spam or
-	// not
+	// Used for displaying dynamic info on labels, conditionally if call is spam or not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
