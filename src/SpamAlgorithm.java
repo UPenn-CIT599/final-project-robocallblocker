@@ -17,6 +17,7 @@ public class SpamAlgorithm {
 
 	private boolean isSpam;
 	private int numberOfSpamCallsReceived;
+	private HashMap<String, String> blockList = new HashMap<>();
 
 	/***
 	 * Helper method used to create HashMap used for "scoring" an incoming call
@@ -104,6 +105,7 @@ public class SpamAlgorithm {
 		} else {
 			isSpam = true;
 			numberOfSpamCallsReceived++;
+			blockList.put(incoming.getName(), incoming.getPhoneNumber());
 		}
 		// print this out regardless of the conditional, for testing purposes.
 		System.out.println("The number of contact info matches is " + totalScore + "\n");
@@ -122,6 +124,10 @@ public class SpamAlgorithm {
 
 	public int getNumberOfSpamCallsReceived() {
 		return numberOfSpamCallsReceived;
+	}
+	
+	public HashMap<String, String> getBlockList() {
+		return blockList;
 	}
 
 }
