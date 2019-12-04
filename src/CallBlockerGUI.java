@@ -186,6 +186,8 @@ public class CallBlockerGUI implements Runnable {
 		frame.add(backgroundPanel, BorderLayout.CENTER);
 		backgroundPanel.add(userInstructions);
 		backgroundPanel.add(startButton);
+		backgroundPanel.add(blockButton);
+		backgroundPanel.add(blockListSpammers);
 
 		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
 
