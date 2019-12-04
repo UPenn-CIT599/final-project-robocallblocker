@@ -25,7 +25,8 @@ public class CallBlockerGUI implements Runnable {
 	private ImageIcon accept = new ImageIcon("acceptCall.gif");
 	private ImageIcon decline = new ImageIcon("declineCall.gif");
 	private ImageIcon start = new ImageIcon("startButton.gif"); // TODO figure out how to incorporate
-
+	private ImageIcon block = new ImageIcon("blockButton.gif");
+	
 	// Frame and buttons used in GUI
 	private JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
 	private JButton acceptButton = new JButton("Accept",
@@ -34,7 +35,10 @@ public class CallBlockerGUI implements Runnable {
 			new ImageIcon((decline.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton startButton = new JButton("Start",
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
+	private JButton blockButton = new JButton("Block",
+			new ImageIcon((block.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH))); /** <-------here */
 
+	
 	private double numberOfCalls;
 	private double percentageSpamCalls;
 
@@ -50,7 +54,10 @@ public class CallBlockerGUI implements Runnable {
 
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
-
+	
+	private JLabel blockListSpammers = new JLabel("<html>" + "Please click to see the spam callers"
+			+ "<br>" + "that have been added to your blocked list" + "<br>" + "</html>");
+	
 	// Used for displaying dynamic info on labels, conditionally if call is spam or not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
@@ -70,12 +77,14 @@ public class CallBlockerGUI implements Runnable {
 		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
-
+		formatLabel(blockListSpammers, false); 
+		
 		// format buttons
 		formatButton(declineButton, false); // initially don't set visible
 		formatButton(acceptButton, false); // initially don't set visible
 		formatButton(startButton, true); // set visible from the start
-
+		formatButton(blockButton, false);
+		
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
