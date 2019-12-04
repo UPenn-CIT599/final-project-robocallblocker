@@ -131,20 +131,23 @@ public class Phone {
 			System.out.println("Unable to produce blocklist");
 		}
 	}
-	
-	/**
-	 * method to print out blockedCallers in the GUI
+
+	/***
+	 * Method to print out blockedCallers in the GUI
+	 * 
+	 * @return list of block callers as a string, each caller w/ phone number on a
+	 *         line
 	 */
 	public String printBlockedCallers() {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
-		
+
 		StringBuilder sb = new StringBuilder();
 		for (String name : blockList.keySet()) {
 			if (blockList.isEmpty()) {
 				sb.append("No robo-callers today!");
 			} else {
-			sb.append(name + ": " + blockList.get(name));
-			sb.append(System.getProperty("line.separator"));
+				sb.append(name + ": " + blockList.get(name) + '\n');
+				sb.append(System.getProperty("line.separator"));
 			}
 		}
 		return sb.toString();
