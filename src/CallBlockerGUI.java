@@ -83,8 +83,44 @@ public class CallBlockerGUI implements Runnable {
 		formatButton(declineButton, false); // initially don't set visible
 		formatButton(acceptButton, false); // initially don't set visible
 		formatButton(startButton, true); // set visible from the start
-		formatButton(blockButton, false);
-		
+		formatButton(blockButton, false); // initially don't set visible
+		buildThenAddActionListenersForButtons();
+		// create ArrayList of panels to pass into method that sets panel backgrounds to black 
+		ArrayList<JPanel> allPanels = new ArrayList<>(
+				Arrays.asList(panelForIncomingCall, backgroundPanel, acceptAndDeclineBottomPanel));
+		setAllPanelsBackgroundColorToBlack(allPanels);
+		buildAndDisplayFrame();
+	}
+	
+	
+	/***
+	 * This method builds out our entire frame; it adds all necesseray panels 
+	 * and labels/buttons to the panels in their respective areas, and sets 
+	 * the dimensions and attributes of the frame. 
+	 */
+	private void buildAndDisplayFrame() {
+		frame.add(backgroundPanel, BorderLayout.CENTER);
+		backgroundPanel.add(userInstructions);
+		backgroundPanel.add(startButton);
+		backgroundPanel.add(blockButton);
+		backgroundPanel.add(blockListSpammers);
+
+		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
+
+		frame.add(panelForIncomingCall, BorderLayout.NORTH);
+
+		acceptAndDeclineBottomPanel.add(acceptButton);
+		acceptAndDeclineBottomPanel.add(declineButton);
+		frame.add(acceptAndDeclineBottomPanel, BorderLayout.SOUTH);
+
+		frame.setSize(650, 700); // sizes frame to whatever we want
+		frame.setLocationRelativeTo(null); // puts at center of screen
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	private void buildThenAddActionListenersForButtons() {
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
@@ -92,7 +128,6 @@ public class CallBlockerGUI implements Runnable {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
@@ -115,13 +150,11 @@ public class CallBlockerGUI implements Runnable {
 		declineButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
 					System.out.println("Ringtone failed to stop");
 				}
-
 				percentageSpamCalls = 100 * (phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() / numberOfCalls);
 				DecimalFormat df = new DecimalFormat("###.##"); // format to 2 decimal places
 				// Output a textfile of all the users blocked at the end at the project level folder
@@ -132,12 +165,10 @@ public class CallBlockerGUI implements Runnable {
 				userInstructions.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
 						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() + "<br>"
 						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
-
 				blockListSpammers.setVisible(true);
 				blockButton.setVisible(true);
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
-
 			}
 		});
 
@@ -168,41 +199,16 @@ public class CallBlockerGUI implements Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				blockListSpammers.setText("<html>" + "These spam callers have been blocked: "
-						+ "<br>" + phone.printBlockedCallers()
+						+ "<br>" + "<br>" + phone.printBlockedCallers().replaceAll("\n", "<br/>") + "</html>"
 						+ "<br>" + "A list of them can also be found as a textfile called \"BlockedList.txt\" in the project folder"
 						+ "</html>");
-				blockButton.setVisible(true);
+				blockButton.setVisible(false);
 				blockListSpammers.setVisible(true);
 				userInstructions.setVisible(false);
 			}
 			
 		});
 
-		// create ArrayList of panels to pass into method that sets panel backgrounds to black 
-		ArrayList<JPanel> allPanels = new ArrayList<>(
-				Arrays.asList(panelForIncomingCall, backgroundPanel, acceptAndDeclineBottomPanel));
-		setAllPanelsBackgroundColorToBlack(allPanels);
-
-		frame.add(backgroundPanel, BorderLayout.CENTER);
-		backgroundPanel.add(userInstructions);
-		backgroundPanel.add(startButton);
-		backgroundPanel.add(blockButton);
-		backgroundPanel.add(blockListSpammers);
-
-		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
-
-		frame.add(panelForIncomingCall, BorderLayout.NORTH);
-
-		acceptAndDeclineBottomPanel.add(acceptButton);
-		acceptAndDeclineBottomPanel.add(declineButton);
-		frame.add(acceptAndDeclineBottomPanel, BorderLayout.SOUTH);
-
-		// required pieces of code
-		frame.setSize(650, 700); // sizes frame to whatever we want
-		frame.setLocationRelativeTo(null); // puts at center of screen
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.pack();
-		frame.setVisible(true);
 	}
 
 	/***
@@ -313,9 +319,6 @@ public class CallBlockerGUI implements Runnable {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
-	
-	
-	
+
 
 }
