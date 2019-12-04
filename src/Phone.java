@@ -96,8 +96,11 @@ public class Phone {
 	 */
 	public ContactInfo createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
 		/*
-		 * Clean the contact list with all contacts from the CSV reader, removing any contact with blank phone numbers
-		 * before creating an incoming call
+		 * Clean the contact list with all contacts from the CSV reader, removing any
+		 * contact with blank phone numbers before creating an incoming call. We need
+		 * this map to be a new object instead of a reference since if we edit the
+		 * underlying allContactsMap, that map will be cleaned too and we don't want
+		 * that.
 		 */
 		allContactsInHashMapCleaned = allContactsInCSV
 				.removeBlankPhoneNumbersFromMapUsedToCreateCalls(allContactsInCSV.getAllContactsInCSV());
