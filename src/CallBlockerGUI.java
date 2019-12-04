@@ -19,7 +19,7 @@ import javax.swing.*;
  * @author ThomasTee
  *
  */
-public class CallBlockerGUI_JoshEdits implements Runnable {
+public class CallBlockerGUI implements Runnable {
 
 	// Images used in GUI
 	private ImageIcon accept = new ImageIcon("acceptCall.gif");
@@ -62,7 +62,7 @@ public class CallBlockerGUI_JoshEdits implements Runnable {
 	private static Phone phone = new Phone();
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new CallBlockerGUI_JoshEdits());
+		SwingUtilities.invokeLater(new CallBlockerGUI());
 	}
 
 	@Override

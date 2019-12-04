@@ -8,7 +8,7 @@ import javax.swing.JButton;
 
 import org.junit.jupiter.api.Test;
 
-class CallBlockerGUI_JoshEditsTest {
+class CallBlockerGUITest {
 
 
 	/*
@@ -23,7 +23,7 @@ class CallBlockerGUI_JoshEditsTest {
 		assertNull(allContacts1);
 		assertNull(allContacts2);
 
-		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
+		CallBlockerGUI test = new  CallBlockerGUI(); 
 		Phone phone = test.getPhone();
 		allContacts1 = phone.getAllContactsMap();
 		test.run();
@@ -48,7 +48,7 @@ class CallBlockerGUI_JoshEditsTest {
 		assertNull(usersContacts2);
 		assertEquals(usersContacts1, usersContacts2); 
 		
-		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
+		CallBlockerGUI test = new  CallBlockerGUI(); 
 		Phone phone = test.getPhone();
 		usersContacts1 = phone.getUsersContacts();
 		test.run();
@@ -73,7 +73,7 @@ class CallBlockerGUI_JoshEditsTest {
 		assertNull(testContactInfo2);
 		assertEquals(testContactInfo1, testContactInfo2); 
 		
-		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
+		CallBlockerGUI test = new  CallBlockerGUI(); 
 		Phone phone = test.getPhone();
 		testContactInfo1 = phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 		test.run();
@@ -95,7 +95,7 @@ class CallBlockerGUI_JoshEditsTest {
 		Boolean spamTest = null;
 		assertNull(spamTest);
 		
-		CallBlockerGUI_JoshEdits test = new  CallBlockerGUI_JoshEdits(); 
+		CallBlockerGUI test = new  CallBlockerGUI(); 
 		Phone phone = test.getPhone();
 		spamTest = phone.getSpamAlgoForPhone().isSpam();
 

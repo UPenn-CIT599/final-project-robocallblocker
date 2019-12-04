@@ -12,7 +12,7 @@ import javax.swing.Icon;
  * @author Joshua Chopra
  *
  */
-public class CallBlockerGUI implements Runnable {
+public class NotUsingCallBlockerGUIOld implements Runnable {
 
 	Icon accept = new ImageIcon("accept_button.PNG");
 	Icon decline = new ImageIcon("decline_button.PNG");
@@ -33,7 +33,7 @@ public class CallBlockerGUI implements Runnable {
 
 	public static void main(String[] args) {
 		usePhone();
-		SwingUtilities.invokeLater(new CallBlockerGUI());
+		SwingUtilities.invokeLater(new NotUsingCallBlockerGUIOld());
 	}
 
 
