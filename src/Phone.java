@@ -40,8 +40,7 @@ public class Phone {
 	 * otherwise on GUI it will show that "blank" or 0 is calling, which is clearly
 	 * nonsense.
 	 */
-	private HashMap<String, ContactInfo> allContactsInHashMapCleaned = allContactsInCSV
-			.removeBlankPhoneNumbersFromMapUsedToCreateCalls(allContactsMap);
+	private HashMap<String, ContactInfo> allContactsInHashMapCleaned = new HashMap<String, ContactInfo>();
 
 	// the phone has a built in algorithm that checks for spam calls
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
@@ -49,23 +48,21 @@ public class Phone {
 	private String displayIncomingCallerName;
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
-	private int numberOfCallsRecieved;
 
 	Clip clip;
 	String soundName = "ringtoneFile.wav";
 	AudioInputStream audioInputStream;
 
 	/***
-	 * *Updated Nov 30*
-	 * Use random.nextInt to generate a phonebook of a random number of contacts for the user
-	 * Default number of contacts a phone user has. Could instead incorporate this
-	 * into the GUI and let the person using the GUI pick from a number in a
-	 * combo-box. Removed from GUI class to avoid creating another instance variable
-	 * that should belong in the phone class.
+	 * *Updated Nov 30* Use random.nextInt to generate a phonebook of a random
+	 * number of contacts for the user Default number of contacts a phone user has.
+	 * Could instead incorporate this into the GUI and let the person using the GUI
+	 * pick from a number in a combo-box. Removed from GUI class to avoid creating
+	 * another instance variable that should belong in the phone class.
 	 */
-	
+
 	// generate numbers between 40 and 60
-	private int numberOfContactsForUser = ThreadLocalRandom.current().nextInt(40,61);
+	private int numberOfContactsForUser = ThreadLocalRandom.current().nextInt(40, 61);
 
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
@@ -98,6 +95,12 @@ public class Phone {
 	 *         displays proper info)
 	 */
 	public ContactInfo createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
+		/*
+		 * Clean the contact list with all contacts from the CSV reader, removing any contact with blank phone numbers
+		 * before creating an incoming call
+		 */
+		allContactsInHashMapCleaned = allContactsInCSV
+				.removeBlankPhoneNumbersFromMapUsedToCreateCalls(allContactsInCSV.getAllContactsInCSV());
 		IncomingCall call = new IncomingCall(allContactsInHashMapCleaned);
 		ContactInfo forCaller = call.getIncomingCallerInfo();
 		setDisplayIncomingCallerName(forCaller.getName());
@@ -105,16 +108,15 @@ public class Phone {
 		setIncomingCallSpamOrNotSpam(getSpamAlgoForPhone().compareAgainst(forCaller, usersContactList));
 		return forCaller;
 	}
-	
+
 	/**
-	 * Filewriter to output a textfile
-	 * of all the spam callers
-	 * which will be added to a HashMap called blockList
-	 * the blocklist is populated from the results of the SpamAlgorithm
+	 * Filewriter to output a textfile of all the spam callers which will be added
+	 * to a HashMap called blockList the blocklist is populated from the results of
+	 * the SpamAlgorithm
 	 */
 	public void blockListTextFile() {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
-		
+
 		try {
 			FileWriter fw = new FileWriter("FriendZoned.txt", true);
 			for (String name : blockList.keySet()) {
