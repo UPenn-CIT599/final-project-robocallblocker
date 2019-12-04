@@ -3,8 +3,11 @@ import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
 import org.junit.jupiter.api.Test;
 
@@ -130,11 +133,12 @@ class CallBlockerGUITest {
 //					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) && count < 100; count++) {
 //				new Robot().mouseMove(xCoordinate, yCoordinate);
 //			}
-			// while loop also works to ensure we keep moving mouse until we're at the right coordinates
+			// while loop also works to ensure we keep moving mouse until we're at the right
+			// coordinates
 			while (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
 					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) {
-						new Robot().mouseMove(xCoordinate, yCoordinate);
-					}
+				new Robot().mouseMove(xCoordinate, yCoordinate);
+			}
 			// press start button
 			bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 			TimeUnit.MILLISECONDS.sleep(100); // to show button being pressed
@@ -151,6 +155,12 @@ class CallBlockerGUITest {
 			e.printStackTrace();
 		}
 		gui.getFrame().dispose(); // close GUI
+		// end ringtone since we're not hitting accept
+		try {
+			gui.getPhone().closeRingtone();
+		} catch (LineUnavailableException | IOException e1) {
+			System.out.println("Ringtone failed to stop");
+		}
 	}
 
 	/***
