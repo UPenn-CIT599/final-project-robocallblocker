@@ -54,7 +54,10 @@ public class CallBlockerGUI implements Runnable {
 
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
-
+	
+	private JLabel blockListSpammers = new JLabel("<html>" + "Please click to see the spam callers"
+			+ "<br>" + "that have been added to your blocked list" + "<br>" + "</html>");
+	
 	// Used for displaying dynamic info on labels, conditionally if call is spam or not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
