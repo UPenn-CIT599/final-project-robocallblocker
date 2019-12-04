@@ -163,6 +163,20 @@ public class CallBlockerGUI implements Runnable {
 				numberOfCalls++;
 			}
 		});
+		
+		blockButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				blockListSpammers.setText("<html>" + "These spam callers have been blocked: "
+						+ "<br>" + phone.printBlockedCallers()
+						+ "<br>" + "A list of them can also be found as a textfile called \"BlockedList.txt\" in the project folder"
+						+ "</html>");
+				blockButton.setVisible(true);
+				blockListSpammers.setVisible(true);
+				userInstructions.setVisible(false);
+			}
+			
+		});
 
 		// create ArrayList of panels to pass into method that sets panel backgrounds to black 
 		ArrayList<JPanel> allPanels = new ArrayList<>(
