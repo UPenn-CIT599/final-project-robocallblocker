@@ -47,7 +47,16 @@ public class SpamAlgorithm {
 	 * This method is a helper method for compareAgainst that scores an incomingCall
 	 * based on our specified attributes of contactInfo for a caller, and returns a
 	 * HashMap with a score for each attribute that is passed to our compareAgainst
-	 * method.
+	 * method. 
+	 * 
+	 * We check the contactInfo assigned to the incoming call, which is determined through each
+	 * step of the algorithm. If we find a match we replace the value associated
+	 * with that attribute with 1 UNLESS it's the phone number, then we replace with
+	 * 2. Doing this instead of incrementing a score variable, since we don't want
+	 * to double count things like states, counties, cities, zip codes, etc.
+	 * 
+	 * We don't want to match blanks that were filled with 0s either, so we include
+	 * this check in our spam algorithm.
 	 * 
 	 * @param incoming             caller contactInfo object
 	 * @param phoneUsersContactMap phone user's contact map created when a phone
@@ -99,14 +108,8 @@ public class SpamAlgorithm {
 	/***
 	 * This method makes use of the mapForScoring and scoreIncomingCallByAttribute
 	 * and returns whether an incoming call is likely spam or not as a boolean,
-	 * based on the score assigned to the call, which is determined through each
-	 * step of the algorithm. If we find a match we replace the value associated
-	 * with that attribute with 1 UNLESS it's the phone number, then we replace with
-	 * 2. Doing this instead of incrementing a score variable, since we don't want
-	 * to double count things like states, counties, cities, zip codes, etc.
-	 * 
-	 * We don't want to match blanks that were filled with 0s either, so we include
-	 * this check in our spam algorithm.
+	 * based on the total score of all attributes, where we get each score of each attribute
+	 * from our scoreIncomingCallByAttribute method. 
 	 * 
 	 * @param incoming             caller information
 	 * @param phoneUsersContactMap all contact information in users phone
