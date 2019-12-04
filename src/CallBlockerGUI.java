@@ -255,4 +255,40 @@ public class CallBlockerGUI implements Runnable {
 		return phone;
 	}
 
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+
+	public JButton getAcceptButton() {
+		return acceptButton;
+	}
+
+	public void setAcceptButton(JButton acceptButton) {
+		this.acceptButton = acceptButton;
+	}
+
+	public JButton getDeclineButton() {
+		return declineButton;
+	}
+
+	public void setDeclineButton(JButton declineButton) {
+		this.declineButton = declineButton;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	
+	
+	
+	
+
 }
