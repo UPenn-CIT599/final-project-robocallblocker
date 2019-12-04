@@ -133,6 +133,8 @@ public class CallBlockerGUI implements Runnable {
 						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() + "<br>"
 						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
 
+				blockListSpammers.setVisible(true);
+				blockButton.setVisible(true);
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
 
