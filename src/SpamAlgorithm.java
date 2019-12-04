@@ -41,26 +41,23 @@ public class SpamAlgorithm {
 		scoreByAttribute.put(incoming.getZipCode(), 0);
 		return scoreByAttribute;
 	}
+	
 
 	/***
-	 * This method makes use of the mapForScoring and returns whether an incoming
-	 * call is likely spam or not as a boolean, based on the score assigned to the
-	 * call, which is determined through each step of the algorithm. If we find a
-	 * match we replace the value associated with that attribute with 1 UNLESS it's
-	 * the phone number, then we replace with 2. Doing this instead of incrementing
-	 * a score variable, since we don't want to double count things like states,
-	 * counties, cities, zip codes, etc.
+	 * This method is a helper method for compareAgainst that scores an incomingCall
+	 * based on our specified attributes of contactInfo for a caller, and returns a
+	 * HashMap with a score for each attribute that is passed to our compareAgainst
+	 * method.
 	 * 
-	 * We don't want to match blanks that were filled with 0s either, so we include
-	 * this check in our spam algorithm.
-	 * 
-	 * @param incoming caller information
-	 * @param phoneUsersContactMap all contact information in users phone
-	 * @return if call is spam or not
+	 * @param incoming             caller contactInfo object
+	 * @param phoneUsersContactMap phone user's contact map created when a phone
+	 *                             user is assigned
+	 * @return HashMap that has score for each attribute of a contactInfo object
 	 */
-	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> phoneUsersContactMap) {
+	private HashMap<String, Integer> scoreIncomingCallByAttributes(ContactInfo incoming,
+			HashMap<String, ContactInfo> phoneUsersContactMap) {
+
 		HashMap<String, Integer> scoreByAttribute = mapForScoring(incoming);
-		int totalScore = 0;
 		for (ContactInfo contact : phoneUsersContactMap.values()) {
 			if (incoming.getName().equals(contact.getName()) && !incoming.getName().equals("0")) {
 				scoreByAttribute.replace(incoming.getName(), 1);
@@ -96,8 +93,30 @@ public class SpamAlgorithm {
 				scoreByAttribute.replace(incoming.getZipCode(), 1);
 			}
 		}
+		return scoreByAttribute;
+	}
+
+	/***
+	 * This method makes use of the mapForScoring and scoreIncomingCallByAttribute
+	 * and returns whether an incoming call is likely spam or not as a boolean,
+	 * based on the score assigned to the call, which is determined through each
+	 * step of the algorithm. If we find a match we replace the value associated
+	 * with that attribute with 1 UNLESS it's the phone number, then we replace with
+	 * 2. Doing this instead of incrementing a score variable, since we don't want
+	 * to double count things like states, counties, cities, zip codes, etc.
+	 * 
+	 * We don't want to match blanks that were filled with 0s either, so we include
+	 * this check in our spam algorithm.
+	 * 
+	 * @param incoming             caller information
+	 * @param phoneUsersContactMap all contact information in users phone
+	 * @return if call is spam or not
+	 */
+	public boolean compareAgainst(ContactInfo incoming, HashMap<String, ContactInfo> phoneUsersContactMap) {
+		HashMap<String, Integer> scoresForEachAttribute = scoreIncomingCallByAttributes(incoming, phoneUsersContactMap);
+		int totalScore = 0;
 		// add up individual attribute scores to get total score for caller
-		for (Integer attributeScore : scoreByAttribute.values()) {
+		for (Integer attributeScore : scoresForEachAttribute.values()) {
 			totalScore += attributeScore;
 		}
 		if (totalScore >= 3) {
@@ -122,10 +141,19 @@ public class SpamAlgorithm {
 		return isSpam;
 	}
 
+	/***
+	 * Returns number of calls the spam algorithm marked as spam 
+	 * @return number of spam calls 
+	 */
 	public int getNumberOfSpamCallsReceived() {
 		return numberOfSpamCallsReceived;
 	}
-	
+
+	/***
+	 * Returns hashmap of calls marked as spam, with the incoming caller's name 
+	 * as the key, and phone number as value 
+	 * @return map of blocked callers due to being marked as spam 
+	 */
 	public HashMap<String, String> getBlockList() {
 		return blockList;
 	}
