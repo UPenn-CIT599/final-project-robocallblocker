@@ -206,4 +206,31 @@ class SpamAlgorithmTest {
 		assertEquals(ph.getAllContactsInHashMapCleaned().size(), spamAlgo.getNumberOfSpamCallsReceived());
 	}
 
+	/***
+	 * We create a "blockList" containing all the calls marked as spam by our
+	 * algorithm and we want to ensure that list contains the number of calls we
+	 * considered spam. This test ensures that it does.
+	 */
+	@Test
+	void testBlockListSize() {
+		Phone ph = new Phone();
+		HashMap<String, ContactInfo> usersContactList = ph.createPhoneUserWithContacts(ph.getAllContactsMap(),
+				ph.getNumberOfContactsForUser());
+		// add contacts to HashMap, hard code a unique ID as key
+		SpamAlgorithm spamAlgo = new SpamAlgorithm();
+		// only used the cleaned contacts with no blank phone numbers to create calls
+		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+			/*
+			 * simulate creating an incoming call, without explicitly calling an
+			 * incomingCall object since we just grab contactInfo from the incomingCall to
+			 * compare anyway
+			 */
+			ContactInfo incomingCall = contact;
+			spamAlgo.compareAgainst(incomingCall, usersContactList);
+		}
+		// Blocklist size (number of callers in list) should equal number of calls
+		// marked as spam
+		assertEquals(spamAlgo.getBlockList().size(), spamAlgo.getNumberOfSpamCallsReceived());
+	}
+
 }
