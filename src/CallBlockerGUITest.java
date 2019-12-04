@@ -109,7 +109,7 @@ class CallBlockerGUITest {
 			TimeUnit.SECONDS.sleep(1); // give the GUI a second to show up so the start button displays
 			// get point on screen for start button
 			java.awt.Point startButtonScreenLocation = gui.getStartButton().getLocationOnScreen();
-			// point is as a float, convert to integers for robot.mouseMove() method
+			// point is as a float, cast to integers for robot.mouseMove() method
 			int xCoordinate = (int) startButtonScreenLocation.getX();
 			int yCoordinate = (int) startButtonScreenLocation.getY();
 			Robot bot = new Robot();
@@ -126,10 +126,15 @@ class CallBlockerGUITest {
 			 * We loop up to 100 times to ensure that the mouse gets to the correct
 			 * coordinates before clicking.
 			 */
-			for (int count = 0; (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
-					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) && count < 100; count++) {
-				new Robot().mouseMove(xCoordinate, yCoordinate);
-			}
+//			for (int count = 0; (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
+//					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) && count < 100; count++) {
+//				new Robot().mouseMove(xCoordinate, yCoordinate);
+//			}
+			// while loop also works to ensure we keep moving mouse until we're at the right coordinates
+			while (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
+					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) {
+						new Robot().mouseMove(xCoordinate, yCoordinate);
+					}
 			// press start button
 			bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 			TimeUnit.MILLISECONDS.sleep(100); // to show button being pressed
