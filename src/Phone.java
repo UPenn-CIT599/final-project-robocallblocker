@@ -121,7 +121,7 @@ public class Phone {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
 
 		try {
-			FileWriter fw = new FileWriter("FriendZoned.txt", true);
+			FileWriter fw = new FileWriter("BlockList.txt", true);
 			for (String name : blockList.keySet()) {
 				fw.write(name + ": " + blockList.get(name) + "\n");
 				fw.flush();
