@@ -77,12 +77,14 @@ public class CallBlockerGUI implements Runnable {
 		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
-
+		formatLabel(blockListSpammers, false); 
+		
 		// format buttons
 		formatButton(declineButton, false); // initially don't set visible
 		formatButton(acceptButton, false); // initially don't set visible
 		formatButton(startButton, true); // set visible from the start
-
+		formatButton(blockButton, false);
+		
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
