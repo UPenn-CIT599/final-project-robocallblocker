@@ -87,8 +87,7 @@ public class CallBlockerGUI implements Runnable {
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Ringtone failed to stop");
 				}
 				// details of incoming call are based on if the call is spam or not
 				isIncomingCall = false; // not a new call, just picking up the phone
@@ -111,8 +110,7 @@ public class CallBlockerGUI implements Runnable {
 				try {
 					phone.closeRingtone();
 				} catch (LineUnavailableException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Ringtone failed to stop");
 				}
 
 				percentageSpamCalls = 100 * (phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() / numberOfCalls);
@@ -140,8 +138,7 @@ public class CallBlockerGUI implements Runnable {
 				try {
 					phone.startRingtone();
 				} catch (LineUnavailableException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Ringtone failed to start");
 				}
 
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());

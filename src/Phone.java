@@ -123,7 +123,7 @@ public class Phone {
 			}
 			fw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Unable to produce blocklist");
 		}
 	}
 
@@ -140,10 +140,6 @@ public class Phone {
 			try {
 
 				clip = AudioSystem.getClip();
-//				clip.open(audioInputStream);
-//				clip.start();
-				// clip.close();
-				// clip.loop(3); // TODO terminate
 			} catch (LineUnavailableException e1) {
 				System.out.println("Didn't get clip!");
 			}
@@ -161,9 +157,7 @@ public class Phone {
 	}
 
 	public void closeRingtone() throws LineUnavailableException, IOException {
-
 		clip.close();
-
 	}
 
 	public ContactInfoReader getAllContacts() {
@@ -221,21 +215,4 @@ public class Phone {
 	public int getNumberOfContactsForUser() {
 		return numberOfContactsForUser;
 	}
-
-
-//	public static void main(String[] args) {
-//		Phone ph = new Phone();
-////		Scanner in = new Scanner(System.in);
-//		HashMap<String, ContactInfo> usersContacts1 = ph.createPhoneUserWithContacts(ph.allContactsInHashMap, ph.numberOfContactsForUser);
-//		System.out.println(usersContacts1);
-////		String continueGoing = in.next();
-//		int counter = 0;
-//		while(counter < 20) {
-//			ph.createIncomingCallDisplayOnPhoneScreenGUI(usersContacts1);
-//			counter++;
-////			continueGoing = in.next();
-//		}
-//		
-//	}
-
 }
