@@ -25,7 +25,8 @@ public class CallBlockerGUI implements Runnable {
 	private ImageIcon accept = new ImageIcon("acceptCall.gif");
 	private ImageIcon decline = new ImageIcon("declineCall.gif");
 	private ImageIcon start = new ImageIcon("startButton.gif"); // TODO figure out how to incorporate
-
+	private ImageIcon block = new ImageIcon("blockButton.gif");
+	
 	// Frame and buttons used in GUI
 	private JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
 	private JButton acceptButton = new JButton("Accept",
@@ -34,7 +35,10 @@ public class CallBlockerGUI implements Runnable {
 			new ImageIcon((decline.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton startButton = new JButton("Start",
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
+	private JButton blockButton = new JButton("Block",
+			new ImageIcon((block.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH))); /** <-------here */
 
+	
 	private double numberOfCalls;
 	private double percentageSpamCalls;
 
