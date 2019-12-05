@@ -120,7 +120,7 @@ public class ContactInfo {
 	 * Otherwise, it would print the memory location
 	 */
 	public String toString() {
-		return name + " " + phoneNumber + " " + emailAddress + " " + socialMediaHandle + " " + address + company + " "
+		return name + " " + phoneNumber + " " + emailAddress + " " + socialMediaHandle + " " + address + " " + company + " "
 				+ city + " " + county + " " + state + " " + zipCode;
 	}
 
