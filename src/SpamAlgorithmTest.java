@@ -135,7 +135,7 @@ class SpamAlgorithmTest {
 				"0", "0");
 		usersContacts.put("1", solangeKolmetz);
 		SpamAlgorithm spamAlgo = new SpamAlgorithm();
-		for (ContactInfo contact : ph.getAllContactsInHashMapCleaned().values()) {
+		for (ContactInfo contact : ph.getAllContactsMap().values()) {
 			/*
 			 * simulate creating an incoming call, without explicitly calling an
 			 * incomingCall object since we just grab contactInfo from the incomingCall to
@@ -148,7 +148,7 @@ class SpamAlgorithmTest {
 		 * number of spam calls should be equivalent to 1 less than the number of
 		 * contacts in HashMap used to generate incoming calls
 		 */
-		assertEquals(ph.getAllContactsInHashMapCleaned().size() - 1, spamAlgo.getNumberOfSpamCallsReceived());
+		assertEquals(ph.getAllContactsMap().size() - 1, spamAlgo.getNumberOfSpamCallsReceived());
 
 	}
 
