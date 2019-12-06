@@ -164,9 +164,10 @@ public class CallBlockerGUI implements Runnable {
 				// re-use user instructions label and set it to these statistics from the
 				// session
 				welcomeThenDisplayCallInfo.setVisible(false);
-				declineDisplay.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
-						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() + "<br>"
-						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "<br>" + "<br>" + "Please press block to see the spam callers"
+				declineDisplay.setText("<html>" + "<br>" 
+						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() 
+						+ "<br>" + "Total number of calls were: " + (int) numberOfCalls
+						+ "<br>" + "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "<br>" + "<br>" + "Please press block to see the spam callers"
 						+ "<br>" + "that have been added to your blocked list." + "<br>" + "</html>");
 				declineDisplay.setVisible(true);
 				userInstructions.setVisible(false);
