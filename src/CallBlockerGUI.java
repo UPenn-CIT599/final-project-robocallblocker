@@ -44,8 +44,9 @@ public class CallBlockerGUI implements Runnable {
 
 	// Create panels to hold labels and buttons
 	private JPanel backgroundPanel = new JPanel(); // overall outer panel of program
-	private JPanel acceptAndDeclineBottomPanel = new JPanel(); // hold accept & decline
+	private JPanel acceptDeclineBlockBottomPanel = new JPanel(); // hold accept & decline
 	private JPanel panelForIncomingCall = new JPanel(); // details for calls
+	private JPanel spamPanel = new JPanel(); // overall outer panel of program
 
 	// Labels displayed in GUI
 	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
@@ -56,7 +57,7 @@ public class CallBlockerGUI implements Runnable {
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
 	
-	private JLabel blockListSpammers = new JLabel("<html>" + "Please click to see the spam callers"
+	private JLabel declineDisplay = new JLabel("<html>" + "Please click to see the spam callers"
 			+ "<br>" + "that have been added to your blocked list" + "<br>" + "</html>");
 	
 	// Used for displaying dynamic info on labels, conditionally if call is spam or not
@@ -78,7 +79,7 @@ public class CallBlockerGUI implements Runnable {
 		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
-		formatLabel(blockListSpammers, false); 
+		formatLabel(declineDisplay, false); 
 		
 		// format buttons
 		formatButton(declineButton, false); // initially don't set visible
@@ -88,7 +89,7 @@ public class CallBlockerGUI implements Runnable {
 		buildThenAddActionListenersForButtons();
 		// create ArrayList of panels to pass into method that sets panel backgrounds to black 
 		ArrayList<JPanel> allPanels = new ArrayList<>(
-				Arrays.asList(panelForIncomingCall, backgroundPanel, acceptAndDeclineBottomPanel));
+				Arrays.asList(panelForIncomingCall, backgroundPanel, spamPanel, acceptDeclineBlockBottomPanel));
 		setAllPanelsBackgroundColorToBlack(allPanels);
 		buildAndDisplayFrame();
 	}
@@ -100,19 +101,19 @@ public class CallBlockerGUI implements Runnable {
 	 * the dimensions and attributes of the frame. 
 	 */
 	private void buildAndDisplayFrame() {
+		
+		frame.add(panelForIncomingCall, BorderLayout.NORTH);
+		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
+		
 		frame.add(backgroundPanel, BorderLayout.CENTER);
 		backgroundPanel.add(userInstructions);
 		backgroundPanel.add(startButton);
-		backgroundPanel.add(blockButton);
-		backgroundPanel.add(blockListSpammers);
-
-		panelForIncomingCall.add(welcomeThenDisplayCallInfo);
-
-		frame.add(panelForIncomingCall, BorderLayout.NORTH);
-
-		acceptAndDeclineBottomPanel.add(acceptButton);
-		acceptAndDeclineBottomPanel.add(declineButton);
-		frame.add(acceptAndDeclineBottomPanel, BorderLayout.SOUTH);
+		backgroundPanel.add(declineDisplay);
+		
+		frame.add(acceptDeclineBlockBottomPanel, BorderLayout.SOUTH);
+		acceptDeclineBlockBottomPanel.add(acceptButton);
+		acceptDeclineBlockBottomPanel.add(declineButton);
+		acceptDeclineBlockBottomPanel.add(blockButton);
 
 		frame.setSize(650, 700); // sizes frame to whatever we want
 		frame.setLocationRelativeTo(null); // puts at center of screen
@@ -163,10 +164,12 @@ public class CallBlockerGUI implements Runnable {
 				// re-use user instructions label and set it to these statistics from the
 				// session
 				welcomeThenDisplayCallInfo.setVisible(false);
-				userInstructions.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
+				declineDisplay.setText("<html>" + "<br>" + "<br>" + "Total number of calls were: " + numberOfCalls
 						+ "<br>" + "Total spam calls received were: " + phone.getSpamAlgoForPhone().getNumberOfSpamCallsReceived() + "<br>"
-						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "</html>");
-				blockListSpammers.setVisible(true);
+						+ "Percentage of spam calls was: " + df.format(percentageSpamCalls) + "%" + "<br>" + "<br>" + "Please press block to see the spam callers"
+						+ "<br>" + "that have been added to your blocked list." + "<br>" + "</html>");
+				declineDisplay.setVisible(true);
+				userInstructions.setVisible(false);
 				blockButton.setVisible(true);
 				acceptButton.setVisible(false);
 				declineButton.setVisible(false);
@@ -199,12 +202,13 @@ public class CallBlockerGUI implements Runnable {
 		blockButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				blockListSpammers.setText("<html>" + "These spam callers have been blocked: "
-						+ "<br>" + "<br>" + phone.printBlockedCallers().replaceAll("\n", "<br/>") + "</html>"
-						+ "<br>" + "A list of them can also be found as a textfile called \"BlockedList.txt\" in the project folder"
+				declineDisplay.setText("<html>" + "These spam callers have been blocked: "
+						+ "<br>" + "<br>" + phone.printBlockedCallers().replaceAll("\n", "<br/>")
+						+ "<br>" + "A list of these callers can also be found as a textfile" 
+						+ "<br>" + "called \"FriendZoned.txt\" in the project folder."
 						+ "</html>");
 				blockButton.setVisible(false);
-				blockListSpammers.setVisible(true);
+				declineDisplay.setVisible(true);
 				userInstructions.setVisible(false);
 			}
 			
