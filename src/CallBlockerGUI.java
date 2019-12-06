@@ -206,7 +206,7 @@ public class CallBlockerGUI implements Runnable {
 				declineDisplay.setText("<html>" + "These spam callers have been blocked: "
 						+ "<br>" + "<br>" + phone.printBlockedCallers().replaceAll("\n", "<br/>")
 						+ "<br>" + "A list of these callers can also be found as a textfile" 
-						+ "<br>" + "called \"FriendZoned.txt\" in the project folder."
+						+ "<br>" + "called \"BlockList.txt\" in the project folder."
 						+ "</html>");
 				blockButton.setVisible(false);
 				declineDisplay.setVisible(true);
