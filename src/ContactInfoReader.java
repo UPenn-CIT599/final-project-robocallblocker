@@ -8,7 +8,9 @@ import java.util.Scanner;
 /**
  * ContactInfoReader purpose: read in a csv file of contact information Populate
  * a HashMap with names as keys and contact information as values
- * 
+ * CSV Source: https://letterhub.com/sample-csv-file-with-contacts/
+ * Downloaded CSV was then altered and randomized to have a file with blanks and duplicates
+ * so we can demonstrate file handling for datasets with incomplete information
  * @author ShawnChoudhury
  * @author JoshuaChopra
  * @author ThomasTee
