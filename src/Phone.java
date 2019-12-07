@@ -49,7 +49,9 @@ public class Phone {
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
 
+	// clip object needed to play a sound bite 
 	Clip clip;
+	// sound file used for ringtone 
 	String soundName = "ringtoneFile.wav";
 	AudioInputStream audioInputStream;
 
@@ -176,68 +178,138 @@ public class Phone {
 		}
 	}
 
+	/***
+	 * Starts phone ringtone using sound file 
+	 * @throws LineUnavailableException
+	 * @throws IOException
+	 */
 	public void startRingtone() throws LineUnavailableException, IOException {
 		clip = AudioSystem.getClip();
 		clip.open(audioInputStream);
 		clip.start();
 	}
 
+	/***
+	 * Closes phone's ringtone (stops it) once we pick up the phone. 
+	 * @throws LineUnavailableException
+	 * @throws IOException
+	 */
 	public void closeRingtone() throws LineUnavailableException, IOException {
 		clip.close();
 	}
 
+	/***
+	 * Get object that holds all contacts from CSV reader
+	 * @return object that reads in CSV file
+	 */
 	public ContactInfoReader getAllContacts() {
 		return allContactsInCSV;
 	}
 
+	/***
+	 * Get hashmap created from all contacts read in from CSV 
+	 * @return hashmap all contacts
+	 */
 	public HashMap<String, ContactInfo> getAllContactsMap() {
 		return allContactsMap;
 	}
 
+	/***
+	 * Phone has a spam algo, getter used to 
+	 * grab spamAlgo for phone to check isSpam, or other
+	 * instance variables associated with the algo. 
+	 * @return spam algo object
+	 */
 	public SpamAlgorithm getSpamAlgoForPhone() {
 		return spamAlgoForPhone;
 	}
 
+	/***
+	 * Used to get incoming caller's number that shows up on a phone. 
+	 * @return phone number as a string 
+	 */
 	public String getDisplayIncomingCallerPhoneNumber() {
 		return displayIncomingCallerPhoneNumber;
 	}
 
+	/***
+	 * Used in GUI, to set the text to an incoming caller's phone number 
+	 * @param displayIncomingCallerPhoneNumber
+	 */
 	public void setDisplayIncomingCallerPhoneNumber(String displayIncomingCallerPhoneNumber) {
 		this.displayIncomingCallerPhoneNumber = displayIncomingCallerPhoneNumber;
 	}
 
+	/***
+	 * Get name associated with incoming caller 
+	 * @return name of caller 
+	 */
 	public String getDisplayIncomingCallerName() {
 		return displayIncomingCallerName;
 	}
 
+	/***
+	 * Set name of incoming caller in GUI, label text
+	 * @param displayIncomingCallerName on GUI 
+	 */
 	public void setDisplayIncomingCallerName(String displayIncomingCallerName) {
 		this.displayIncomingCallerName = displayIncomingCallerName;
 	}
 
+	/***
+	 * See if incoming call is spam based upon use of spam algo. 
+	 * @return
+	 */
 	public boolean isIncomingCallSpam() {
 		return incomingCallSpam;
 	}
 
+	/***
+	 * Used to set a call to spam if needed. 
+	 * @param incomingCallSpam
+	 */
 	public void setIncomingCallSpamOrNotSpam(boolean incomingCallSpam) {
 		this.incomingCallSpam = incomingCallSpam;
 	}
 
+	/***
+	 * Cleaned list of contacts that do not have a "blank" phone number 
+	 * since we wouldn't want to generate calls from blank numbers. 
+	 * @return
+	 */
 	public HashMap<String, ContactInfo> getAllContactsInHashMapCleaned() {
 		return allContactsInHashMapCleaned;
 	}
 
+	/***
+	 * Set cleaned hashmap to all contacts 
+	 * @param allContactsInHashMap
+	 */
 	public void setAllContactsInHashMapCleaned(HashMap<String, ContactInfo> allContactsInHashMap) {
 		this.allContactsInHashMapCleaned = allContactsInHashMap;
 	}
 
+	/***
+	 * Get hashmap of phone users contacts
+	 * @return
+	 */
 	public HashMap<String, ContactInfo> getUsersContacts() {
 		return usersContacts;
 	}
 
+	/***
+	 * Set hashmap of users contacts 
+	 * @param usersContacts
+	 */
 	public void setUsersContacts(HashMap<String, ContactInfo> usersContacts) {
 		this.usersContacts = usersContacts;
 	}
 
+	/***
+	 * Get number of contacts associated with phone user by default, 
+	 * is the random number generated. 
+	 * @return number of contacts 
+	 */
 	public int getNumberOfContactsForUser() {
 		return numberOfContactsForUser;
 	}
