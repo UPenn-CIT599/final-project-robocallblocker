@@ -7,30 +7,11 @@
  */
 public class ContactInfo {
 
-	// Instance Variables
-
-	private String name;
-
-	private String phoneNumber;
-
-	private String emailAddress;
-
+	
 	/**
-	 * possibly another class to hold each account; e.g. Facebook, IG, Twitter, etc.
+	 * A contact has a name, phone number, email address, social media handle, etc. 
 	 */
-	private String socialMediaHandle;
-
-	private String address;
-
-	private String company;
-
-	private String city;
-
-	private String county;
-
-	private String state;
-
-	private String zipCode;
+	private String name, phoneNumber, emailAddress, socialMediaHandle, address, company, city, county, state, zipCode;
 
 	/***
 	 * Create an object to hold the contact info of a person, read in from our
@@ -120,8 +101,8 @@ public class ContactInfo {
 	 * Otherwise, it would print the memory location
 	 */
 	public String toString() {
-		return "Name: " + name + "\nPhone Number: " + phoneNumber + "\nEmail: " + emailAddress + " " + "\nSocial Media Handle: " + socialMediaHandle
-				+ "\nAddress: " + address + "\nCompany: " + company
+		return "Name: " + name + "\nPhone Number: " + phoneNumber + "\nEmail: " + emailAddress + " "
+				+ "\nSocial Media Handle: " + socialMediaHandle + "\nAddress: " + address + "\nCompany: " + company
 				+ "\nCity: " + city + "\nCounty: " + county + "\nState: " + state + "\nZipcode: " + zipCode;
 	}
 
