@@ -114,7 +114,7 @@ public class Phone {
 
 	/**
 	 * Filewriter to output a textfile of all the spam callers which will be added
-	 * to a HashMap called blockList the blocklist is populated from the results of
+	 * to a HashMap called blockList; the blocklist is populated from the results of
 	 * the SpamAlgorithm
 	 */
 	public void blockListTextFile() {
