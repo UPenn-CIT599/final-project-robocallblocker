@@ -24,11 +24,11 @@ public class CallBlockerGUI implements Runnable {
 	// Images used in GUI
 	private ImageIcon accept = new ImageIcon("acceptCall.gif");
 	private ImageIcon decline = new ImageIcon("declineCall.gif");
-	private ImageIcon start = new ImageIcon("startButton.gif"); // TODO figure out how to incorporate
+	private ImageIcon start = new ImageIcon("startButton.gif"); 
 	private ImageIcon block = new ImageIcon("blockButton.gif");
 	
 	// Frame and buttons used in GUI
-	private JFrame frame = new JFrame("Call Blocker Program"); // TODO make a better name
+	private JFrame frame = new JFrame("Call Blocker Program"); 
 	private JButton acceptButton = new JButton("Accept",
 			new ImageIcon((accept.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton declineButton = new JButton("Decline",
@@ -36,7 +36,7 @@ public class CallBlockerGUI implements Runnable {
 	private JButton startButton = new JButton("Start",
 			new ImageIcon((start.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)));
 	private JButton blockButton = new JButton("Block",
-			new ImageIcon((block.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH))); /** <-------here */
+			new ImageIcon((block.getImage()).getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH))); 
 
 	
 	private double numberOfCalls;
@@ -96,7 +96,7 @@ public class CallBlockerGUI implements Runnable {
 	
 	
 	/***
-	 * This method builds out our entire frame; it adds all necesseray panels 
+	 * This method builds out our entire frame; it adds all necessary panels 
 	 * and labels/buttons to the panels in their respective areas, and sets 
 	 * the dimensions and attributes of the frame. 
 	 */
@@ -118,7 +118,6 @@ public class CallBlockerGUI implements Runnable {
 		frame.setSize(650, 700); // sizes frame to whatever we want
 		frame.setLocationRelativeTo(null); // puts at center of screen
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.pack();
 		frame.setVisible(true);
 	}
 	
@@ -212,9 +211,7 @@ public class CallBlockerGUI implements Runnable {
 				declineDisplay.setVisible(true);
 				userInstructions.setVisible(false);
 			}
-			
 		});
-
 	}
 
 	/***
@@ -290,38 +287,75 @@ public class CallBlockerGUI implements Runnable {
 		}
 	}
 
+	/***
+	 * Get phone object that GUI displays 
+	 * @return phone object used in class
+	 */
 	public Phone getPhone() {
 		return phone;
 	}
 
+	/***
+	 * Get start button, which is button used to initiate a call 
+	 * coming in
+	 * @return start button
+	 */
 	public JButton getStartButton() {
 		return startButton;
 	}
 
+	/***
+	 * Set button to start button 
+	 * @param startButton
+	 */
 	public void setStartButton(JButton startButton) {
 		this.startButton = startButton;
 	}
 
+	/***
+	 * Get accept button used to pick up phone calls
+	 * @return accept button
+	 */
 	public JButton getAcceptButton() {
 		return acceptButton;
 	}
 
+	/***
+	 * Set button to start button 
+	 * @param acceptButton
+	 */
 	public void setAcceptButton(JButton acceptButton) {
 		this.acceptButton = acceptButton;
 	}
 
+	/***
+	 * Get button used to decline calls and end session
+	 * @return
+	 */
 	public JButton getDeclineButton() {
 		return declineButton;
 	}
 
+	/***
+	 * Set button to start button 
+	 * @param declineButton
+	 */
 	public void setDeclineButton(JButton declineButton) {
 		this.declineButton = declineButton;
 	}
 
+	/***
+	 * Returns frame associated with GUI 
+	 * @return GUI main frame 
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 
+	/***
+	 * Set frame of GUI 
+	 * @param frame
+	 */
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
