@@ -10,6 +10,7 @@ https://github.com/UPenn-CIT599/final-project-robocallblocker.git
 Work Breakdown: 
 
 Shawn - 
+Created initial ContactInfo class to have an object hold various contact information attributes such as name, number, email address, etc. Created initial ContactInfoReader class to process our CSV file of contact information to populate a hashmap of keys and ContactInfo objects. Created initial UsersContactList class which essentially creates the user's contact list by randomly picking contacts from the CSV file using collections.shuffle to shuffle the keys. Josh and Thomas also significantly contributed to these classes. Contributed to Thomas's initial SpamAlgorithm class by tweaking the conditional statements to exclude values where cells were empty or zero. Additionally, tweaked the class to add the blockList logic inside the compareAgainst() method. Contributed to Phone class with initial ringtone method using AudioInputStream; Thomas helped me refine this. Next, added the blockList logic to output a text file of the list of spam callers using FileWriter and StringBuilder to display the list in the GUI. Lastly, added the BlockButton and ActionListener into Josh's initial GUI class. Josh helped me refine the output.
 
 Josh - 
 
