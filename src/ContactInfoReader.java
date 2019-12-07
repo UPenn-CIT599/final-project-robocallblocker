@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 /**
  * ContactInfoReader purpose: read in a csv file of contact information Populate
- * a HashMap with names as keys and contact information as values
- * CSV Source: https://letterhub.com/sample-csv-file-with-contacts/
- * Downloaded CSV was then altered and randomized to have a file with blanks and duplicates
- * so we can demonstrate file handling for datasets with incomplete information
+ * a HashMap with names as keys and contact information as values CSV Source:
+ * https://letterhub.com/sample-csv-file-with-contacts/ Downloaded CSV was then
+ * altered and randomized to have a file with blanks and duplicates so we can
+ * demonstrate file handling for datasets with incomplete information
+ * 
  * @author ShawnChoudhury
  * @author JoshuaChopra
  * @author ThomasTee
@@ -50,8 +51,8 @@ public class ContactInfoReader {
 				String number = checkIfBlankThenFill(columnData, 8);
 				/*
 				 * REMEMBER that contacts100.csv has 11 columns, and contacts10.csv has 12 (when
-				 * counting using 0 indexing, i.e., first column is 0) so email here is 9, in the
-				 * other file it's 10. 
+				 * counting using 0 indexing, i.e., first column is 0) so email here is 9, in
+				 * the other file it's 10.
 				 */
 				String email = checkIfBlankThenFill(columnData, 9);
 				/*
@@ -65,9 +66,10 @@ public class ContactInfoReader {
 				String county = checkIfBlankThenFill(columnData, 5);
 				String state = checkIfBlankThenFill(columnData, 6);
 				String zipCode = checkIfBlankThenFill(columnData, 7);
-				
+
 				// fill up the constructor
-				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address, company, city, county, state, zipCode);
+				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address, company, city,
+						county, state, zipCode);
 				// put the contact info in to the HashMap
 
 				allContactsInCSV.put(Integer.toString(uniqueID), contact);
@@ -104,7 +106,7 @@ public class ContactInfoReader {
 		} else
 			return columnData[column];
 	}
-	
+
 	/***
 	 * Helper method used to ensure we never use a key-value pair that has a
 	 * ContactInfo object where the phone number of that ContactInfo object is
@@ -138,19 +140,31 @@ public class ContactInfoReader {
 		return allContacts;
 	}
 
-
+	/***
+	 * Set contacts map associated with all contacts in CSV
+	 * 
+	 * @param allContactsInCSV pass in map to use
+	 */
 	public void setAllContactsInCSV(HashMap<String, ContactInfo> allContactsInCSV) {
 		this.allContactsInCSV = allContactsInCSV;
 	}
 
+	/***
+	 * Set a unique ID for a a contact
+	 * 
+	 * @param uniqueID
+	 */
 	public void setUniqueID(int uniqueID) {
 		this.uniqueID = uniqueID;
 	}
 
+	/***
+	 * Get unique ID for contact, which is created upon reading in data
+	 * 
+	 * @return
+	 */
 	public int getUniqueID() {
 		return uniqueID;
 	}
-	
-	
 
 }
