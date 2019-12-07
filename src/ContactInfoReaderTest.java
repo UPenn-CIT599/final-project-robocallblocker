@@ -78,19 +78,12 @@ class ContactInfoReaderTest {
 	 * check to make sure each ContactInfo object is created inside hashmap make
 	 * sure no objects are null there are 198 ContactInfo objects with 0 indexing
 	 * and title column, assertequals should return 198 this may be the same as
-	 * using hashMap.size() TODO check hashmap.size() javadocs to make sure it
-	 * handles nulls
+	 * using hashMap.size() 
 	 */
 	@Test
 	void testContactInfoReader() {
 		ContactInfoReader reader = new ContactInfoReader("contacts100.csv");
 		HashMap<String, ContactInfo> contacts = reader.getAllContactsInCSV();
-//		int counter = 0;
-//		for (String key : contacts.keySet()) {
-//			if (contacts.get(key) != null) {
-//				counter++;
-//			}
-//		}
 //		// 198 includes 1st row with column headers
 		assertEquals(198, contacts.size());
 	}
