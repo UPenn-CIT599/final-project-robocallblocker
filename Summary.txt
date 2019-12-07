@@ -1,0 +1,17 @@
+Program Name: 
+Robo-Call Blocker 
+
+Description: 
+Program first generates the user's contact list by randomly taking 40 to 60 contacts from a csv file filled with 198 contacts. Each one of these contacts may consist of some or all of the following: name, company, address, city, county, state, zip, phone number, email, and social media. The program then creates a caller by randomly taking a contact from the csv file and then comparing it to the user's contact list to determine whether or not it is spam. For each call, the user is given the option to accept and then start a new call or to decline and generate a list of callers that were determined to be spam. The program also outputs a text file of these callers who were blocked. 
+
+Github repository link:
+https://github.com/UPenn-CIT599/final-project-robocallblocker.git 
+
+Work Breakdown: 
+
+Shawn - 
+
+Josh - 
+
+Thomas - 
+Worked on CallBlockerGUI class button action listener and control of ringtone start and stop. Worked on IncomingCall class to randomly generate a caller from CSV HashMap. Worked on Phone class to class upon other classes to generate CSV HashMap, user's contact list, random caller, and compare caller to user's contact list. Worked on SpamAlgorithm class to compare caller to user's contact list based on number of matches. Worked on UsersContactList class to create user contact list from CSV HashMap. Worked to create JUnit tests for CallBlockerGUI, ContactInfoReader,  and SpamAlgorithm 

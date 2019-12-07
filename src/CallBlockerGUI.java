@@ -51,7 +51,7 @@ public class CallBlockerGUI implements Runnable {
 	// Labels displayed in GUI
 	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
 			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>" + 
-			"You have " + phone.getNumberOfContactsForUser() + " users in your contact list." +
+			"You have " + phone.getNumberOfContactsForUser() + " people in your contact list." +
 			"<br>" + "<br>" + "<br>" + "<br>" + "<br>" + "</html>");
 
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
