@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 class CallBlockerGUITest {
 
-	/*
+	/***
 	 * Test that GUI is reading CSV and creating allContacts HashMap. Test that
 	 * allContacts HashMap is same before and after run() method.
 	 */
@@ -36,7 +36,7 @@ class CallBlockerGUITest {
 		assertEquals(allContacts1, allContacts2);
 	}
 
-	/*
+	/***
 	 * Test that GUI is creating usersContact HashMap. Test that usersContact
 	 * HashMap is different before and after run() method.
 	 */
@@ -60,7 +60,7 @@ class CallBlockerGUITest {
 		assertNotEquals(usersContacts1, usersContacts2);
 	}
 
-	/*
+	/***
 	 * Test that GUI is creating an incoming call. Test that incoming call is
 	 * different before and after run() method.
 	 */
@@ -84,7 +84,7 @@ class CallBlockerGUITest {
 		assertNotEquals(testContactInfo1, testContactInfo2);
 	}
 
-	/*
+	/***
 	 * Set spamTest as a Null Object Test that GUI is calling for spamAlgo and then
 	 * setting spamTest to true or false
 	 */
@@ -129,10 +129,6 @@ class CallBlockerGUITest {
 			 * We loop up to 100 times to ensure that the mouse gets to the correct
 			 * coordinates before clicking.
 			 */
-//			for (int count = 0; (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
-//					|| MouseInfo.getPointerInfo().getLocation().getY() != yCoordinate) && count < 100; count++) {
-//				new Robot().mouseMove(xCoordinate, yCoordinate);
-//			}
 			// while loop also works to ensure we keep moving mouse until we're at the right
 			// coordinates
 			while (MouseInfo.getPointerInfo().getLocation().getX() != xCoordinate
