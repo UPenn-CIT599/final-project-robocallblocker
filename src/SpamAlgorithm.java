@@ -129,8 +129,6 @@ public class SpamAlgorithm {
 			numberOfSpamCallsReceived++;
 			blockList.put(incoming.getName(), incoming.getPhoneNumber());
 		}
-		// print this out regardless of the conditional, for testing purposes.
-		System.out.println("The number of contact info matches is " + totalScore + "\n");
 		return isSpam;
 	}
 
