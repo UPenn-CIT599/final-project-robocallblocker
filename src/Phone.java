@@ -2,9 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -49,9 +47,9 @@ public class Phone {
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
 
-	// clip object needed to play a sound bite 
+	// clip object needed to play a sound bite
 	Clip clip;
-	// sound file used for ringtone 
+	// sound file used for ringtone
 	String soundName = "ringtoneFile.wav";
 	AudioInputStream audioInputStream;
 
@@ -69,8 +67,7 @@ public class Phone {
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
 	 * total contacts list) and the contact list will be used for checking against
-	 * an incoming call that comes in. Is not private now for testing purposes. TODO
-	 * - set private.
+	 * an incoming call that comes in. - set private.
 	 * 
 	 * @param allContactsInHashMap - pass in HashMap of contacts from CSV
 	 * @param numberOfContacts     - desired number of contacts for user
@@ -121,14 +118,11 @@ public class Phone {
 	 */
 	public void blockListTextFile() {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
-
-		try {
-			FileWriter fw = new FileWriter("BlockList.txt", false);
+		try (FileWriter fw = new FileWriter("BlockList.txt", false)) {
 			for (String name : blockList.keySet()) {
 				fw.write(name + ": " + blockList.get(name) + "\n");
 				fw.flush();
 			}
-			fw.close();
 		} catch (IOException e) {
 			System.out.println("Unable to produce blocklist");
 		}
@@ -142,7 +136,6 @@ public class Phone {
 	 */
 	public String printBlockedCallers() {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();
-
 		StringBuilder sb = new StringBuilder();
 		for (String name : blockList.keySet()) {
 			if (blockList.isEmpty()) {
@@ -155,18 +148,13 @@ public class Phone {
 		return sb.toString();
 	}
 
-	/**
-	 * ringtone method for phone to play sound in the GUI when a phone call comes in
-	 * Currently on a loop of 3 TODO terminate the sound and reinitialize with each
-	 * call
+	/***
+	 * Plays ringtone when an incoming call is received to a phone object.
 	 */
 	public void ringtone() {
 		try {
-
 			audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-
 			try {
-
 				clip = AudioSystem.getClip();
 			} catch (LineUnavailableException e1) {
 				System.out.println("Didn't get clip!");
@@ -179,7 +167,8 @@ public class Phone {
 	}
 
 	/***
-	 * Starts phone ringtone using sound file 
+	 * Starts phone ringtone using sound file
+	 * 
 	 * @throws LineUnavailableException
 	 * @throws IOException
 	 */
@@ -190,7 +179,8 @@ public class Phone {
 	}
 
 	/***
-	 * Closes phone's ringtone (stops it) once we pick up the phone. 
+	 * Closes phone's ringtone (stops it) once we pick up the phone.
+	 * 
 	 * @throws LineUnavailableException
 	 * @throws IOException
 	 */
@@ -200,6 +190,7 @@ public class Phone {
 
 	/***
 	 * Get object that holds all contacts from CSV reader
+	 * 
 	 * @return object that reads in CSV file
 	 */
 	public ContactInfoReader getAllContacts() {
@@ -207,7 +198,8 @@ public class Phone {
 	}
 
 	/***
-	 * Get hashmap created from all contacts read in from CSV 
+	 * Get hashmap created from all contacts read in from CSV
+	 * 
 	 * @return hashmap all contacts
 	 */
 	public HashMap<String, ContactInfo> getAllContactsMap() {
@@ -215,9 +207,9 @@ public class Phone {
 	}
 
 	/***
-	 * Phone has a spam algo, getter used to 
-	 * grab spamAlgo for phone to check isSpam, or other
-	 * instance variables associated with the algo. 
+	 * Phone has a spam algo, getter used to grab spamAlgo for phone to check
+	 * isSpam, or other instance variables associated with the algo.
+	 * 
 	 * @return spam algo object
 	 */
 	public SpamAlgorithm getSpamAlgoForPhone() {
@@ -225,15 +217,17 @@ public class Phone {
 	}
 
 	/***
-	 * Used to get incoming caller's number that shows up on a phone. 
-	 * @return phone number as a string 
+	 * Used to get incoming caller's number that shows up on a phone.
+	 * 
+	 * @return phone number as a string
 	 */
 	public String getDisplayIncomingCallerPhoneNumber() {
 		return displayIncomingCallerPhoneNumber;
 	}
 
 	/***
-	 * Used in GUI, to set the text to an incoming caller's phone number 
+	 * Used in GUI, to set the text to an incoming caller's phone number
+	 * 
 	 * @param displayIncomingCallerPhoneNumber
 	 */
 	public void setDisplayIncomingCallerPhoneNumber(String displayIncomingCallerPhoneNumber) {
@@ -241,8 +235,9 @@ public class Phone {
 	}
 
 	/***
-	 * Get name associated with incoming caller 
-	 * @return name of caller 
+	 * Get name associated with incoming caller
+	 * 
+	 * @return name of caller
 	 */
 	public String getDisplayIncomingCallerName() {
 		return displayIncomingCallerName;
@@ -250,14 +245,16 @@ public class Phone {
 
 	/***
 	 * Set name of incoming caller in GUI, label text
-	 * @param displayIncomingCallerName on GUI 
+	 * 
+	 * @param displayIncomingCallerName on GUI
 	 */
 	public void setDisplayIncomingCallerName(String displayIncomingCallerName) {
 		this.displayIncomingCallerName = displayIncomingCallerName;
 	}
 
 	/***
-	 * See if incoming call is spam based upon use of spam algo. 
+	 * See if incoming call is spam based upon use of spam algo.
+	 * 
 	 * @return
 	 */
 	public boolean isIncomingCallSpam() {
@@ -265,7 +262,8 @@ public class Phone {
 	}
 
 	/***
-	 * Used to set a call to spam if needed. 
+	 * Used to set a call to spam if needed.
+	 * 
 	 * @param incomingCallSpam
 	 */
 	public void setIncomingCallSpamOrNotSpam(boolean incomingCallSpam) {
@@ -273,8 +271,9 @@ public class Phone {
 	}
 
 	/***
-	 * Cleaned list of contacts that do not have a "blank" phone number 
-	 * since we wouldn't want to generate calls from blank numbers. 
+	 * Cleaned list of contacts that do not have a "blank" phone number since we
+	 * wouldn't want to generate calls from blank numbers.
+	 * 
 	 * @return
 	 */
 	public HashMap<String, ContactInfo> getAllContactsInHashMapCleaned() {
@@ -282,7 +281,8 @@ public class Phone {
 	}
 
 	/***
-	 * Set cleaned hashmap to all contacts 
+	 * Set cleaned hashmap to all contacts
+	 * 
 	 * @param allContactsInHashMap
 	 */
 	public void setAllContactsInHashMapCleaned(HashMap<String, ContactInfo> allContactsInHashMap) {
@@ -291,6 +291,7 @@ public class Phone {
 
 	/***
 	 * Get hashmap of phone users contacts
+	 * 
 	 * @return
 	 */
 	public HashMap<String, ContactInfo> getUsersContacts() {
@@ -298,7 +299,8 @@ public class Phone {
 	}
 
 	/***
-	 * Set hashmap of users contacts 
+	 * Set hashmap of users contacts
+	 * 
 	 * @param usersContacts
 	 */
 	public void setUsersContacts(HashMap<String, ContactInfo> usersContacts) {
@@ -306,9 +308,10 @@ public class Phone {
 	}
 
 	/***
-	 * Get number of contacts associated with phone user by default, 
-	 * is the random number generated. 
-	 * @return number of contacts 
+	 * Get number of contacts associated with phone user by default, is the random
+	 * number generated.
+	 * 
+	 * @return number of contacts
 	 */
 	public int getNumberOfContactsForUser() {
 		return numberOfContactsForUser;
