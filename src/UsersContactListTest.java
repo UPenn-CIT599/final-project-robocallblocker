@@ -1,9 +1,6 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 
 /***
@@ -32,8 +29,6 @@ class UsersContactListTest {
 		HashMap<String, ContactInfo> map = reader.getAllContactsInCSV();
 		// keys from above map
 		ArrayList<String> keys1 = new ArrayList<>(map.keySet());
-		ArrayList<String> keys2 = keys1;
-
 		UsersContactList list = new UsersContactList(map, 10);
 		// shuffled keys; these should not be in same sequence as initial keys1
 		// arraylist
