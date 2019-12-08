@@ -11,13 +11,22 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
 import org.junit.jupiter.api.Test;
 
+/***
+ * This class tests the CallBlockGUI using the phone object instantiated in the
+ * GUI as well as a robot to click buttons to ensure specific events occur.
+ * 
+ * @author ShawnChoudhury
+ * @author JoshuaChopra
+ * @author ThomasTee
+ *
+ */
 class CallBlockerGUITest {
 
 	/***
 	 * Test that GUI is reading CSV and creating allContacts HashMap. Test that
-	 * allContacts HashMap is not null after run method, since run method 
-	 * creates a phone object, and when a phone object is created we have 
-	 * read in the CSV and created a map with all contacts
+	 * allContacts HashMap is not null after run method, since run method creates a
+	 * phone object, and when a phone object is created we have read in the CSV and
+	 * created a map with all contacts
 	 */
 	@Test
 	void testCSVReadAllContactsCreated() {
@@ -63,8 +72,8 @@ class CallBlockerGUITest {
 
 	/***
 	 * Set spamTest as a Null Object Test that GUI is calling for spamAlgo and then
-	 * setting spamTest to true or false, which should happen when the GUI is running
-	 * after the phone object is created. 
+	 * setting spamTest to true or false, which should happen when the GUI is
+	 * running after the phone object is created.
 	 */
 	@Test
 	void testSpamAlgoCreation() {
