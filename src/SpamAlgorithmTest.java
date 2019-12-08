@@ -77,7 +77,7 @@ class SpamAlgorithmTest {
 
 		ContactInfo zeroInfo = new ContactInfo("0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
 
-		ContactInfoReader reader = new ContactInfoReader("contacts10.csv");
+		ContactInfoReader reader = new ContactInfoReader("contacts100.csv");
 
 		// get the HashMap
 		HashMap<String, ContactInfo> map = reader.getAllContactsInCSV();

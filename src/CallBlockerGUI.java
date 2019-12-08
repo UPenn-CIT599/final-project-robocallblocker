@@ -17,8 +17,8 @@ import javax.swing.*;
  * @author JoshuaChopra
  * @author ShawnChoudhury
  * @author ThomasTee
- *
  */
+
 public class CallBlockerGUI implements Runnable {
 
 	/*
@@ -61,8 +61,7 @@ public class CallBlockerGUI implements Runnable {
 	private JLabel declineDisplay = new JLabel("<html>" + "Please click to see the spam callers" + "<br>"
 			+ "that have been added to your blocked list" + "<br>" + "</html>");
 
-	// Used for displaying dynamic info on labels, conditionally if call is spam or
-	// not
+	// Used for displaying dynamic info on labels, conditionally if call is spam or not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
@@ -138,11 +137,12 @@ public class CallBlockerGUI implements Runnable {
 	 * @param phone created in run() method
 	 */
 	private void buildThenAddActionListenersForButtons(Phone phone) {
+		
+		/***
+		 * If accept button was pressed to begin the program, then display the
+		 * corresponding information for the incoming call on the GUI.
+		 */
 		acceptButton.addActionListener(new ActionListener() {
-			/***
-			 * If accept button was pressed to begin the program, then display the
-			 * corresponding information for the incoming call on the GUI.
-			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -249,7 +249,6 @@ public class CallBlockerGUI implements Runnable {
 	/***
 	 * This method sets the background of button to black, text to white hide
 	 * border, and places text below image, and ensures that the text is centered.
-	 * 
 	 * 
 	 * @param button  used with accept and decline buttons
 	 * @param initial visibility setting for button

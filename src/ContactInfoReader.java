@@ -25,16 +25,14 @@ public class ContactInfoReader {
 
 	// Constructor
 	public ContactInfoReader(String filename) {
-
-		// try with resources to automatically close out scanner object
+		// Try with resources to automatically close out scanner object
 		try (Scanner contactsDataReader = new Scanner(new File(filename));) {
-
-			// skip the column headers in first line
+			// Skip the column headers in first line
 			contactsDataReader.nextLine();
 			while (contactsDataReader.hasNextLine()) {
 				String line = contactsDataReader.nextLine();
 				/*
-				 * need negative integer limit to keep applying pattern to empty strings in file
+				 * Need negative integer limit to keep applying pattern to empty strings in file
 				 * use RegEx with negative lookahead to capture blanks after a "," and not count
 				 * a "," as an actual input to the string [], and if a data entry has a
 				 * whitespace character after a comma, we want that whole data entry as its own
@@ -43,22 +41,15 @@ public class ContactInfoReader {
 				String[] columnData = line.split(",(?! )", -1);
 				// Concatenate first and last name
 				String name = checkIfBlankThenFill(columnData, 0) + " " + checkIfBlankThenFill(columnData, 1);
-				// we don't want a last name displayed on GUI with a "0", so check if last char
-				// is 0 if the last name was blank when read in.
+				/*
+				 * We don't want a last name displayed on GUI with a "0", so check if last char
+				 * is 0 if the last name was blank when read in.
+				 */
 				if (name.charAt(name.length() - 1) == '0') {
 					name = name.substring(0, name.length() - 1);
 				}
 				String number = checkIfBlankThenFill(columnData, 8);
-				/*
-				 * REMEMBER that contacts100.csv has 11 columns, and contacts10.csv has 12 (when
-				 * counting using 0 indexing, i.e., first column is 0) so email here is 9, in
-				 * the other file it's 10.
-				 */
 				String email = checkIfBlankThenFill(columnData, 9);
-				/*
-				 * REMEMBER that contacts100.csv has 11 columns, and contacts10.csv has 12 (when
-				 * counting using 0 indexing, i.e., first column is 0)
-				 */
 				String socialMediaHandle = checkIfBlankThenFill(columnData, 11);
 				String company = checkIfBlankThenFill(columnData, 2);
 				String address = checkIfBlankThenFill(columnData, 3);
@@ -66,16 +57,14 @@ public class ContactInfoReader {
 				String county = checkIfBlankThenFill(columnData, 5);
 				String state = checkIfBlankThenFill(columnData, 6);
 				String zipCode = checkIfBlankThenFill(columnData, 7);
-
-				// fill up the constructor
+				// Fill up the constructor
 				ContactInfo contact = new ContactInfo(name, number, email, socialMediaHandle, address, company, city,
 						county, state, zipCode);
-				// put the contact info in to the HashMap
-
+				// Put the contact info in to the HashMap
 				allContactsInCSV.put(Integer.toString(uniqueID), contact);
-				uniqueID += 1; // create new uniqueID for each contact read in
+				// Create new uniqueID for each contact read in
+				uniqueID += 1; 
 			}
-
 		} catch (FileNotFoundException e) {
 			System.out.println("Uh-oh! Error processing file; please check the name and file location.");
 		}
@@ -116,20 +105,18 @@ public class ContactInfoReader {
 	 * 
 	 * @param allContacts hashMap we create upon reading in contacts from CSV
 	 * @return cleaned map of contacts used to generate calls (no blank phone #s)
-	 * 
 	 */
 	public HashMap<String, ContactInfo> removeBlankPhoneNumbersFromMapUsedToCreateCalls(
 			HashMap<String, ContactInfo> allContacts) {
 		/*
-		 * use iterator since we can't iterate over a keySet and remove key-value pair
+		 * Use iterator since we can't iterate over a keySet and remove key-value pair
 		 * simultaneously or java throws ConcurrentModificationException
 		 */
-
 		Iterator<Map.Entry<String, ContactInfo>> iterator = allContacts.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry<String, ContactInfo> nameWithContactInfo = iterator.next();
 			/*
-			 * if value (ContactInfo object) associated with key (name of contact) has
+			 * If value (ContactInfo object) associated with key (name of contact) has
 			 * variable value for phone number as "0" then remove it from our map. Else keep
 			 * it.
 			 */

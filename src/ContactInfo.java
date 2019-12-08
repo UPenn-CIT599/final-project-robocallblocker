@@ -5,15 +5,15 @@
  * @author JoshuaChopra
  * @author ThomasTee
  */
-public class ContactInfo {
 
+public class ContactInfo {
 	
 	/**
 	 * A contact has a name, phone number, email address, social media handle, etc. 
 	 */
 	private String name, phoneNumber, emailAddress, socialMediaHandle, address, company, city, county, state, zipCode;
 
-	/***
+	/**
 	 * Create an object to hold the contact info of a person, read in from our
 	 * contacts CSV file.
 	 * 
@@ -42,7 +42,7 @@ public class ContactInfo {
 		this.zipCode = zipCode;
 	}
 
-	/***
+	/**
 	 * Get name of contact
 	 * 
 	 * @return contact's name
@@ -51,7 +51,7 @@ public class ContactInfo {
 		return name;
 	}
 
-	/***
+	/**
 	 * Get email address of contact
 	 * 
 	 * @return contact's email
@@ -60,7 +60,7 @@ public class ContactInfo {
 		return emailAddress;
 	}
 
-	/***
+	/**
 	 * Get social media handle of contact
 	 * 
 	 * @return social media handle (twitter, instagram, etc.)
@@ -69,7 +69,7 @@ public class ContactInfo {
 		return socialMediaHandle;
 	}
 
-	/***
+	/**
 	 * Get address of contact
 	 * 
 	 * @return contact's address
@@ -78,7 +78,7 @@ public class ContactInfo {
 		return address;
 	}
 
-	/***
+	/**
 	 * Get contact's phone number
 	 * 
 	 * @return phone number of contact
@@ -87,7 +87,7 @@ public class ContactInfo {
 		return phoneNumber;
 	}
 
-	/***
+	/**
 	 * Set phone number for contact
 	 * 
 	 * @param phoneNumber - pass in phone number to set for contact
@@ -97,7 +97,7 @@ public class ContactInfo {
 	}
 
 	/**
-	 * Overriden toString() method to print the ContactInfo object contents
+	 * Overrides toString() method to print the ContactInfo object contents
 	 * Otherwise, it would print the memory location
 	 */
 	public String toString() {
@@ -106,7 +106,7 @@ public class ContactInfo {
 				+ "\nCity: " + city + "\nCounty: " + county + "\nState: " + state + "\nZipcode: " + zipCode;
 	}
 
-	/***
+	/**
 	 * Returns company associated with contact
 	 * 
 	 * @return company employed at (e.g., Facebook)
@@ -115,7 +115,7 @@ public class ContactInfo {
 		return company;
 	}
 
-	/***
+	/**
 	 * Returns city contact lives in
 	 * 
 	 * @return city (e.g., Orlando)
@@ -124,7 +124,7 @@ public class ContactInfo {
 		return city;
 	}
 
-	/***
+	/**
 	 * Returns county contact lives in
 	 * 
 	 * @return county (e.g., Warren)
@@ -133,7 +133,7 @@ public class ContactInfo {
 		return county;
 	}
 
-	/***
+	/**
 	 * Returns state contact lives in
 	 * 
 	 * @return state (e.g., NY)
@@ -142,7 +142,7 @@ public class ContactInfo {
 		return state;
 	}
 
-	/***
+	/**
 	 * Returns zipCode for contact's address
 	 * 
 	 * @return zipCode

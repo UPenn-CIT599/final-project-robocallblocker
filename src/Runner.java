@@ -14,8 +14,8 @@ import javax.swing.SwingUtilities;
  * @author JoshuaChopra
  * @author ShawnChoudhury
  * @author ThomasTee
- *
  */
+
 public class Runner {
 
 	public static void main(String[] args) {

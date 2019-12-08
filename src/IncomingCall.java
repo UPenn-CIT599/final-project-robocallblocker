@@ -2,6 +2,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * This class takes in AllContacts HashMap, turns the HashMap key into a string array, 
+ * and then shuffles the array. Class then creates the IncomingCall by setting index 0 of
+ * the string array as the HashMap key. 
+ * 
+ * @author ShawnChoudhury
+ * @author JoshuaChopra
+ * @author ThomasTee
+ */
+
 public class IncomingCall {
 
 	private ContactInfo incomingCallerInfo;
@@ -20,7 +30,6 @@ public class IncomingCall {
 		Collections.shuffle(contactNames);
 		incomingCallerInfo = allContactsFromFile.get(contactNames.get(0));
 	}
-
 
 	/***
 	 * Get contact information for the incoming caller

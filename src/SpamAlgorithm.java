@@ -13,6 +13,7 @@ import java.util.HashMap;
  * @author JoshuaChopra
  * @author ThomasTee
  */
+
 public class SpamAlgorithm {
 
 	private boolean isSpam;
@@ -24,7 +25,7 @@ public class SpamAlgorithm {
 	 * based on list of attributes that would be in the user's phone, related to a
 	 * contact
 	 * 
-	 * @param incoming
+	 * @param incoming			- call information 
 	 * @return HashMap used for scoring in compareAgainst method.
 	 */
 	private HashMap<String, Integer> mapForScoring(ContactInfo incoming) {
@@ -42,7 +43,6 @@ public class SpamAlgorithm {
 		return scoreByAttribute;
 	}
 	
-
 	/***
 	 * This method is a helper method for compareAgainst that scores an incomingCall
 	 * based on our specified attributes of contactInfo for a caller, and returns a
@@ -58,9 +58,9 @@ public class SpamAlgorithm {
 	 * We don't want to match blanks that were filled with 0s either, so we include
 	 * this check in our spam algorithm.
 	 * 
-	 * @param incoming             caller contactInfo object
+	 * @param incoming        	- caller contactInfo object
 	 * @param phoneUsersContactMap phone user's contact map created when a phone
-	 *                             user is assigned
+	 *                      	-  user is assigned
 	 * @return HashMap that has score for each attribute of a contactInfo object
 	 */
 	private HashMap<String, Integer> scoreIncomingCallByAttributes(ContactInfo incoming,
@@ -111,7 +111,7 @@ public class SpamAlgorithm {
 	 * based on the total score of all attributes, where we get each score of each attribute
 	 * from our scoreIncomingCallByAttribute method. 
 	 * 
-	 * @param incoming             caller information
+	 * @param incoming            	-	caller information
 	 * @param phoneUsersContactMap all contact information in users phone
 	 * @return if call is spam or not
 	 */
@@ -135,7 +135,6 @@ public class SpamAlgorithm {
 	/***
 	 * Returns result from compareAgainst method, which is the the method that runs
 	 * our entire spamAlgorithm. Lets us know if a call was spam or not.
-	 * 
 	 * @return false if not spam, true if spam.
 	 */
 	public boolean isSpam() {

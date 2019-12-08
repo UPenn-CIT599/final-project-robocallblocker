@@ -21,7 +21,7 @@ class PhoneTest {
 	@Test
 	void testCreatePhoneUserWithContacts() {
 		Phone ph = new Phone();
-		ContactInfoReader cdr = new ContactInfoReader("contacts10.csv");
+		ContactInfoReader cdr = new ContactInfoReader("contacts100.csv");
 		int numberOfContacts = 5;
 		HashMap<String, ContactInfo> usersContactList = ph.createPhoneUserWithContacts(cdr.getAllContactsInCSV(),
 				numberOfContacts);

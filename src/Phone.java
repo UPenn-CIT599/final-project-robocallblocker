@@ -9,7 +9,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-/***
+/**
  * This class is where we combine all other classes to create a phone object
  * that the user makes use of and receives incoming calls, decides to continue
  * to receive calls, or turns off phone.
@@ -18,9 +18,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author JoshuaChopra
  * @author ThomasTee
  */
+
 public class Phone {
 
-	// store contents from CSV file in phone class to maintain all contacts
+	// Store contents from CSV file in phone class to maintain all contacts
 	private ContactInfoReader allContactsInCSV = new ContactInfoReader("contacts100.csv");
 	/*
 	 * This is all the contacts from the CSV in the HashMap, which isn't cleaned.
@@ -40,34 +41,26 @@ public class Phone {
 	 */
 	private HashMap<String, ContactInfo> allContactsInHashMapCleaned = new HashMap<String, ContactInfo>();
 
-	// the phone has a built in algorithm that checks for spam calls
+	// The phone has a built in algorithm that checks for spam calls
 	private SpamAlgorithm spamAlgoForPhone = new SpamAlgorithm();
 	private String displayIncomingCallerPhoneNumber;
 	private String displayIncomingCallerName;
 	private boolean incomingCallSpam; // true if is spam, false if not
 	private HashMap<String, ContactInfo> usersContacts; // used to get users contact list
 
-	// clip object needed to play a sound bite
+	// Clip object needed to play a sound bite
 	Clip clip;
-	// sound file used for ringtone
+	// Sound file used for ringtone
 	String soundName = "ringtoneFile.wav";
 	AudioInputStream audioInputStream;
 
-	/***
-	 * *Updated Nov 30* Use random.nextInt to generate a phonebook of a random
-	 * number of contacts for the user Default number of contacts a phone user has.
-	 * Could instead incorporate this into the GUI and let the person using the GUI
-	 * pick from a number in a combo-box. Removed from GUI class to avoid creating
-	 * another instance variable that should belong in the phone class.
-	 */
-
-	// generate numbers between 40 and 60
+	// Generate numbers between 40 and 60
 	private int numberOfContactsForUser = ThreadLocalRandom.current().nextInt(40, 61);
 
 	/***
 	 * Method to create a phone user that has a list of contacts (subset of the
 	 * total contacts list) and the contact list will be used for checking against
-	 * an incoming call that comes in. - set private.
+	 * an incoming call that comes in. 
 	 * 
 	 * @param allContactsInHashMap - pass in HashMap of contacts from CSV
 	 * @param numberOfContacts     - desired number of contacts for user
@@ -88,9 +81,9 @@ public class Phone {
 	 * Creates an incoming call for the current phone instance and gets contact
 	 * information associated with the caller
 	 * 
-	 * @param usersContactList - pass in hashmap containing user's contact list,
-	 *                         used to check if incoming call is spam
-	 * @return - ContactInfo associated with caller (use for testing that GUI
+	 * @param usersContactList 		- pass in hashmap containing user's contact list,
+	 *                         		used to check if incoming call is spam
+	 * @return ContactInfo associated with caller (use for testing that GUI
 	 *         displays proper info)
 	 */
 	public ContactInfo createIncomingCallDisplayOnPhoneScreenGUI(HashMap<String, ContactInfo> usersContactList) {
@@ -131,8 +124,7 @@ public class Phone {
 	/***
 	 * Method to print out blockedCallers in the GUI
 	 * 
-	 * @return list of block callers as a string, each caller w/ phone number on a
-	 *         line
+	 * @return list of block callers as a string, each caller w/ phone number on a line
 	 */
 	public String printBlockedCallers() {
 		HashMap<String, String> blockList = spamAlgoForPhone.getBlockList();

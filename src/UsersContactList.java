@@ -8,12 +8,11 @@ import java.util.HashMap;
  * @author Shawn Choudhury
  * @author Joshua Chopra
  * @author Thomas Tee
- *
  */
 
 public class UsersContactList {
 
-	// instance variable
+	// Instance variables
 	private HashMap<String, ContactInfo> contactList;
 
 	/**
@@ -21,11 +20,11 @@ public class UsersContactList {
 	 * contacts from the contacts100 list
 	 * 
 	 * @param map              - ContactInfoReader processed file
-	 * @param numberOfContacts - specify how many numbers in the user's phone book
+	 * @param numberOfContacts - Specify how many numbers in the user's phone book
 	 */
 	public UsersContactList(HashMap<String, ContactInfo> map, int numberOfContacts) {
 		contactList = new HashMap<String, ContactInfo>();
-		/** ArrayList of shuffled keys from the map */
+		// ArrayList of shuffled keys from the map 
 		ArrayList<String> nameKeys = shuffleMapKeys(map);
 		int index = 0;
 		while (index < numberOfContacts) {
