@@ -6,7 +6,7 @@
 
 ![Screenshot](https://github.com/UPenn-CIT599/final-project-robocallblocker/blob/master/Screenshots/1.png) 
 
-### After clicking on the start button, ringtone music will start playing. A random caller is taken from the csv file, and an incoming call is created which you see on the screen of the GUI. The contact info of the random caller is then compared against your contact list to determine whether or not the caller is spam or not. The program then states if the caller is spam or not. You are given the option to press accept or decline. 
+### After clicking on the start button, ringtone music will start playing. A random caller is taken from the data structure holding contacts read in from the CSV file, and an incoming call is created using our IncomingCall class, and you see the incoming call on the screen of the GUI. The contact info of the random caller is then compared against your contact list to determine whether or not the caller is spam or not, using our SpamAlgorithm class. The program then states if the caller is spam or not. You are given the option to press accept or decline. 
 
 ![Screenshot](https://github.com/UPenn-CIT599/final-project-robocallblocker/blob/master/Screenshots/2.png) 
 
