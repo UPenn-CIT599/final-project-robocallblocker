@@ -3,6 +3,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
+/***
+ * 
+ * This class tests our SpamAlgorithm with multiple test cases, to ensure the
+ * algorithm works properly and scores contacts as we would expect.
+ * 
+ * @author ShawnChoudhury
+ * @author JoshuaChopra
+ * @author ThomasTee
+ *
+ */
 class SpamAlgorithmTest {
 
 	/***
