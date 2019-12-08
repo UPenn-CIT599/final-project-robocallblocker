@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
@@ -61,7 +60,8 @@ public class CallBlockerGUI implements Runnable {
 	private JLabel declineDisplay = new JLabel("<html>" + "Please click to see the spam callers" + "<br>"
 			+ "that have been added to your blocked list" + "<br>" + "</html>");
 
-	// Used for displaying dynamic info on labels, conditionally if call is spam or not
+	// Used for displaying dynamic info on labels, conditionally if call is spam or
+	// not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
 
@@ -137,7 +137,7 @@ public class CallBlockerGUI implements Runnable {
 	 * @param phone created in run() method
 	 */
 	private void buildThenAddActionListenersForButtons(Phone phone) {
-		
+
 		/***
 		 * If accept button was pressed to begin the program, then display the
 		 * corresponding information for the incoming call on the GUI.
@@ -164,6 +164,10 @@ public class CallBlockerGUI implements Runnable {
 			}
 		});
 
+		/***
+		 * Actions associated with pressing decline button including changing text and
+		 * displaying statistics for session.
+		 */
 		declineButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -195,6 +199,10 @@ public class CallBlockerGUI implements Runnable {
 			}
 		});
 
+		/***
+		 * Pressing start button initiates an incoming call, passes it to phone object,
+		 * plays ringtone, and prompts user to accept or decline the call
+		 */
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -218,6 +226,10 @@ public class CallBlockerGUI implements Runnable {
 			}
 		});
 
+		/***
+		 * Block button shows the list of calls marked as spam to the user in the GUI, 
+		 * and also writes the list to a text file. 
+		 */
 		blockButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
