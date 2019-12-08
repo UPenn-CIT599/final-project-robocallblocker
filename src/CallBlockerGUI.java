@@ -21,6 +21,13 @@ import javax.swing.*;
  */
 public class CallBlockerGUI implements Runnable {
 
+	/*
+	 * Need a phone object to run in the GUI for label setting, and dynamic changes
+	 * in GUI. The phone is not instantiated until the GUI is invoked by the run
+	 * method.
+	 */
+	private Phone phone;
+
 	// Images used in GUI
 	private ImageIcon accept = new ImageIcon("acceptCall.gif");
 	private ImageIcon decline = new ImageIcon("declineCall.gif");
@@ -48,14 +55,9 @@ public class CallBlockerGUI implements Runnable {
 	private JPanel spamPanel = new JPanel(); // overall outer panel of program
 
 	// Labels displayed in GUI
-	private JLabel welcomeThenDisplayCallInfo = new JLabel("<html>" + "Welcome to the Robo-Call Blocker Program."
-			+ "<br>" + "<br>" + "Please click the start button to receive your first call." + "<br>" + "<br>"
-			+ "You have " + phone.getNumberOfContactsForUser() + " people in your contact list." + "<br>" + "<br>"
-			+ "<br>" + "<br>" + "<br>" + "</html>");
-
+	private JLabel welcomeThenDisplayCallInfo = new JLabel();
 	private JLabel userInstructions = new JLabel("<html>" + "<br>" + "Press accept to continue receiving calls."
 			+ "<br>" + "<br> Press decline to stop receiving calls and see session statistics." + "</html>");
-
 	private JLabel declineDisplay = new JLabel("<html>" + "Please click to see the spam callers" + "<br>"
 			+ "that have been added to your blocked list" + "<br>" + "</html>");
 
@@ -63,12 +65,6 @@ public class CallBlockerGUI implements Runnable {
 	// not
 	private boolean isIncomingCall; // use for dynamically changing label in GUI after call accepted
 	private boolean isSpam; // use to determine if we show a phone number (if spam) or name (if not).
-
-	/*
-	 * Need a phone object to run in the GUI, kept static as it does not modify the
-	 * GUI object itself, but rather is used in the overall program.
-	 */
-	private static Phone phone = new Phone();
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new CallBlockerGUI());
@@ -82,17 +78,22 @@ public class CallBlockerGUI implements Runnable {
 	 */
 	@Override
 	public void run() {
+		// create phone instance, create a user with random number of contacts
+		phone = new Phone();
 		phone.createPhoneUserWithContacts(phone.getAllContactsMap(), phone.getNumberOfContactsForUser());
+		// set welcome message displaying number of contacts after we create phone
+		// instance
+		setWelcomeMessageAfterPhoneIsCreated(welcomeThenDisplayCallInfo);
+		// format labels
 		formatLabel(welcomeThenDisplayCallInfo, true);
 		formatLabel(userInstructions, false); // instructions shown only when first call occurs
 		formatLabel(declineDisplay, false);
-
 		// format buttons
 		formatButton(declineButton, false); // initially don't set visible
 		formatButton(acceptButton, false); // initially don't set visible
 		formatButton(startButton, true); // set visible from the start
 		formatButton(blockButton, false); // initially don't set visible
-		buildThenAddActionListenersForButtons();
+		buildThenAddActionListenersForButtons(phone);
 		// create ArrayList of panels to pass into method that sets panel backgrounds to
 		// black
 		ArrayList<JPanel> allPanels = new ArrayList<>(
@@ -127,7 +128,16 @@ public class CallBlockerGUI implements Runnable {
 		frame.setVisible(true);
 	}
 
-	private void buildThenAddActionListenersForButtons() {
+	/***
+	 * This method builds all the action listeners for the GUI for the start,
+	 * accept, decline, and block buttons and takes in the created phone instance
+	 * from the run method as a parameter, since when we click the buttons what
+	 * happens is conditional upon what happened in the phone, such as a call
+	 * received, call created, if a call was spam, etc.
+	 * 
+	 * @param phone created in run() method
+	 */
+	private void buildThenAddActionListenersForButtons(Phone phone) {
 		acceptButton.addActionListener(new ActionListener() {
 			/***
 			 * If accept button was pressed to begin the program, then display the
@@ -145,7 +155,7 @@ public class CallBlockerGUI implements Runnable {
 				// re-use isSpam instance variable that startButton listener set to true or
 				// false.
 				welcomeThenDisplayCallInfo
-						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(isSpam, isIncomingCall));
+						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(phone, isSpam, isIncomingCall));
 
 				userInstructions.setVisible(false); // show user instructions for accept/decline call
 				startButton.setVisible(true);
@@ -199,7 +209,7 @@ public class CallBlockerGUI implements Runnable {
 				phone.createIncomingCallDisplayOnPhoneScreenGUI(phone.getUsersContacts());
 				isSpam = phone.isIncomingCallSpam();
 				welcomeThenDisplayCallInfo
-						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(isSpam, isIncomingCall));
+						.setText(displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(phone, isSpam, isIncomingCall));
 				userInstructions.setVisible(true); // show user instructions for accept/decline call
 				startButton.setVisible(false);
 				acceptButton.setVisible(true);
@@ -220,6 +230,20 @@ public class CallBlockerGUI implements Runnable {
 				userInstructions.setVisible(false);
 			}
 		});
+	}
+
+	/***
+	 * We have to create a phone object first to get the number of contacts for a
+	 * user; so we set the welcome message for this label after the phone object is
+	 * created in the run method.
+	 * 
+	 * @param welcomeInstructions pass in this JLabel
+	 */
+	private void setWelcomeMessageAfterPhoneIsCreated(JLabel welcomeInstructions) {
+		welcomeInstructions.setText("<html>" + "Welcome to the Robo-Call Blocker Program." + "<br>" + "<br>"
+				+ "Please click the start button to receive your first call." + "<br>" + "<br>" + "You have "
+				+ phone.getNumberOfContactsForUser() + " people in your contact list." + "<br>" + "<br>" + "<br>"
+				+ "<br>" + "<br>" + "</html>");
 	}
 
 	/***
@@ -275,7 +299,8 @@ public class CallBlockerGUI implements Runnable {
 	 *                        since just an accepted call
 	 * @return
 	 */
-	private String displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(boolean isSpam, boolean newIncomingCall) {
+	private String displaySpamOrNotSpamToUserForIncomingOrAcceptedCalls(Phone phone, boolean isSpam,
+			boolean newIncomingCall) {
 		String displayNumberOrName;
 		String isSpamOrNot;
 		if (isSpam) {
