@@ -6,6 +6,15 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
+/***
+ * This class tests our CSV reader, to ensure we properly read in data, address
+ * blank data entries and properly clean the data.
+ * 
+ * @author ShawnChoudhury
+ * @author JoshuaChopra
+ * @author ThomasTee
+ *
+ */
 class ContactInfoReaderTest {
 
 	/***
@@ -78,7 +87,7 @@ class ContactInfoReaderTest {
 	 * check to make sure each ContactInfo object is created inside hashmap make
 	 * sure no objects are null there are 198 ContactInfo objects with 0 indexing
 	 * and title column, assertequals should return 198 this may be the same as
-	 * using hashMap.size() 
+	 * using hashMap.size()
 	 */
 	@Test
 	void testContactInfoReader() {
